@@ -1,0 +1,77 @@
+{
+  "name": "active_destruction",
+  "version": "0.1.0",
+  "private": true,
+  "proxy": "http://localhost:8000/",
+  "dependencies": {
+    "@babel/core": "^7.15.0",
+    "@babel/plugin-proposal-class-properties": "^7.16.0",
+    "@babel/plugin-proposal-decorators": "^7.16.4",
+    "@babel/preset-env": "^7.15.0",
+    "@craco/craco": "^6.4.2",
+    "@react-three/cannon": "^2.6.1",
+    "@react-three/drei": "^7.4.0",
+    "@react-three/fiber": "^7.0.6",
+    "aes256": "^1.1.0",
+    "axios": "^0.23.0",
+    "canvas-confetti": "^1.4.0",
+    "clipboard": "^2.0.8",
+    "confetti-js": "^0.0.18",
+    "countapi-js": "^1.0.2",
+    "craco-alias": "^3.0.1",
+    "express": "4",
+    "framer-motion": "^4.1.17",
+    "gsap": "^3.5.1",
+    "howler": "^2.2.3",
+    "hygen": "^6.1.0",
+    "immer": "^8.0.1",
+    "pixi.js": "^6.1.2",
+    "polished": "^4.1.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-icons": "^3.10.0",
+    "react-lazyload": "^3.2.0",
+    "react-lottie": "^1.2.3",
+    "react-particles-js": "^3.5.3",
+    "react-pdf": "^5.3.0",
+    "react-redux": "^7.2.6",
+    "react-reveal": "^1.2.2",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.3",
+    "react-slick": "^0.27.11",
+    "react-spring": "^9.2.4",
+    "react-toastify": "^6.0.9",
+    "redux": "^4.1.2",
+    "redux-persist": "^6.0.0",
+    "redux-saga": "^1.1.3",
+    "socket.io": "^4.4.0",
+    "socket.io-client": "^4.4.0",
+    "stats-js": "^1.0.1",
+    "styled-components": "^5.1.1",
+    "styled-media-query": "^2.1.2",
+    "three": "^0.131.3",
+    "tone": "^14.7.77"
+  },
+  "scripts": {
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "deploy": "aws s3 sync ./build s3://please-open-a-console.de --profile=test"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
