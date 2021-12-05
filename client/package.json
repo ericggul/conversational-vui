@@ -21,6 +21,7 @@
     "craco-alias": "^3.0.1",
     "express": "4",
     "framer-motion": "^4.1.17",
+    "get-audio-duration": "^3.0.0",
     "gsap": "^3.5.1",
     "howler": "^2.2.3",
     "hygen": "^6.1.0",

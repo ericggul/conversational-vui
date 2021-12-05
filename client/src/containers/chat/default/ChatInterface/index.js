@@ -5,6 +5,7 @@ import { process } from "@/redux/action";
 import { useDispatch } from "react-redux";
 import io from "socket.io-client";
 import VoiceInput from "@F/voice/VoiceInput";
+import VoicePlayer from "@F/voice/VoicePlayer";
 import { Howl } from "howler";
 
 import useInput from "@U/hooks/useInput";
@@ -80,29 +81,10 @@ function ChatInterface({ userName, roomName, socket }) {
     }
   };
 
-  const [voicePlaying, setVoicePlaying] = useState(false);
-  const [currentVoice, setCurrentVoice] = useState(null);
-
-  const tempRef = useRef(null);
-  const voicePlayer = useCallback(
-    (msg) => {
-      // if (!voicePlaying) {
-      setVoicePlaying(true);
-
-      var sound = new Howl({
-        src: [msg.blob],
-        format: ["mp3"],
-        mute: false,
-      });
-
-      sound.play();
-      // }
-    },
-    [voicePlaying]
-  );
-
+  const [currentVoice, setCurrentVoice] = useState();
+  const onVoiceClick = useCallback(() => {}, []);
   return (
-    <S.Container ref={tempRef}>
+    <S.Container>
       <S.ChatDisplay>
         {messages.map((msg, i) => {
           return msg.type === "text" ? (
@@ -111,7 +93,12 @@ function ChatInterface({ userName, roomName, socket }) {
               <S.ChatContents>{msg.text}</S.ChatContents>
             </S.ChatElement>
           ) : (
-            <S.VoiceElement key={i} onClick={() => voicePlayer(msg)} />
+            <VoicePlayer
+              key={i}
+              idx={i}
+              msg={msg}
+              onVoiceClick={onVoiceClick}
+            />
           );
         })}
       </S.ChatDisplay>
