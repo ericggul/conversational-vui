@@ -81,8 +81,18 @@ function ChatInterface({ userName, roomName, socket }) {
     }
   };
 
-  const [currentVoice, setCurrentVoice] = useState();
-  const onVoiceClick = useCallback(() => {}, []);
+  const [currentVoice, setCurrentVoice] = useState(-1);
+  const [commandPauseVoiceIdx, setCommandPauseVoiceIdx] = useState(-1);
+  const onVoiceClick = useCallback(
+    (voiceIdx) => {
+      if (voiceIdx !== currentVoice) {
+        setCommandPauseVoiceIdx(currentVoice);
+        setCurrentVoice(voiceIdx);
+      }
+    },
+    [currentVoice]
+  );
+
   return (
     <S.Container>
       <S.ChatDisplay>
@@ -95,8 +105,9 @@ function ChatInterface({ userName, roomName, socket }) {
           ) : (
             <VoicePlayer
               key={i}
-              idx={i}
+              voiceIdx={i}
               msg={msg}
+              commandPauseVoice={commandPauseVoiceIdx === i ? true : false}
               onVoiceClick={onVoiceClick}
             />
           );

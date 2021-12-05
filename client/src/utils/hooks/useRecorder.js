@@ -7,7 +7,7 @@ const initialState = {
   recordingSeconds: 0,
   initRecording: false,
   mediaRecorder: null,
-  analyserData: null,
+  analyser: null,
   audio: null,
 };
 
@@ -63,25 +63,35 @@ export default function useRecorder(handleNewAudio) {
       let dest = ac.createMediaStreamDestination();
       let analyser = ac.createAnalyser();
 
+      let osc = ac.createOscillator();
+
       let mediaRecorder = new MediaRecorder(dest.stream);
 
       source.connect(analyser);
       analyser.connect(dest);
+      // analyser.connect(dest);
 
       //Visualizaer setup
       analyser.fftSize = 2048;
-      analyser.smoothingTimeConstant = 0.3;
-
-      let data = new Uint8Array(analyser.frequencyBitCount);
+      console.log(analyser);
 
       setRecorderState((prevState) => {
         return {
           ...prevState,
           mediaRecorder: mediaRecorder,
-          analyserData: data,
-          // mediaRecorder: new MediaRecorder(prevState.mediaStream),
+          analyser: analyser,
         };
       });
+
+      let animate;
+      animate = requestAnimationFrame(function volumeCalc() {
+        let data = new Uint8Array(analyser.frequencyBinCount);
+        const averageVolume = getAverageVolume(data);
+        console.log("analyserData", data, averageVolume);
+
+        animate = requestAnimationFrame(volumeCalc);
+      });
+      return () => cancelAnimationFrame(animate);
     }
   }, [recorderState.mediaStream]);
 
@@ -122,17 +132,21 @@ export default function useRecorder(handleNewAudio) {
     handleNewAudio(recorderState.audio);
   }, [recorderState.audio]);
 
-  //Audio Visualization
+  //Audio Visualization: To Do
   // useEffect(() => {
   //   let animate;
   //   animate = requestAnimationFrame(function volumeCalc() {
-  //     const data = recorderState.analyserData;
-  //     const averageVolume = getAverageVolume(data);
-  //     console.log("analyserData", recorderState.analyserData, averageVolume);
+  //     // console.log(recorderState.analyser);
+  //     if (recorderState.analyser) {
+  //       let data = new Uint8Array(recorderState.analyser.frequencyBinCount);
+  //       const averageVolume = getAverageVolume(data);
+  //       console.log("analyserData", data, averageVolume);
+  //     }
+
   //     animate = requestAnimationFrame(volumeCalc);
   //   });
   //   return () => cancelAnimationFrame(animate);
-  // }, [recorderState.analyserData]);
+  // }, [recorderState.analyser]);
 
   return {
     recorderState,
