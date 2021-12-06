@@ -8,6 +8,7 @@ import { GlobalStyle, theme } from "@S/index";
 import MainPage from "@P/MainPage";
 
 import ChatInterface1 from "@P/ChatUIPage/ChatInterface1";
+import ChatInterface2 from "@P/ChatUIPage/ChatInterface2";
 import ChatIntro from "@P/ChatUIPage/ChatIntro";
 import ChatPage from "@P/ChatUIPage/ChatPage";
 import io from "socket.io-client";
@@ -59,6 +60,11 @@ function App() {
             exact={true}
             path="/chat-interface1"
             component={ChatInterface1}
+          />
+          <Route
+            exact={true}
+            path="/chat-interface2"
+            component={ChatInterface2}
           />
         </Switch>
       </Router>

@@ -6,8 +6,8 @@ export const Container = styled.div`
   align-items: center;
   width: ${({ theme }) => theme.windowWidth}px;
   height: ${({ theme }) => theme.windowHeight}px;
+  background: #ddd;
   flex-direction: column;
-  background: #eee;
 `;
 
 export const ChatHeader = styled.div`
@@ -16,7 +16,7 @@ export const ChatHeader = styled.div`
   font-weight: bold;
   width: 100%;
   min-height: ${({ theme }) => lengthConverterPer375(theme, 50)}px;
-  background: linear-gradient(#ddd, #eee);
+  background: ${({ theme }) => theme.palette.HEADER};
   flex-direction: column;
 `;
 
@@ -28,6 +28,7 @@ export const ChatDisplay = styled.div`
   margin-bottom: ${({ theme }) => lengthConverterPer375(theme, 130)}px;
 
   overflow-y: scroll;
+  overflow-x: hidden;
   align-items: center;
   width: ${({ theme }) => lengthConverterPer375(theme, 375)}px;
   flex-direction: column;
@@ -45,7 +46,6 @@ export const ChatContents = styled.div`
   ${FlexCenterStyle};
   color: #333;
   margin-top: -0.7rem;
-  font-size: 1.2rem;
   margin-bottom: 0.3rem;
   ${({ theme, leftAlign }) =>
     leftAlign
@@ -60,7 +60,7 @@ export const ChatContents = styled.div`
 
   ${({ theme, isTime }) =>
     isTime &&
-    `font-size: 1rem; color: ${theme.palette.GRAY_TEXT}; margin-bottom: 0; margin-top: .3rem;`}
+    `font-size: .8rem; color: ${theme.palette.GRAY_TEXT}; margin-bottom: 0; margin-top: .3rem;`}
 `;
 
 export const ChatSend = styled.div`

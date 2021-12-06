@@ -11,14 +11,18 @@ import { Howl } from "howler";
 import Mickey from "@I/mickey.png";
 import Minnie from "@I/minnie.png";
 import * as S1 from "@F/voice/voice-player/interfaces/Interface1/styles";
+import * as S2 from "@F/voice/voice-player/interfaces/Interface2/styles";
 
 function VoicePlayer({
+  interfaceVersion,
   voiceIdx,
   msg,
   commandPauseVoice,
   commandStartVoice,
   onVoiceClick,
   onVoiceEnd,
+  audioConfirmed = null,
+  marginTop = 0,
 }) {
   const [voicePlaying, setVoicePlaying] = useState(false);
   const [playingSound, setPlayingSound] = useState(null);
@@ -32,7 +36,6 @@ function VoicePlayer({
 
   //Initialize Sound
   useEffect(() => {
-    console.log("initialize");
     const currentSound = new Howl({
       src: [msg.blob],
       format: ["mp3"],
@@ -51,19 +54,13 @@ function VoicePlayer({
         audio.currentTime = 100000000 * Math.random();
       }
       setAudioDuration(audio.duration);
+      if (interfaceVersion === 2) {
+        audioConfirmed(audio.duration);
+      }
     });
-  }, []);
-
-  useEffect(() => {
-    if (playingSound) {
-      const dur = playingSound._duration;
-      console.log(dur);
-      setAudioDuration(dur);
-    }
-  }, [playingSound]);
+  }, [interfaceVersion]);
 
   const pauseVoice = useCallback(() => {
-    console.log("pause voice!");
     setVoicePlaying(false);
     cancelAnimationFrame(voicePlayingRef.current);
     playingSound.pause(soundId);
@@ -78,7 +75,6 @@ function VoicePlayer({
       setSoundId(id);
       setSeekPos(0);
       onVoiceClick(voiceIdx);
-      console.log("new start!");
     } else if (!voicePlaying && soundId) {
       setVoicePlaying(true);
       playingSound.play(soundId);
@@ -105,9 +101,7 @@ function VoicePlayer({
 
   useEffect(() => {
     if (playingSound && voicePlaying) {
-      console.log("82", voicePlaying);
       playingSound.on("end", () => {
-        console.log("why here is fired?");
         setVoicePlaying(false);
         setPlayed(true);
         setSoundId(null);
@@ -118,8 +112,6 @@ function VoicePlayer({
 
     if (voicePlaying && playingSound) {
       const updateTime = () => {
-        console.log(voicePlaying, soundId);
-
         if (soundId) {
           setSeekPos(playingSound.seek(soundId));
         }
@@ -137,24 +129,65 @@ function VoicePlayer({
   }, [commandPauseVoice, pauseVoice, voicePlaying]);
 
   const leftAlign = useMemo(() => msg.userName !== "Me", [msg.userName]);
+  const interface2Width = useMemo(
+    () => (audioDuration !== 0 ? Math.min(audioDuration ** 0.7, 5) : 3),
+    [audioDuration]
+  );
+
+  const margin2Width = useMemo(
+    () =>
+      marginTop && audioDuration !== 0 ? Math.min(marginTop ** 0.7, 5) : 0,
+    [marginTop]
+  );
 
   return (
-    <S1.VoiceElement1 onClick={voicePlayer} leftAlign={leftAlign}>
-      <S1.Profile1
-        leftAlign={leftAlign}
-        src={msg.userName === "Me" ? Mickey : Minnie}
-      />
-      <S1.Bar1 leftAlign={leftAlign}>
-        <S1.BarText1 leftAlign={leftAlign}>
-          {`${Math.floor(audioDuration)}s`}
-        </S1.BarText1>
-        <S1.Progress1
+    <>
+      {interfaceVersion === 1 ? (
+        <S1.VoiceElement1 onClick={voicePlayer} leftAlign={leftAlign}>
+          <S1.Profile1
+            leftAlign={leftAlign}
+            src={msg.userName === "Me" ? Mickey : Minnie}
+          />
+          <S1.Bar1 leftAlign={leftAlign}>
+            <S1.BarText1 leftAlign={leftAlign}>
+              {`${Math.floor(audioDuration)}s`}
+            </S1.BarText1>
+            <S1.Progress1
+              leftAlign={leftAlign}
+              audioDuration={audioDuration}
+              seekPos={!voicePlaying && played ? audioDuration : seekPos}
+            />
+          </S1.Bar1>
+        </S1.VoiceElement1>
+      ) : (
+        <S2.VoiceElement1
+          onClick={voicePlayer}
           leftAlign={leftAlign}
-          audioDuration={audioDuration}
-          seekPos={!voicePlaying && played ? audioDuration : seekPos}
-        />
-      </S1.Bar1>
-    </S1.VoiceElement1>
+          width={interface2Width}
+          marginTop={margin2Width}
+        >
+          {audioDuration !== 0 ? (
+            <S2.Profile1
+              src={msg.userName === "Me" ? Mickey : Minnie}
+              width={interface2Width}
+            />
+          ) : (
+            <S2.Loading>Loading...</S2.Loading>
+          )}
+
+          {/* <S2.Bar1 leftAlign={leftAlign}> */}
+          {/* <S2.BarText1 leftAlign={leftAlign}>
+              {`${Math.floor(audioDuration)}s`}
+            </S2.BarText1> */}
+          {/* <S2.Progress1
+              leftAlign={leftAlign}
+              audioDuration={audioDuration}
+              seekPos={!voicePlaying && played ? audioDuration : seekPos}
+            /> */}
+          {/* </S2.Bar1> */}
+        </S2.VoiceElement1>
+      )}
+    </>
   );
 }
 export default VoicePlayer;

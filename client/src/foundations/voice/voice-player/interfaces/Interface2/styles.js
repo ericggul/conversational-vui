@@ -5,31 +5,17 @@ import {
   lengthConverter,
 } from "@S/responsive/display";
 
+const STANDARD_IDX = 120 / 5 ** 0.7;
+const IMG_RATIO = 0.8;
+const BORDER_RATIO = 0.5 - IMG_RATIO / 2;
+const IMG_IDX = STANDARD_IDX * IMG_RATIO;
+const BORDER_IDX = STANDARD_IDX * BORDER_RATIO;
+
 const ELEMENT_WIDTH = 205;
 const ELEMENT_HEIGHT = 62;
 const BAR_WIDTH = 145;
 const EXPAND_WIDTH = 30;
 const IMG_SIZE = 40;
-
-const ElementCommon = css`
-  ${FlexCenterStyle};
-  position: relative;
-  width: ${({ theme }) => lengthConverterPer375(theme, ELEMENT_WIDTH)}px;
-  height: ${({ theme }) => lengthConverterPer375(theme, ELEMENT_HEIGHT)}px;
-  margin: ${({ theme }) => lengthConverterPer375(theme, 2)}px;
-`;
-
-const ElementLeft = css`
-  margin-right: auto;
-  margin-left: ${({ theme }) => lengthConverterPer375(theme, 17)}px;
-  background: ${({ theme }) => theme.palette.CHAT_BACKGROUND_GREEN};
-`;
-
-const ElementRight = css`
-  margin-left: auto;
-  margin-right: ${({ theme }) => lengthConverterPer375(theme, 17)}px;
-  background: ${({ theme }) => theme.palette.CHAT_BACKGROUND_BLUE};
-`;
 
 const BarCommon = css`
   ${FlexCenterStyle};
@@ -42,13 +28,11 @@ const BarCommon = css`
 const BarLeft = css`
   margin-right: 0;
   margin-left: auto;
-  background: ${({ theme }) => theme.palette.CHAT_PROGRESS_LIGHT_GREEN};
 `;
 
 const BarRight = css`
   margin-left: 0;
   margin-right: auto;
-  background: ${({ theme }) => theme.palette.CHAT_PROGRESS_LIGHT_BLUE};
 `;
 
 const ProgressCommon = css`
@@ -69,8 +53,34 @@ const ProgressRight = css`
 `;
 
 export const VoiceElement1 = styled.div`
-  ${ElementCommon};
-  ${({ leftAlign }) => (leftAlign ? ElementLeft : ElementRight)};
+  position: relative;
+  width: ${({ theme, width }) =>
+    lengthConverterPer375(theme, width * STANDARD_IDX)}px;
+  min-height: ${({ theme, width }) =>
+    lengthConverterPer375(theme, width * STANDARD_IDX)}px;
+  border-radius: 50%;
+  background: ${({ theme }) => theme.palette.BORDER};
+
+  ${({ theme, leftAlign, width }) =>
+    leftAlign
+      ? `
+      margin-left: ${
+        lengthConverterPer375(theme, 50) -
+        lengthConverterPer375(theme, width * 0.5 * STANDARD_IDX)
+      }px;
+      margin-right: auto;`
+      : `
+      margin-right: ${
+        lengthConverterPer375(theme, 50) -
+        lengthConverterPer375(theme, width * 0.5 * STANDARD_IDX)
+      }px;
+      margin-left: auto;
+      `};
+
+  ${({ theme, marginTop, width }) =>
+    `margin-top: -${lengthConverterPer375(theme, marginTop * BORDER_IDX)}`}px;
+
+  transition: all 0.4s;
 `;
 
 export const Bar1 = styled.div`
@@ -86,26 +96,46 @@ export const Progress1 = styled.div`
   ${({ leftAlign }) => (leftAlign ? ProgressLeft : ProgressRight)};
 `;
 
+export const Loading = styled.div`
+  width: 100%;
+  height: 100%;
+  ${FlexCenterStyle};
+  color: white;
+  font-size: 1.3rem;
+`;
+
 export const Profile1 = styled.img`
   position: absolute;
-  ${({ theme, leftAlign }) =>
-    leftAlign
-      ? `background: ${theme.palette.CHAT_PROGRESS_LIGHT_GREEN}`
-      : `background: ${theme.palette.CHAT_PROGRESS_LIGHT_BLUE}`};
-  ${({ theme, leftAlign }) =>
-    leftAlign
-      ? `left: ${lengthConverterPer375(theme, 8)}`
-      : `right: ${lengthConverterPer375(theme, 8)}`}px;
-  width: ${({ theme }) => lengthConverterPer375(theme, IMG_SIZE)}px;
-  height: ${({ theme }) => lengthConverterPer375(theme, IMG_SIZE)}px;
+
+  width: ${({ theme, width }) =>
+    lengthConverterPer375(theme, width * IMG_IDX)}px;
+  height: ${({ theme, width }) =>
+    lengthConverterPer375(theme, width * IMG_IDX)}px;
+
+  top: ${({ theme, width }) =>
+    lengthConverterPer375(theme, width * BORDER_IDX)}px;
+  left: ${({ theme, width }) =>
+    lengthConverterPer375(theme, width * BORDER_IDX)}px;
+  background: white;
   border-radius: 50%;
+
+  @keyframes appear {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  animation: appear 0.5s;
 `;
 
 export const BarText1 = styled.div`
   z-index: 1;
   position: absolute;
   text-align: right;
-  font-size: 1rem;
+  font-size: 0.8rem;
   color: ${({ theme }) => theme.palette.GRAY_TEXT};
 
   ${({ theme, leftAlign }) =>
@@ -115,4 +145,14 @@ export const BarText1 = styled.div`
           theme,
           6 + ELEMENT_WIDTH - BAR_WIDTH
         )}`}px;
+`;
+
+export const ProgressText1 = styled.div`
+  position: absolute;
+  text-align: right;
+  font-size: 0.8rem;
+  opacity: ${({ seekPos, audioDuration }) =>
+    seekPos / audioDuration > 0.2 ? "0.8" : "0"};
+  transition: opacity 0.4s;
+  right: ${({ theme }) => lengthConverterPer375(theme, 6)}px;
 `;

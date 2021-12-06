@@ -1,7 +1,4 @@
 export function formatMinutes(minutes) {
-  if (minutes === 0) {
-    return "";
-  }
   return minutes < 10 ? `0${minutes}` : minutes;
 }
 

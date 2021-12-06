@@ -84,7 +84,7 @@ const VOICE_INPUTS = [
   },
 ];
 
-function ChatInterface1() {
+function ChatInterface2() {
   const [messages, setMessages] = useState(VOICE_INPUTS);
 
   const {
@@ -194,21 +194,33 @@ function ChatInterface1() {
     }
   }, [messages, messengerEndRef]);
 
+  const [audioLengths, setAudioLengths] = useState(new Array(messages).fill(0));
+
+  const handleAudioLength = useCallback(
+    (dur, i) => {
+      let temp = audioLengths;
+      temp[i] = dur;
+      setAudioLengths([...temp]);
+    },
+    [audioLengths]
+  );
+
   return (
     <S.Container>
-      <S.ChatHeader>Interface I</S.ChatHeader>
+      <S.ChatHeader>Interface II</S.ChatHeader>
       <S.ChatDisplay>
         {messages.map((msg, i) => {
           return msg.type !== "voice" ? (
             <S.ChatContents
               leftAlign={msg.userName !== "Me"}
               isTime={msg.type === "time"}
+              key={i}
             >
               {msg.text}
             </S.ChatContents>
           ) : (
             <VoicePlayer
-              interfaceVersion={1}
+              interfaceVersion={2}
               key={i}
               voiceIdx={i}
               msg={msg}
@@ -216,16 +228,20 @@ function ChatInterface1() {
               commandStartVoice={commandStartVoiceIdx === i ? true : false}
               onVoiceClick={onVoiceClick}
               onVoiceEnd={onVoiceEnd}
+              audioConfirmed={(dur) => handleAudioLength(dur, i)}
+              marginTop={
+                i > 1 && Math.min(audioLengths[i], audioLengths[i - 1])
+              }
             />
           );
         })}
         <div ref={messengerEndRef} />
       </S.ChatDisplay>
 
-      <VoiceInput interfaceVersion={1} handleNewAudio={handleNewAudio} />
+      <VoiceInput interfaceVersion={2} handleNewAudio={handleNewAudio} />
     </S.Container>
   );
 }
-export default ChatInterface1;
+export default ChatInterface2;
 
-ChatInterface1.propTypes = {};
+ChatInterface2.propTypes = {};
