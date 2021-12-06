@@ -14,3 +14,10 @@ export function formatTime(seconds) {
     ? `${formatSeconds(seconds / 60)}:${formatSeconds(seconds % 60)}`
     : `${formatSeconds(seconds)}`;
 }
+
+export function formatCurrentDateTime() {
+  const date = new Date();
+  return date.getHours() > 12
+    ? `${date.getHours() - 12}:${formatSeconds(date.getMinutes())}PM`
+    : `${date.getHours()}:${formatSeconds(date.getMinutes())}AM`;
+}

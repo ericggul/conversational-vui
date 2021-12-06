@@ -1,5 +1,5 @@
-import { css } from 'styled-components';
-import media from 'styled-media-query';
+import { css } from "styled-components";
+import media from "styled-media-query";
 
 const getRandom = (a, b) => Math.random() * (b - a) + a;
 
@@ -24,50 +24,61 @@ export const RandomSetStyle = css`
   left: ${({ theme }) => getRandom(0, theme.windowHeight * 1)}px;
 `;
 
+export const lengthConverter = (theme, ratioWidth) => {
+  return `${Math.min(theme.windowWidth * ratioWidth, 500 * ratioWidth)}`;
+};
+
+export const lengthConverterPer375 = (theme, standardWidth) => {
+  return `${Math.min(
+    (theme.windowWidth * standardWidth) / 375,
+    (500 * standardWidth) / 375
+  )}`;
+};
+
 export const ResponsiveWidthStyle = css`
-  ${media.greaterThan('large')`
-    width: ${props => props.widths[0]}px;
+  ${media.greaterThan("large")`
+    width: ${(props) => props.widths[0]}px;
   `};
-  ${media.between('medium', 'large')`
-    width: ${props => props.widths[1]}px;
+  ${media.between("medium", "large")`
+    width: ${(props) => props.widths[1]}px;
   `};
-  ${media.lessThan('medium')`
-    width: ${props => props.widths[2]}px;
+  ${media.lessThan("medium")`
+    width: ${(props) => props.widths[2]}px;
   `};
 `;
 
 export const ResponsiveHeightStyle = css`
-  ${media.greaterThan('large')`
-    height: ${props => props.heights[0]}px;
+  ${media.greaterThan("large")`
+    height: ${(props) => props.heights[0]}px;
   `};
-  ${media.between('medium', 'large')`
-    height: ${props => props.heights[1]}px;
+  ${media.between("medium", "large")`
+    height: ${(props) => props.heights[1]}px;
   `};
-  ${media.lessThan('medium')`
-    height: ${props => props.heights[2]}px;
+  ${media.lessThan("medium")`
+    height: ${(props) => props.heights[2]}px;
   `};
 `;
 
 export const ResponsiveWidthStyleTwo = css`
-  ${media.greaterThan('large')`
-    width: ${props => props.widths[0]}px;
+  ${media.greaterThan("large")`
+    width: ${(props) => props.widths[0]}px;
   `};
-  ${media.lessThan('medium')`
-    width: ${props => props.widths[2]}px;
+  ${media.lessThan("medium")`
+    width: ${(props) => props.widths[2]}px;
   `};
-  ${media.between('medium', 'large')`
-    width: ${props => props.widths[1]}px;
+  ${media.between("medium", "large")`
+    width: ${(props) => props.widths[1]}px;
   `};
 `;
 
 export const ResponsiveHeightStyleTwo = css`
-  ${media.greaterThan('large')`
-    height: ${props => props.heights[0]}px;
+  ${media.greaterThan("large")`
+    height: ${(props) => props.heights[0]}px;
   `};
-  ${media.lessThan('medium')`
-    height: ${props => props.heights[2]}px;
+  ${media.lessThan("medium")`
+    height: ${(props) => props.heights[2]}px;
   `};
-  ${media.between('medium', 'large')`
-    height: ${props => props.heights[1]}px;
+  ${media.between("medium", "large")`
+    height: ${(props) => props.heights[1]}px;
   `};
 `;

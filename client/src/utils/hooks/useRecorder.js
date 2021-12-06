@@ -7,7 +7,6 @@ const initialState = {
   recordingSeconds: 0,
   initRecording: false,
   mediaRecorder: null,
-  analyser: null,
   audio: null,
 };
 
@@ -68,18 +67,16 @@ export default function useRecorder(handleNewAudio) {
       let mediaRecorder = new MediaRecorder(dest.stream);
 
       source.connect(analyser);
+      analyser.connect(ac.destination);
       analyser.connect(dest);
-      // analyser.connect(dest);
 
       //Visualizaer setup
-      analyser.fftSize = 2048;
-      console.log(analyser);
+      analyser.fftSize = 128;
 
       setRecorderState((prevState) => {
         return {
           ...prevState,
           mediaRecorder: mediaRecorder,
-          analyser: analyser,
         };
       });
 
@@ -152,6 +149,7 @@ export default function useRecorder(handleNewAudio) {
     recorderState,
     startRecording: () => startRecording(setRecorderState),
     cancelRecording: () => setRecorderState(initialState),
-    saveRecording: () => saveRecording(recorderState.mediaRecorder),
+    saveRecording: () =>
+      saveRecording(recorderState.mediaRecorder, recorderState.mediaStream),
   };
 }

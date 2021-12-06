@@ -58,7 +58,8 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
-    "deploy": "aws s3 sync ./build s3://please-open-a-console.de --profile=test"
+    "deploy": "aws s3 sync ./build s3://please-open-a-console.de --profile=test",
+    "cache": "aws cloudfront create-invalidation --distribution-id E1VZMXW2TVO8E2 --paths '/*"
   },
   "eslintConfig": {
     "extends": "react-app"

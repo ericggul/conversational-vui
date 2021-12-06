@@ -6,7 +6,8 @@ import styled, { ThemeProvider } from "styled-components";
 import { GlobalStyle, theme } from "@S/index";
 
 import MainPage from "@P/MainPage";
-import ChatTest from "@P/ChatUIPage/ChatTest";
+
+import ChatInterface1 from "@P/ChatUIPage/ChatInterface1";
 import ChatIntro from "@P/ChatUIPage/ChatIntro";
 import ChatPage from "@P/ChatUIPage/ChatPage";
 import io from "socket.io-client";
@@ -54,6 +55,11 @@ function App() {
           <Route exact={true} path="/chat/:roomName/:userName">
             <ChatPage socket={socket} />
           </Route>
+          <Route
+            exact={true}
+            path="/chat-interface1"
+            component={ChatInterface1}
+          />
         </Switch>
       </Router>
     </ThemeProvider>

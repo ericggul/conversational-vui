@@ -12,19 +12,26 @@ function VoiceInput({ handleNewAudio }) {
     recorderState;
 
   return (
-    <S.StyledVoiceInput>
-      <S.Time>
-        {formatMinutes(recordingMinutes)}
-        {formatSeconds(recordingSeconds)}
-      </S.Time>
-      <S.Recorder>
+    <S.StyledVoiceInput1>
+      {initRecording && (
+        <S.Time1>
+          {formatMinutes(recordingMinutes)}
+          {formatSeconds(recordingSeconds)}
+        </S.Time1>
+      )}
+
+      <S.Recorder1>
         {initRecording ? (
-          <S.Button onClick={saveRecording}>Stop</S.Button>
+          <S.Button1 onClick={saveRecording} recording={initRecording}>
+            Stop
+          </S.Button1>
         ) : (
-          <S.Button onClick={startRecording}>Start</S.Button>
+          <S.Button1 onClick={startRecording} recording={initRecording}>
+            Start
+          </S.Button1>
         )}
-      </S.Recorder>
-    </S.StyledVoiceInput>
+      </S.Recorder1>
+    </S.StyledVoiceInput1>
   );
 }
 export default VoiceInput;
