@@ -44,23 +44,25 @@ export const ChatProfile = styled.div`
 
 export const ChatContents = styled.div`
   ${FlexCenterStyle};
-  color: #333;
-  margin-top: -0.7rem;
-  margin-bottom: 0.3rem;
+  margin-top: -2.4rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-size: 1.5rem;
+  width: ${({ theme }) => lengthConverterPer375(theme, 50)}px;
   ${({ theme, leftAlign }) =>
     leftAlign
       ? `margin-left: ${lengthConverterPer375(
           theme,
           25
-        )}px; margin-right: auto; text-align: left;`
+        )}px; margin-right: auto; `
       : `margin-right: ${lengthConverterPer375(
           theme,
           25
-        )}px; margin-left: auto; text-align: right;`}
+        )}px; margin-left: auto;`}
 
   ${({ theme, isTime }) =>
     isTime &&
-    `font-size: .8rem; color: ${theme.palette.GRAY_TEXT}; margin-bottom: 0; margin-top: .3rem;`}
+    `font-size: 1rem; color: #333; margin-bottom: 0; margin-top: .5rem;`}
 `;
 
 export const ChatSend = styled.div`

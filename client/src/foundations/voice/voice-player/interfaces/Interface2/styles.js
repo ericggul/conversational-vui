@@ -106,7 +106,7 @@ export const Loading = styled.div`
 
 export const Profile1 = styled.img`
   position: absolute;
-
+  filter: grayscale(70%) contrast(130%);
   width: ${({ theme, width }) =>
     lengthConverterPer375(theme, width * IMG_IDX)}px;
   height: ${({ theme, width }) =>
