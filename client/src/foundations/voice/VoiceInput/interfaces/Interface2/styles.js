@@ -7,8 +7,7 @@ export const StyledVoiceInput1 = styled.div`
   top: auto;
   ${FlexCenterStyle};
   width: ${({ theme }) => theme.windowWidth}px;
-  height: ${({ theme }) => lengthConverterPer375(theme, 130)}px;
-  background: linear-gradient(#eee, #ccc);
+  height: ${({ theme }) => lengthConverterPer375(theme, 174)}px;
 `;
 
 export const DummyAudioElement1 = styled.audio`
@@ -17,41 +16,42 @@ export const DummyAudioElement1 = styled.audio`
 `;
 
 export const Delete1 = styled.div`
-  flex-direction: column;
-  width: ${({ theme }) => lengthConverterPer375(theme, 86)}px;
+  position: absolute;
+  width: ${({ theme }) => lengthConverterPer375(theme, 72.5)}px;
   ${FlexCenterStyle};
-  font-size: 1.5rem;
-  margin-top: 0.8rem;
+  font-size: 2rem;
+  left: 0rem;
+  margin-top: ${({ theme }) => lengthConverterPer375(theme, 22.5)}px;
+  right: 0;
 `;
 
 export const DeleteText = styled.div`
-  width: ${({ theme }) => lengthConverterPer375(theme, 86)}px;
+  width: ${({ theme }) => lengthConverterPer375(theme, 72.5)}px;
   ${FlexCenterStyle};
-  margin-top: 0.5rem;
   font-size: 0.8rem;
   color: ${({ theme }) => theme.palette.GREY_TEXT};
 `;
 
 export const Time1 = styled.div`
-  width: ${({ theme }) => lengthConverterPer375(theme, 86)}px;
+  width: ${({ theme }) => lengthConverterPer375(theme, 72.5)}px;
   ${FlexCenterStyle};
   color: ${({ theme }) => theme.palette.RECORD_DARK_RED};
   font-size: 1.2rem;
 `;
 
 export const Button1 = styled.div`
-  height: ${({ theme }) => lengthConverterPer375(theme, 86)}px;
-  width: ${({ theme }) => lengthConverterPer375(theme, 86)}px;
+  height: ${({ theme }) => lengthConverterPer375(theme, 230)}px;
+  width: ${({ theme }) => lengthConverterPer375(theme, 230)}px;
   border-radius: 50%;
 
-  background: ${({ theme, recording }) =>
-    recording ? theme.palette.RECORD_DARK_RED : theme.palette.RECORD_LIGHT_RED};
+  background: ${({ theme, recording }) => (recording ? "#9D9D9D" : "#545454")};
   color: ${({ theme, recording }) => (recording ? "white" : "black")};
   transition: all 0.3s;
 
+  margin-top: 0;
+  margin-bottom: auto;
+  line-height: ${({ theme }) => lengthConverterPer375(theme, 200)}px;
   text-align: center;
   font-size: 1.5rem;
   font-weight: bold;
-  line-height: ${({ theme }) => lengthConverterPer375(theme, 86)}px;
-  margin: ${({ theme }) => lengthConverterPer375(theme, 15)}px;
 `;

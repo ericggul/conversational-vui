@@ -46,24 +46,20 @@ function VoiceInput({ interfaceVersion, handleNewAudio }) {
           {initRecording && (
             <S2.Delete1 onClick={cancelRecording}>
               <FontAwesomeIcon icon={faTrash} />
-              <S2.DeleteText>delete</S2.DeleteText>
             </S2.Delete1>
           )}
           {initRecording ? (
             <S2.Button1 onClick={saveRecording} recording={initRecording}>
-              Send
-            </S2.Button1>
-          ) : (
-            <S2.Button1 onClick={startRecording} recording={initRecording}>
-              Start
-            </S2.Button1>
-          )}
-          {initRecording && (
-            <S2.Time1>
+              {" "}
               {`${formatMinutes(recordingMinutes)}:${formatSeconds(
                 recordingSeconds
               )}`}
-            </S2.Time1>
+            </S2.Button1>
+          ) : (
+            <S2.Button1
+              onClick={startRecording}
+              recording={initRecording}
+            ></S2.Button1>
           )}
         </S2.StyledVoiceInput1>
       )}

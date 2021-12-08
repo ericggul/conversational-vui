@@ -8,6 +8,9 @@ import React, {
 import PropTypes from "prop-types";
 import { Howl } from "howler";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlay, faPause } from "@fortawesome/free-solid-svg-icons";
+
 import Mickey from "@I/mickey.png";
 import Minnie from "@I/minnie.png";
 import * as S1 from "@F/voice/voice-player/interfaces/Interface1/styles";
@@ -33,6 +36,16 @@ function VoicePlayer({
   const [audioDuration, setAudioDuration] = useState(0);
 
   const voicePlayingRef = useRef(voicePlaying);
+
+  //Voice Status for UI
+  const [statusIcon, setStatusIcon] = useState(0);
+  useEffect(() => {
+    if (voicePlaying) {
+      console.log("status to 1");
+      setStatusIcon(1);
+      setTimeout(() => setStatusIcon(0), 500);
+    }
+  }, [voicePlaying]);
 
   //Initialize Sound
   useEffect(() => {
@@ -60,11 +73,17 @@ function VoicePlayer({
     });
   }, [interfaceVersion]);
 
+  //pausing voice
   const pauseVoice = useCallback(() => {
     setVoicePlaying(false);
     cancelAnimationFrame(voicePlayingRef.current);
     playingSound.pause(soundId);
     setSeekPos(playingSound.seek(soundId));
+
+    //UI
+    console.log("status to -1");
+    setStatusIcon(-1);
+    setTimeout(() => setStatusIcon(0), 500);
   }, [playingSound, soundId]);
 
   const voicePlayer = useCallback(() => {
@@ -135,9 +154,8 @@ function VoicePlayer({
   );
 
   const margin2Width = useMemo(
-    () =>
-      marginTop && audioDuration !== 0 ? Math.min(marginTop ** 0.7, 5) : 0,
-    [marginTop]
+    () => (audioDuration !== 0 ? Math.min(marginTop ** 0.7, 5) : 0),
+    [marginTop, audioDuration]
   );
 
   return (
@@ -166,25 +184,35 @@ function VoicePlayer({
           width={interface2Width}
           marginTop={margin2Width}
         >
+          <S2.ProgressWrapper>
+            {audioDuration !== 0 && (
+              <S2.ProgressSvg>
+                <S2.ProgressCircle
+                  width={interface2Width}
+                  audioDuration={audioDuration}
+                  seekPos={!voicePlaying && played ? audioDuration : seekPos}
+                  leftAlign={leftAlign}
+                />
+              </S2.ProgressSvg>
+            )}
+          </S2.ProgressWrapper>
+
           {audioDuration !== 0 ? (
-            <S2.Profile1
-              src={msg.userName === "Me" ? Mickey : Minnie}
-              width={interface2Width}
-            />
+            <S2.Profile1 width={interface2Width}>
+              {statusIcon !== 0 && (
+                <S2.StatusIconWrapper>
+                  <FontAwesomeIcon icon={statusIcon === 1 ? faPlay : faPause} />
+                </S2.StatusIconWrapper>
+              )}
+            </S2.Profile1>
           ) : (
             <S2.Loading>Loading...</S2.Loading>
           )}
-
-          {/* <S2.Bar1 leftAlign={leftAlign}> */}
-          {/* <S2.BarText1 leftAlign={leftAlign}>
+          {audioDuration !== 0 && (
+            <S2.DurationText leftAlign={leftAlign}>
               {`${Math.floor(audioDuration)}s`}
-            </S2.BarText1> */}
-          {/* <S2.Progress1
-              leftAlign={leftAlign}
-              audioDuration={audioDuration}
-              seekPos={!voicePlaying && played ? audioDuration : seekPos}
-            /> */}
-          {/* </S2.Bar1> */}
+            </S2.DurationText>
+          )}
         </S2.VoiceElement1>
       )}
     </>

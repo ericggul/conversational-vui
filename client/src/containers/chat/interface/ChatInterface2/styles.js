@@ -18,14 +18,15 @@ export const ChatHeader = styled.div`
   min-height: ${({ theme }) => lengthConverterPer375(theme, 50)}px;
   background: ${({ theme }) => theme.palette.HEADER};
   flex-direction: column;
+  color: white;
 `;
 
 export const ChatDisplay = styled.div`
   display: flex;
   top: auto;
   margin-top: auto;
-  padding-top: 1rem;
-  margin-bottom: ${({ theme }) => lengthConverterPer375(theme, 130)}px;
+  padding-top: 4rem;
+  margin-bottom: ${({ theme }) => lengthConverterPer375(theme, 174)}px;
 
   overflow-y: scroll;
   overflow-x: hidden;
@@ -44,20 +45,20 @@ export const ChatProfile = styled.div`
 
 export const ChatContents = styled.div`
   ${FlexCenterStyle};
-  margin-top: -2.4rem;
+  margin-top: -5.4rem;
   margin-bottom: 2rem;
   text-align: center;
   font-size: 1.5rem;
-  width: ${({ theme }) => lengthConverterPer375(theme, 50)}px;
+  width: ${({ theme }) => lengthConverterPer375(theme, 60)}px;
   ${({ theme, leftAlign }) =>
     leftAlign
       ? `margin-left: ${lengthConverterPer375(
           theme,
-          25
+          30
         )}px; margin-right: auto; `
       : `margin-right: ${lengthConverterPer375(
           theme,
-          25
+          30
         )}px; margin-left: auto;`}
 
   ${({ theme, isTime }) =>
