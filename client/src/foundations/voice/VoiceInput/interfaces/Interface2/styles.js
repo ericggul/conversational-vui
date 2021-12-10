@@ -6,8 +6,9 @@ export const StyledVoiceInput1 = styled.div`
   bottom: 0;
   top: auto;
   ${FlexCenterStyle};
+  background: transparent;
   width: ${({ theme }) => theme.windowWidth}px;
-  height: ${({ theme }) => lengthConverterPer375(theme, 174)}px;
+  height: ${({ theme }) => lengthConverterPer375(theme, 144)}px;
 `;
 
 export const DummyAudioElement1 = styled.audio`

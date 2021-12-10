@@ -26,7 +26,7 @@ export const ChatDisplay = styled.div`
   top: auto;
   margin-top: auto;
   padding-top: 4rem;
-  margin-bottom: ${({ theme }) => lengthConverterPer375(theme, 174)}px;
+  margin-bottom: ${({ theme }) => lengthConverterPer375(theme, 144)}px;
 
   overflow-y: scroll;
   overflow-x: hidden;

@@ -11,9 +11,9 @@ import ChatInterface1 from "@P/ChatUIPage/ChatInterface1";
 import ChatInterface2 from "@P/ChatUIPage/ChatInterface2";
 import ChatIntro from "@P/ChatUIPage/ChatIntro";
 import ChatPage from "@P/ChatUIPage/ChatPage";
-import io from "socket.io-client";
+// import io from "socket.io-client";
 
-const socket = io.connect("/");
+// const socket = io.connect("/");
 
 function App() {
   useEffect(() => {
@@ -50,22 +50,14 @@ function App() {
       <Router>
         <Switch>
           <Route exact={true} path="/" component={MainPage} />
-          <Route exact={true} path="/chat">
+          {/* <Route exact={true} path="/chat">
             <ChatIntro socket={socket} />
           </Route>
           <Route exact={true} path="/chat/:roomName/:userName">
             <ChatPage socket={socket} />
-          </Route>
-          <Route
-            exact={true}
-            path="/chat-interface1"
-            component={ChatInterface1}
-          />
-          <Route
-            exact={true}
-            path="/chat-interface2"
-            component={ChatInterface2}
-          />
+          </Route> */}
+          <Route path="/chat-interface-one" component={ChatInterface1} />
+          <Route path="/chat-interface-two" component={ChatInterface2} />
         </Switch>
       </Router>
     </ThemeProvider>

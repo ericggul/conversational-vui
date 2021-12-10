@@ -53,8 +53,9 @@ function VoicePlayer({
       src: [msg.blob],
       format: ["mp3"],
       mute: false,
-      usingWebAudio: false,
-      webAudio: false,
+      volume: 1,
+      // usingWebAudio: false,
+      // webAudio: false,
       preload: "metadata",
     });
     setPlayingSound(currentSound);
@@ -149,12 +150,12 @@ function VoicePlayer({
 
   const leftAlign = useMemo(() => msg.userName !== "Me", [msg.userName]);
   const interface2Width = useMemo(
-    () => (audioDuration !== 0 ? Math.min(audioDuration ** 0.7, 5) : 3),
+    () => (audioDuration !== 0 ? Math.min(audioDuration ** 0.6, 5) : 3),
     [audioDuration]
   );
 
   const margin2Width = useMemo(
-    () => (audioDuration !== 0 ? Math.min(marginTop ** 0.7, 5) : 0),
+    () => (audioDuration !== 0 ? Math.min(marginTop ** 0.6, 5) : 0),
     [marginTop, audioDuration]
   );
 
