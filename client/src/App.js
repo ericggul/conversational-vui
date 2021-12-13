@@ -13,6 +13,8 @@ import ChatIntro from "@P/ChatUIPage/ChatIntro";
 import ChatPage from "@P/ChatUIPage/ChatPage";
 // import io from "socket.io-client";
 
+import TestPage from "@P/Test";
+
 // const socket = io.connect("/");
 
 function App() {
@@ -58,6 +60,7 @@ function App() {
           </Route> */}
           <Route path="/chat-interface-one" component={ChatInterface1} />
           <Route path="/chat-interface-two" component={ChatInterface2} />
+          <Route path="/test" component={TestPage} />
         </Switch>
       </Router>
     </ThemeProvider>

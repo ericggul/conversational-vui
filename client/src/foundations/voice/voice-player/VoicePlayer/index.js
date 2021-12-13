@@ -51,11 +51,12 @@ function VoicePlayer({
   useEffect(() => {
     const currentSound = new Howl({
       src: [msg.blob],
-      format: ["mp3"],
+      format: ["mpeg"],
       mute: false,
       volume: 1,
-      // usingWebAudio: false,
-      // webAudio: false,
+      html5: true,
+      usingWebAudio: false,
+      webAudio: false,
       preload: "metadata",
     });
     setPlayingSound(currentSound);
@@ -82,7 +83,6 @@ function VoicePlayer({
     setSeekPos(playingSound.seek(soundId));
 
     //UI
-    console.log("status to -1");
     setStatusIcon(-1);
     setTimeout(() => setStatusIcon(0), 500);
   }, [playingSound, soundId]);

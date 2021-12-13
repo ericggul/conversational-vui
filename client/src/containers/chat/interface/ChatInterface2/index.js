@@ -12,6 +12,11 @@ import Amp3 from "@/static/audio/A.mp3";
 import Bmp3 from "@/static/audio/B.mp3";
 import Cmp3 from "@/static/audio/C.mp3";
 
+import AAogg from "@/static/audio/AA.ogg";
+import Aogg from "@/static/audio/A.ogg";
+import Bogg from "@/static/audio/B.ogg";
+import Cogg from "@/static/audio/C.ogg";
+
 import * as S from "./styles";
 
 const VOICE_INPUTS = [
@@ -86,26 +91,6 @@ const VOICE_INPUTS = [
 
 function ChatInterface2() {
   const [messages, setMessages] = useState(VOICE_INPUTS);
-
-  const {
-    value: chatInput,
-    onChange: onChatInputChange,
-    setValue: setChatInput,
-  } = useInput("constinantonple", null);
-
-  const sendData = useCallback(
-    (input) => {
-      setMessages((msg) => [
-        ...msg,
-        {
-          type: "text",
-          userName: "Me",
-          blob: msg,
-        },
-      ]);
-    },
-    [messages]
-  );
 
   useEffect(() => {
     const lastItem = messages[messages.length - 1];

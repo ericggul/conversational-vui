@@ -16,8 +16,6 @@ export async function startRecording(setRecorderState) {
 
 export function saveRecording(recorder, stream) {
   console.log("SAVED");
-  console.log(recorder.state);
   if (recorder.state !== "inactive") recorder.stop();
   stream.getTracks().forEach((track) => track.stop());
-  console.log(recorder.state);
 }
