@@ -1,5 +1,6 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-export const StyledFlux = styled.div`
-
+export const Container = styled.div`
+  width: ${({ theme }) => theme.windowWidth}px;
+  height: ${({ theme }) => theme.windowHeight}px;
 `;
