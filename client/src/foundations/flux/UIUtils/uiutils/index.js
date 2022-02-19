@@ -9,6 +9,8 @@ export default function UIUtils({
   resetPos,
   realTimeMode,
   alterTimeMode,
+  layout,
+  progress,
 }) {
   return (
     <S.UtilsContainer>
@@ -24,7 +26,13 @@ export default function UIUtils({
         </S.Box>
       </S.RealTimeModal>
 
-      <Clock current={current} clicked={clicked} realTime={realTimeMode} />
+      <Clock
+        current={current}
+        clicked={clicked}
+        realTime={realTimeMode}
+        layout={layout}
+        progress={progress}
+      />
       <S.ResetPosition onClick={resetPos}>
         Reset Perspective Position
       </S.ResetPosition>

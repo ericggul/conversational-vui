@@ -23,7 +23,7 @@ function updateInstancedMeshMaterials({ mesh, data }) {
   mesh.instanceMatrix.needsUpdate = true;
 }
 
-export const Model = ({ layoutIdx, data, realTimeMode }) => {
+export const Model = ({ layout, progress, data, realTimeMode }) => {
   const object = useLoader(
     PLYLoader,
     "/assets/flux/tower.ply",
@@ -36,19 +36,6 @@ export const Model = ({ layoutIdx, data, realTimeMode }) => {
   );
   object.computeVertexNormals();
   const meshRef = useRef(null);
-
-  let timeNow = new Date();
-  const [layout, setLayout] = useState(
-    realTimeMode ? timeNow.getHours() % 12 : layoutIdx
-  );
-  const [progress, setProgress] = useState(
-    realTimeMode ? timeNow.getMinutes() / 60 : null
-  );
-  useEffect(() => {
-    timeNow = new Date();
-    setLayout(realTimeMode ? timeNow.getHours() % 12 : layoutIdx);
-    setProgress(realTimeMode ? timeNow.getMinutes() / 60 : null);
-  }, [realTimeMode, layoutIdx]);
 
   useAnimatedLayout({
     realTimeProgress: progress,

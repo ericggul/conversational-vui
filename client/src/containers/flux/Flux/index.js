@@ -1,4 +1,10 @@
-import React, { useState, Suspense, useRef, useEffect } from "react";
+import React, {
+  useState,
+  Suspense,
+  useRef,
+  useEffect,
+  useCallback,
+} from "react";
 import * as THREE from "three";
 import { Canvas, useThree, useFrame } from "@react-three/fiber";
 
@@ -21,40 +27,65 @@ const DATA = new Array(LENGTH ** 3).fill(0).map((_, id) => ({
     position: { x: 0, y: 0, z: 0 },
     rotation: { x: 0, y: 0, z: 0 },
   },
+  store: { position: { x: 0, y: 0, z: 0 }, rotation: { x: 0, y: 0, z: 0 } },
+  store2: { position: { x: 0, y: 0, z: 0 }, rotation: { x: 0, y: 0, z: 0 } },
 }));
 
+const CameraControls = ({ reset, resetComplete }) => {
+  const {
+    camera,
+    gl: { domElement },
+  } = useThree();
+  let controls = useRef(null);
+
+  useFrame(() => {
+    if (reset && controls && controls.current) {
+      controls.current.position0.set(0, 0, 200);
+      controls.current.reset();
+      controls.current.update();
+      resetComplete();
+    }
+  });
+
+  return (
+    <OrbitControls
+      ref={controls}
+      args={[camera, domElement]}
+      enableDamping
+      zoomSpeed={0.3}
+      dampingFactor={0.01}
+    />
+  );
+};
+
 function Flux() {
-  const [layoutIdx, setLayoutIdx] = useState(10);
-
-  const CameraControls = ({ reset, resetComplete }) => {
-    const {
-      camera,
-      gl: { domElement },
-    } = useThree();
-    let controls = useRef(null);
-
-    useFrame(() => {
-      if (reset && controls && controls.current) {
-        controls.current.position0.set(0, 0, 200);
-        controls.current.reset();
-        controls.current.update();
-        resetComplete();
-      }
-    });
-
-    return (
-      <OrbitControls
-        ref={controls}
-        args={[camera, domElement]}
-        enableDamping
-        zoomSpeed={0.3}
-        dampingFactor={0.01}
-      />
-    );
-  };
-
   const [resetCamera, setResetCamera] = useState(false);
   const [realTimeMode, setRealTimeMode] = useState(true);
+
+  let timeNow = new Date();
+  const [layoutIdx, setLayoutIdx] = useState(timeNow.getHours() % 12);
+  const [layout, setLayout] = useState(
+    realTimeMode ? timeNow.getHours() % 12 : layoutIdx
+  );
+  const [progress, setProgress] = useState(
+    realTimeMode ? timeNow.getMinutes() / 60 + 0.001 : null
+  );
+
+  const timeChecker = useCallback(() => {
+    timeNow = new Date();
+    setLayout(timeNow.getHours() % 12);
+    setProgress(timeNow.getMinutes() / 60 + 0.001);
+  }, [realTimeMode]);
+  useEffect(() => {
+    if (realTimeMode) {
+      timeChecker();
+      let interval = window.setInterval(timeChecker, 60000);
+      return () => window.clearInterval(interval);
+    } else {
+      setLayout(layoutIdx);
+      setProgress(null);
+    }
+  }, [realTimeMode, layoutIdx]);
 
   return (
     <>
@@ -84,7 +115,8 @@ function Flux() {
 
           <Suspense fallback={null}>
             <Model
-              layoutIdx={layoutIdx}
+              layout={layout}
+              progress={progress}
               data={DATA}
               realTimeMode={realTimeMode}
             />
@@ -100,6 +132,8 @@ function Flux() {
           resetPos={() => setResetCamera(true)}
           realTimeMode={realTimeMode}
           alterTimeMode={(newMode) => setRealTimeMode(newMode)}
+          layout={layout}
+          progress={progress}
         />
       </S.Container>
     </>

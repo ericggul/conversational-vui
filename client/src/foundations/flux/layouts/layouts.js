@@ -25,13 +25,13 @@ export function circleLayout(data) {
     const r = Math.max(1, Math.sqrt(70 * i + 1) * 0.7);
     theta += Math.asin(1 / r) * 20 + (getRandom(-1, 1) * Math.PI) / 100;
 
-    datum.position.x = r * 0.5 * Math.cos(theta) + getRandom(-3, 3);
-    datum.position.y = r * 0.5 * Math.sin(theta) + getRandom(-3, 3);
-    datum.position.z = -1000 + getRandom(-10, 3);
+    datum.store.position.x = r * 0.5 * Math.cos(theta) + getRandom(-3, 3);
+    datum.store.position.y = r * 0.5 * Math.sin(theta) + getRandom(-3, 3);
+    datum.store.position.z = -1000 + getRandom(-10, 3);
 
-    datum.rotation.x = Math.PI / 2;
-    datum.rotation.y = 0;
-    datum.rotation.z = 0;
+    datum.store.rotation.x = Math.PI / 2;
+    datum.store.rotation.y = 0;
+    datum.store.rotation.z = 0;
   }
 }
 
@@ -47,26 +47,17 @@ export function sphereLayout(data) {
       (getRandom(-1, 1) * Math.PI) / 300;
     const r = 120 * getRandom(0.98, 1.02);
 
-    datum.position.x = r * Math.cos(phi) * Math.sin(theta);
-    datum.position.y = r * Math.cos(phi) * Math.cos(theta);
-    datum.position.z = -100 + r * Math.sin(phi);
+    datum.store.position.x = r * Math.cos(phi) * Math.sin(theta);
+    datum.store.position.y = r * Math.cos(phi) * Math.cos(theta);
+    datum.store.position.z = -100 + r * Math.sin(phi);
 
-    datum.rotation.x = 0;
-    datum.rotation.y = 0;
+    datum.store.rotation.x = 0;
+    datum.store.rotation.y = 0;
 
-    datum.rotation.z =
+    datum.store.rotation.z =
       phi <= Math.PI / 2 || phi >= (Math.PI * 3) / 2
         ? -theta
         : -theta + Math.PI;
-
-    // if (phi === Math.PI / 2) {
-    //   datum.rotation.x = Math.PI / 2;
-    //   datum.rotation.z = 0;
-    // }
-    // if (phi === (Math.PI * 3) / 2) {
-    //   datum.rotation.x = -Math.PI / 2;
-    //   datum.rotation.z = 0;
-    // }
   }
 }
 
@@ -84,16 +75,16 @@ export function cylinderLayout(data) {
       (getRandom(0, 1) * Math.PI) / 40;
     const yIdx = Math.floor(i / RADIAL_ELEMENTS) - HEIGHT_ELEMENTS / 2;
 
-    datum.position.x = RADIUS * Math.cos(theta);
-    datum.position.y = yIdx * HEIGHT_INTERVAL;
-    datum.position.z = -40 + RADIUS * Math.sin(theta);
+    datum.store.position.x = RADIUS * Math.cos(theta);
+    datum.store.position.y = yIdx * HEIGHT_INTERVAL;
+    datum.store.position.z = -40 + RADIUS * Math.sin(theta);
 
     //x: Math.cos(t);
     //y: Math.sin(t);
 
-    datum.rotation.x = 0;
-    datum.rotation.y = -theta;
-    datum.rotation.z = 0;
+    datum.store.rotation.x = 0;
+    datum.store.rotation.y = -theta;
+    datum.store.rotation.z = 0;
   }
 }
 
@@ -120,13 +111,15 @@ export function pyramidesLayout(data) {
 
     const xTemp = xIndex * DISTANCE * adjustement;
     const zTemp = zIndex * DISTANCE * adjustement;
-    datum.position.x = (xTemp * Math.sqrt(2)) / 2 + (zTemp * Math.sqrt(2)) / 2;
-    datum.position.y = yIndex * 15;
-    datum.position.z = (-xTemp * Math.sqrt(2)) / 2 + (zTemp * Math.sqrt(2)) / 2;
+    datum.store.position.x =
+      (xTemp * Math.sqrt(2)) / 2 + (zTemp * Math.sqrt(2)) / 2;
+    datum.store.position.y = yIndex * 15;
+    datum.store.position.z =
+      (-xTemp * Math.sqrt(2)) / 2 + (zTemp * Math.sqrt(2)) / 2;
 
-    datum.rotation.x = 0;
-    datum.rotation.y = Math.PI / 4;
-    datum.rotation.z = 0;
+    datum.store.rotation.x = 0;
+    datum.store.rotation.y = Math.PI / 4;
+    datum.store.rotation.z = 0;
   }
 }
 
@@ -144,13 +137,13 @@ export function cubeLayout(data) {
       Math.floor(Math.floor(i / LENGTH) / LENGTH) - (LENGTH - 1) / 2;
     const zIndex = ((i % LENGTH) % LENGTH) - (LENGTH - 1) / 2;
 
-    datum.position.x = xIndex * DISTANCE;
-    datum.position.y = yIndex * DISTANCE;
-    datum.position.z = zIndex * DISTANCE;
+    datum.store.position.x = xIndex * DISTANCE;
+    datum.store.position.y = yIndex * DISTANCE;
+    datum.store.position.z = zIndex * DISTANCE;
 
-    datum.rotation.x = 0;
-    datum.rotation.y = Math.PI / 2;
-    datum.rotation.z = 0;
+    datum.store.rotation.x = 0;
+    datum.store.rotation.y = Math.PI / 2;
+    datum.store.rotation.z = 0;
   }
 }
 
@@ -167,13 +160,13 @@ export function towerLayout(data) {
     const yIndex = (i % HEIGHT) - (HEIGHT - 1) / 2;
     const zIndex = (Math.floor(i / HEIGHT) % WIDTH) - (WIDTH - 1) / 2;
 
-    datum.position.x = xIndex * 5;
-    datum.position.y = yIndex * 10;
-    datum.position.z = zIndex * 5;
+    datum.store.position.x = xIndex * 5;
+    datum.store.position.y = yIndex * 10;
+    datum.store.position.z = zIndex * 5;
 
-    datum.rotation.x = Math.PI * 2;
-    datum.rotation.y = 0;
-    datum.rotation.z = 0;
+    datum.store.rotation.x = Math.PI * 2;
+    datum.store.rotation.y = 0;
+    datum.store.rotation.z = 0;
   }
 }
 
@@ -199,13 +192,13 @@ export function orbitalLayout(data) {
 
     const theta = (Math.floor(i / xNumber) / xNumber) * Math.PI * 2;
 
-    datum.position.x = xSign * xLoc * 24;
-    datum.position.y = r * Math.cos(theta);
-    datum.position.z = r * Math.sin(theta);
+    datum.store.position.x = xSign * xLoc * 24;
+    datum.store.position.y = r * Math.cos(theta);
+    datum.store.position.z = r * Math.sin(theta);
 
-    datum.rotation.x = theta;
-    datum.rotation.y = 0;
-    datum.rotation.z = 0;
+    datum.store.rotation.x = theta;
+    datum.store.rotation.y = 0;
+    datum.store.rotation.z = 0;
   }
 }
 
@@ -235,13 +228,13 @@ export function helixLayout(data) {
     const phi = (straightY / yMax) * Math.PI * 2;
     const R = yMax / (Math.PI * 2);
 
-    datum.position.x = (R + straightX) * Math.sin(phi);
-    datum.position.y = (R + straightX) * Math.cos(phi);
-    datum.position.z = -100 + straightZ;
+    datum.store.position.x = (R + straightX) * Math.sin(phi);
+    datum.store.position.y = (R + straightX) * Math.cos(phi);
+    datum.store.position.z = -100 + straightZ;
 
-    datum.rotation.x = 0;
-    datum.rotation.y = -theta;
-    datum.rotation.z = -phi;
+    datum.store.rotation.x = 0;
+    datum.store.rotation.y = -theta;
+    datum.store.rotation.z = -phi;
   }
 }
 
@@ -259,13 +252,13 @@ export function bellLayout(data) {
     const yMax = Math.exp(-Math.pow(r, 1.7) / 6) * yRange;
     const theta = ((Math.floor(i / 16) % 32) / 32) * Math.PI * 2;
 
-    datum.position.x = R * r * Math.cos(theta);
-    datum.position.y = -42 + yMax;
-    datum.position.z = R * r * Math.sin(theta);
+    datum.store.position.x = R * r * Math.cos(theta);
+    datum.store.position.y = -42 + yMax;
+    datum.store.position.z = R * r * Math.sin(theta);
 
-    datum.rotation.x = 0;
-    datum.rotation.y = -theta;
-    datum.rotation.z = 0;
+    datum.store.rotation.x = 0;
+    datum.store.rotation.y = -theta;
+    datum.store.rotation.z = 0;
   }
 }
 
@@ -279,13 +272,13 @@ export function squareLayout(data) {
   for (let i = 0; i < numPoints; i++) {
     const datum = data[i];
 
-    datum.position.x = (Math.floor(i / 32) - 8) * 10;
-    datum.position.y = ((i % 32) - 16) * 10;
-    datum.position.z = 0;
+    datum.store.position.x = (Math.floor(i / 32) - 8) * 10;
+    datum.store.position.y = ((i % 32) - 16) * 10;
+    datum.store.position.z = 0;
 
-    datum.rotation.x = Math.PI / 2;
-    datum.rotation.y = getRandom(0, Math.PI * 3);
-    datum.rotation.z = -Math.PI * 2;
+    datum.store.rotation.x = Math.PI / 2;
+    datum.store.rotation.y = getRandom(0, Math.PI * 3);
+    datum.store.rotation.z = -Math.PI * 2;
   }
 }
 
@@ -305,13 +298,13 @@ export function jarLayout(data) {
     let r = -((rateY - 0.5) ** 3) + rateY ** 2 + (rateY + 0.3) * 2;
 
     const theta = ((Math.floor(i / 32) % 16) / 16) * Math.PI * 2;
-    datum.position.x = r * 12 * Math.cos(theta);
-    datum.position.y = (yLoc - 15.5) * 9;
-    datum.position.z = -80 + r * 12 * Math.sin(theta);
+    datum.store.position.x = r * 12 * Math.cos(theta);
+    datum.store.position.y = (yLoc - 15.5) * 9;
+    datum.store.position.z = -80 + r * 12 * Math.sin(theta);
 
-    datum.rotation.x = (getRandom(-1, 1) * Math.PI) / 140;
-    datum.rotation.y = -theta;
-    datum.rotation.z = (getRandom(-1, 1) * Math.PI) / 140;
+    datum.store.rotation.x = (getRandom(-1, 1) * Math.PI) / 140;
+    datum.store.rotation.y = -theta;
+    datum.store.rotation.z = (getRandom(-1, 1) * Math.PI) / 140;
   }
 }
 
@@ -323,10 +316,10 @@ export function giwaLayout(data) {
     let xLoc = (i % 32) - 15.5;
     let zLoc = (Math.floor(i / 32) % 16) - 15;
 
-    datum.position.x =
+    datum.store.position.x =
       xLoc * (10 - (-zLoc) ** 0.1 * 0.2) +
       getRandom(getRandom(-1, 0), getRandom(0, 1));
-    datum.position.y =
+    datum.store.position.y =
       -Math.cos(xLoc / 25) * 130 +
       90 +
       (-zLoc) ** 1.1 * 5 +
@@ -334,11 +327,11 @@ export function giwaLayout(data) {
         getRandom(0.13 * (zLoc - 2), 0),
         getRandom(0, 0.13 * -(zLoc - 2))
       );
-    datum.position.z = -20 - (-zLoc) ** 1.04 * 9;
+    datum.store.position.z = -20 - (-zLoc) ** 1.04 * 9;
 
-    datum.rotation.x = (zLoc / 30) * getRandom(0.99, 1.01) + 1 / 2;
-    datum.rotation.y = 0;
-    datum.rotation.z = (Math.abs(xLoc) ** 1 * (xLoc < 0 ? -1 : 1)) / 30;
+    datum.store.rotation.x = (zLoc / 30) * getRandom(0.99, 1.01) + 1 / 2;
+    datum.store.rotation.y = 0;
+    datum.store.rotation.z = (Math.abs(xLoc) ** 1 * (xLoc < 0 ? -1 : 1)) / 30;
   }
 }
 
@@ -348,12 +341,12 @@ export function randomLayout(data) {
   for (let i = 0; i < numPoints; i++) {
     const datum = data[i];
     const RANDOM_RANGE = 1000;
-    datum.position.x = getRandom(-RANDOM_RANGE, RANDOM_RANGE);
-    datum.position.y = getRandom(-RANDOM_RANGE, RANDOM_RANGE);
-    datum.position.z = getRandom(-RANDOM_RANGE, RANDOM_RANGE);
+    datum.store.position.x = getRandom(-RANDOM_RANGE, RANDOM_RANGE);
+    datum.store.position.y = getRandom(-RANDOM_RANGE, RANDOM_RANGE);
+    datum.store.position.z = getRandom(-RANDOM_RANGE, RANDOM_RANGE);
 
-    datum.rotation.x = getRandom(0, Math.PI * 2);
-    datum.rotation.y = getRandom(0, Math.PI * 2);
-    datum.rotation.z = 0;
+    datum.store.rotation.x = getRandom(0, Math.PI * 2);
+    datum.store.rotation.y = getRandom(0, Math.PI * 2);
+    datum.store.rotation.z = 0;
   }
 }

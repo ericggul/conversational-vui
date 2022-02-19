@@ -2,7 +2,13 @@ import React, { useEffect, useState, useRef, useCallback } from "react";
 import * as S from "./styles";
 import { useSpring } from "@react-spring/three";
 import { CONFIG } from "@F/flux/layouts/config";
-export default function Clock({ current, clicked, realTime }) {
+export default function Clock({
+  current,
+  clicked,
+  realTime,
+  layout,
+  progress,
+}) {
   let unitWidth = 12;
   let largeSize = { width: 0.25, height: 3 };
   let smallSize = { width: 0.125, height: 2 };
@@ -11,9 +17,15 @@ export default function Clock({ current, clicked, realTime }) {
   let adjustedInner = innerRadius + smallSize.height / 2;
   let adjustedText = innerRadius + 4;
 
-  const [currentLayout, setCurrentLayout] = useState(current);
-  const [realTimeMode, setRealTimeMode] = useState(realTime);
+  const [realTimeMode, setRealTimeMode] = useState(progress != null);
+  const [currentLayout, setCurrentLayout] = useState(
+    realTimeMode ? 0.5 : current
+  );
 
+  useEffect(() => {
+    setCurrentLayout(progress != null ? 0.5 : current);
+    setRealTimeMode(progress != null);
+  }, [progress]);
   return (
     <S.ClockElement>
       {[0, 1, 2, 3].map((e, i) => (
@@ -23,27 +35,28 @@ export default function Clock({ current, clicked, realTime }) {
           left={unitWidth / 2 - adjustedOuter * Math.sin((e / 2) * Math.PI)}
           angle={90 * e}
           onClick={() => {
-            clicked(((e + 2) % 4) * 3);
-            setCurrentLayout(((e + 2) % 4) * 3);
+            !realTimeMode && clicked(((e + 2) % 4) * 3);
+            !realTimeMode && setCurrentLayout(((e + 2) % 4) * 3);
           }}
           current={currentLayout % 3 === 0 && (currentLayout / 3 + 2) % 4 === e}
         />
       ))}
 
-      {[0, 1, 3].map((e, i) => (
+      {!realTimeMode && (
         <S.Text
-          key={i + 20}
-          top={unitWidth / 2 + adjustedText * Math.cos((e / 2) * Math.PI)}
-          left={unitWidth / 2 - adjustedText * Math.sin((e / 2) * Math.PI)}
-          angle={90 * e}
-          onClick={() => {
-            clicked(((e + 2) % 4) * 3);
-            setCurrentLayout(((e + 2) % 4) * 3);
-          }}
+          top={
+            unitWidth / 2 -
+            adjustedText * Math.cos((currentLayout / 6) * Math.PI)
+          }
+          left={
+            unitWidth / 2 +
+            adjustedText * Math.sin((currentLayout / 6) * Math.PI)
+          }
+          angle={30 * currentLayout}
         >
-          {e === 1 ? "IX" : e === 0 ? "VI" : "III"}
+          {currentLayout === 0 ? null : currentLayout}
         </S.Text>
-      ))}
+      )}
 
       {[1, 2, 4, 5, 7, 8, 10, 11].map((e, i) => (
         <S.Small
@@ -52,35 +65,43 @@ export default function Clock({ current, clicked, realTime }) {
           left={unitWidth / 2 - adjustedInner * Math.sin((e / 6) * Math.PI)}
           angle={30 * e}
           onClick={() => {
-            clicked((e + 6) % 12);
-            setCurrentLayout((e + 6) % 12);
+            !realTimeMode && clicked((e + 6) % 12);
+            !realTimeMode && setCurrentLayout((e + 6) % 12);
           }}
           current={(currentLayout + 6) % 12 === e}
         />
       ))}
 
-      {/* <S.Hour
-        top={
-          unitWidth / 2 +
-          (smallSize.height / 2) * Math.cos(((currentHour + 6) / 6) * Math.PI)
-        }
-        left={
-          unitWidth / 2 -
-          (smallSize.height / 2) * Math.sin(((currentHour + 6) / 6) * Math.PI)
-        }
-        angle={30 * (currentHour + 6)}
-      />
-      <S.Min
-        top={
-          unitWidth / 2 +
-          (largeSize.height / 2) * Math.cos(((currentMin + 30) / 30) * Math.PI)
-        }
-        left={
-          unitWidth / 2 -
-          (largeSize.height / 2) * Math.sin(((currentMin + 30) / 30) * Math.PI)
-        }
-        angle={6 * (currentMin + 30)}
-      /> */}
+      {realTimeMode && (
+        <>
+          <S.Hour
+            top={
+              unitWidth / 2 +
+              (smallSize.height / 2) *
+                Math.cos(((layout + progress + 6) / 6) * Math.PI)
+            }
+            left={
+              unitWidth / 2 -
+              (smallSize.height / 2) *
+                Math.sin(((layout + progress + 6) / 6) * Math.PI)
+            }
+            angle={30 * (layout + progress + 6)}
+          />
+          <S.Min
+            top={
+              unitWidth / 2 +
+              (largeSize.height / 2) *
+                Math.cos(((progress * 60 + 30) / 30) * Math.PI)
+            }
+            left={
+              unitWidth / 2 -
+              (largeSize.height / 2) *
+                Math.sin(((progress * 60 + 30) / 30) * Math.PI)
+            }
+            angle={6 * (progress * 60 + 30)}
+          />
+        </>
+      )}
     </S.ClockElement>
   );
 }
