@@ -14,6 +14,7 @@
 //layout 10: Helix
 //layout 11: White Jar
 //layout 12: Giwa
+const getRandom = (a, b) => Math.random() * (b - a) + a;
 
 export function circleLayout(data) {
   const numPoints = data.length;
@@ -21,12 +22,12 @@ export function circleLayout(data) {
 
   for (let i = 0; i < numPoints; i++) {
     const datum = data[i];
-    const r = Math.max(1, Math.sqrt(100 * i + 1) * 0.7);
-    theta += Math.asin(1 / r) * 20;
+    const r = Math.max(1, Math.sqrt(70 * i + 1) * 0.7);
+    theta += Math.asin(1 / r) * 20 + (getRandom(-1, 1) * Math.PI) / 100;
 
-    datum.position.x = r * Math.cos(theta);
-    datum.position.y = r * Math.sin(theta);
-    datum.position.z = -1000;
+    datum.position.x = r * 0.5 * Math.cos(theta) + getRandom(-3, 3);
+    datum.position.y = r * 0.5 * Math.sin(theta) + getRandom(-3, 3);
+    datum.position.z = -1000 + getRandom(-10, 3);
 
     datum.rotation.x = Math.PI / 2;
     datum.rotation.y = 0;
@@ -39,9 +40,12 @@ export function sphereLayout(data) {
 
   for (let i = 0; i < numPoints; i++) {
     const datum = data[i];
-    const theta = ((i % 16) / 16) * Math.PI;
-    const phi = (Math.floor(i / 16) / 32) * Math.PI * 2;
-    const r = 120;
+    const theta =
+      ((i % 16) / 16) * Math.PI + (getRandom(-1, 1) * Math.PI) / 300;
+    const phi =
+      (Math.floor(i / 16) / 32) * Math.PI * 2 +
+      (getRandom(-1, 1) * Math.PI) / 300;
+    const r = 120 * getRandom(0.98, 1.02);
 
     datum.position.x = r * Math.cos(phi) * Math.sin(theta);
     datum.position.y = r * Math.cos(phi) * Math.cos(theta);
@@ -55,14 +59,14 @@ export function sphereLayout(data) {
         ? -theta
         : -theta + Math.PI;
 
-    if (phi === Math.PI / 2) {
-      datum.rotation.x = Math.PI / 2;
-      datum.rotation.z = 0;
-    }
-    if (phi === (Math.PI * 3) / 2) {
-      datum.rotation.x = -Math.PI / 2;
-      datum.rotation.z = 0;
-    }
+    // if (phi === Math.PI / 2) {
+    //   datum.rotation.x = Math.PI / 2;
+    //   datum.rotation.z = 0;
+    // }
+    // if (phi === (Math.PI * 3) / 2) {
+    //   datum.rotation.x = -Math.PI / 2;
+    //   datum.rotation.z = 0;
+    // }
   }
 }
 
@@ -71,11 +75,13 @@ export function cylinderLayout(data) {
 
   for (let i = 0; i < numPoints; i++) {
     const datum = data[i];
-    const RADIUS = 30;
-    const RADIAL_ELEMENTS = 16;
-    const HEIGHT_ELEMENTS = 32;
-    const HEIGHT_INTERVAL = 10;
-    const theta = Math.PI * 2 * ((i % RADIAL_ELEMENTS) / RADIAL_ELEMENTS);
+    const RADIUS = 35 * getRandom(0.99, 1.01);
+    const RADIAL_ELEMENTS = 32;
+    const HEIGHT_ELEMENTS = 16;
+    const HEIGHT_INTERVAL = 14;
+    const theta =
+      Math.PI * 2 * ((i % RADIAL_ELEMENTS) / RADIAL_ELEMENTS) +
+      (getRandom(0, 1) * Math.PI) / 40;
     const yIdx = Math.floor(i / RADIAL_ELEMENTS) - HEIGHT_ELEMENTS / 2;
 
     datum.position.x = RADIUS * Math.cos(theta);
@@ -109,13 +115,17 @@ export function pyramidesLayout(data) {
     const zIndex =
       Math.floor(Math.floor(i / LENGTH) / LENGTH) - (LENGTH - 1) / 2;
 
-    const adjustement = ((LENGTH - 1) / 2 - yIndex) * 0.2;
-    datum.position.x = xIndex * DISTANCE * adjustement;
+    const adjustement =
+      ((LENGTH - 1) / 2 - yIndex) * 0.2 + getRandom(-0.01, 0.01);
+
+    const xTemp = xIndex * DISTANCE * adjustement;
+    const zTemp = zIndex * DISTANCE * adjustement;
+    datum.position.x = (xTemp * Math.sqrt(2)) / 2 + (zTemp * Math.sqrt(2)) / 2;
     datum.position.y = yIndex * 15;
-    datum.position.z = zIndex * DISTANCE * adjustement;
+    datum.position.z = (-xTemp * Math.sqrt(2)) / 2 + (zTemp * Math.sqrt(2)) / 2;
 
     datum.rotation.x = 0;
-    datum.rotation.y = 0;
+    datum.rotation.y = Math.PI / 4;
     datum.rotation.z = 0;
   }
 }
@@ -124,7 +134,7 @@ export function cubeLayout(data) {
   const numPoints = data.length;
 
   const LENGTH = 8;
-  const DISTANCE = 12;
+  const DISTANCE = 17;
 
   for (let i = 0; i < numPoints; i++) {
     const datum = data[i];
@@ -139,7 +149,7 @@ export function cubeLayout(data) {
     datum.position.z = zIndex * DISTANCE;
 
     datum.rotation.x = 0;
-    datum.rotation.y = 0;
+    datum.rotation.y = Math.PI / 2;
     datum.rotation.z = 0;
   }
 }
@@ -161,7 +171,7 @@ export function towerLayout(data) {
     datum.position.y = yIndex * 10;
     datum.position.z = zIndex * 5;
 
-    datum.rotation.x = 0;
+    datum.rotation.x = Math.PI * 2;
     datum.rotation.y = 0;
     datum.rotation.z = 0;
   }
@@ -250,7 +260,7 @@ export function bellLayout(data) {
     const theta = ((Math.floor(i / 16) % 32) / 32) * Math.PI * 2;
 
     datum.position.x = R * r * Math.cos(theta);
-    datum.position.y = -40 + yMax;
+    datum.position.y = -42 + yMax;
     datum.position.z = R * r * Math.sin(theta);
 
     datum.rotation.x = 0;
@@ -266,7 +276,6 @@ export function bellLayout(data) {
 export function squareLayout(data) {
   const numPoints = data.length;
 
-  const getRandom = (a, b) => Math.random() * (b - a) + a;
   for (let i = 0; i < numPoints; i++) {
     const datum = data[i];
 
@@ -276,48 +285,65 @@ export function squareLayout(data) {
 
     datum.rotation.x = Math.PI / 2;
     datum.rotation.y = getRandom(0, Math.PI * 3);
-    datum.rotation.z = 0;
+    datum.rotation.z = -Math.PI * 2;
   }
 }
 
 export function jarLayout(data) {
   const numPoints = data.length;
 
-  const getRandom = (a, b) => Math.random() * (b - a) + a;
   for (let i = 0; i < numPoints; i++) {
     const datum = data[i];
 
-    datum.position.x = (Math.floor(i / 32) - 8) * 10;
-    datum.position.y = ((i % 32) - 16) * 10;
-    datum.position.z = 0;
+    //3.68522
+    //y: 0-31
+    let root = 2.99767;
+    let ratio = root / 31;
+    let yLoc = i % 32;
+    let rateY = root - yLoc * ratio;
 
-    datum.rotation.x = Math.PI / 2;
-    datum.rotation.y = getRandom(0, Math.PI * 3);
-    datum.rotation.z = 0;
+    let r = -((rateY - 0.5) ** 3) + rateY ** 2 + (rateY + 0.3) * 2;
+
+    const theta = ((Math.floor(i / 32) % 16) / 16) * Math.PI * 2;
+    datum.position.x = r * 12 * Math.cos(theta);
+    datum.position.y = (yLoc - 15.5) * 9;
+    datum.position.z = -80 + r * 12 * Math.sin(theta);
+
+    datum.rotation.x = (getRandom(-1, 1) * Math.PI) / 140;
+    datum.rotation.y = -theta;
+    datum.rotation.z = (getRandom(-1, 1) * Math.PI) / 140;
   }
 }
 
 export function giwaLayout(data) {
   const numPoints = data.length;
 
-  const getRandom = (a, b) => Math.random() * (b - a) + a;
   for (let i = 0; i < numPoints; i++) {
     const datum = data[i];
+    let xLoc = (i % 32) - 15.5;
+    let zLoc = (Math.floor(i / 32) % 16) - 15;
 
-    datum.position.x = (Math.floor(i / 32) - 8) * 10;
-    datum.position.y = ((i % 32) - 16) * 10;
-    datum.position.z = 0;
+    datum.position.x =
+      xLoc * (10 - (-zLoc) ** 0.1 * 0.2) +
+      getRandom(getRandom(-1, 0), getRandom(0, 1));
+    datum.position.y =
+      -Math.cos(xLoc / 25) * 130 +
+      90 +
+      (-zLoc) ** 1.1 * 5 +
+      getRandom(
+        getRandom(0.13 * (zLoc - 2), 0),
+        getRandom(0, 0.13 * -(zLoc - 2))
+      );
+    datum.position.z = -20 - (-zLoc) ** 1.04 * 9;
 
-    datum.rotation.x = Math.PI / 2;
-    datum.rotation.y = getRandom(0, Math.PI * 3);
-    datum.rotation.z = 0;
+    datum.rotation.x = (zLoc / 30) * getRandom(0.99, 1.01) + 1 / 2;
+    datum.rotation.y = 0;
+    datum.rotation.z = (Math.abs(xLoc) ** 1 * (xLoc < 0 ? -1 : 1)) / 30;
   }
 }
 
 export function randomLayout(data) {
   const numPoints = data.length;
-
-  const getRandom = (a, b) => Math.random() * (b - a) + a;
 
   for (let i = 0; i < numPoints; i++) {
     const datum = data[i];

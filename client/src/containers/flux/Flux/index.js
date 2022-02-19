@@ -1,11 +1,12 @@
 import React, { useState, Suspense, useRef, useEffect } from "react";
 import * as THREE from "three";
-import { Canvas } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
-import { useControls, folder } from "leva";
+import { Canvas, useThree, useFrame } from "@react-three/fiber";
+
+import UIUtils from "@/foundations/flux/UIUtils/uiutils";
 
 import { Model } from "@F/flux/model";
 import * as S from "./styles";
+import { OrbitControls } from "@react-three/drei";
 
 const LENGTH = 8;
 const DATA = new Array(LENGTH ** 3).fill(0).map((_, id) => ({
@@ -24,6 +25,36 @@ const DATA = new Array(LENGTH ** 3).fill(0).map((_, id) => ({
 
 function Flux() {
   const [layoutIdx, setLayoutIdx] = useState(10);
+
+  const CameraControls = ({ reset, resetComplete }) => {
+    const {
+      camera,
+      gl: { domElement },
+    } = useThree();
+    let controls = useRef(null);
+
+    useFrame(() => {
+      if (reset && controls && controls.current) {
+        controls.current.position0.set(0, 0, 200);
+        controls.current.reset();
+        controls.current.update();
+        resetComplete();
+      }
+    });
+
+    return (
+      <OrbitControls
+        ref={controls}
+        args={[camera, domElement]}
+        enableDamping
+        zoomSpeed={0.3}
+        dampingFactor={0.01}
+      />
+    );
+  };
+
+  const [resetCamera, setResetCamera] = useState(false);
+  const [realTimeMode, setRealTimeMode] = useState(true);
 
   return (
     <>
@@ -52,10 +83,24 @@ function Flux() {
           />
 
           <Suspense fallback={null}>
-            <Model layoutIdx={layoutIdx} data={DATA} />
+            <Model
+              layoutIdx={layoutIdx}
+              data={DATA}
+              realTimeMode={realTimeMode}
+            />
           </Suspense>
-          <OrbitControls enableDamping dampingFactor={0.01} />
+          <CameraControls
+            reset={resetCamera}
+            resetComplete={() => setResetCamera(false)}
+          />
         </Canvas>
+        <UIUtils
+          current={layoutIdx}
+          clicked={(i) => setLayoutIdx(i)}
+          resetPos={() => setResetCamera(true)}
+          realTimeMode={realTimeMode}
+          alterTimeMode={(newMode) => setRealTimeMode(newMode)}
+        />
       </S.Container>
     </>
   );

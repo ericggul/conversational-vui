@@ -19,43 +19,54 @@ import {
 
 export function useLayout({ data, layoutIdx }) {
   useEffect(() => {
-    if (layoutIdx === 1) circleLayout(data);
-    else if (layoutIdx === 2) sphereLayout(data);
-    else if (layoutIdx === 3) cylinderLayout(data);
-    else if (layoutIdx === 4) pyramidesLayout(data);
-    else if (layoutIdx === 5) cubeLayout(data);
-    else if (layoutIdx === 6) towerLayout(data);
-    else if (layoutIdx === 7) orbitalLayout(data);
-    else if (layoutIdx === 8) helixLayout(data);
-    else if (layoutIdx === 9) bellLayout(data);
-    else if (layoutIdx === 10) squareLayout(data);
-    else if (layoutIdx === 11) jarLayout(data);
-    else if (layoutIdx === 12) giwaLayout(data);
+    if (layoutIdx === 0) circleLayout(data);
+    else if (layoutIdx === 1) sphereLayout(data);
+    else if (layoutIdx === 2) cylinderLayout(data);
+    else if (layoutIdx === 3) pyramidesLayout(data);
+    else if (layoutIdx === 4) cubeLayout(data);
+    else if (layoutIdx === 5) towerLayout(data);
+    else if (layoutIdx === 6) orbitalLayout(data);
+    else if (layoutIdx === 7) helixLayout(data);
+    else if (layoutIdx === 8) bellLayout(data);
+    else if (layoutIdx === 9) squareLayout(data);
+    else if (layoutIdx === 10) jarLayout(data);
+    else if (layoutIdx === 11) giwaLayout(data);
   }, [data, layoutIdx]);
 }
 
-function useSourceTargetLayout({ data, layoutIdx }) {
+export function useRealTimeLayout({ data, layoutIdx, realTimeProgress }) {
+  if (realTimeProgress) {
+  }
+}
+
+function useSourceTargetLayout({ data, layoutIdx, realTimeProgress }) {
+  //If Not Real Time
   useEffect(() => {
-    for (let i = 0; i < data.length; i++) {
-      data[i].source.position.x = data[i].position ? data[i].position.x : 0;
-      data[i].source.position.y = data[i].position ? data[i].position.y : 0;
-      data[i].source.position.z = data[i].position ? data[i].position.z : 0;
-      data[i].source.rotation.x = data[i].rotation ? data[i].rotation.x : 0;
-      data[i].source.rotation.y = data[i].rotation ? data[i].rotation.y : 0;
-      data[i].source.rotation.z = data[i].rotation ? data[i].rotation.z : 0;
+    if (!realTimeProgress) {
+      for (let i = 0; i < data.length; i++) {
+        data[i].source.position.x = data[i].position ? data[i].position.x : 0;
+        data[i].source.position.y = data[i].position ? data[i].position.y : 0;
+        data[i].source.position.z = data[i].position ? data[i].position.z : 0;
+        data[i].source.rotation.x = data[i].rotation ? data[i].rotation.x : 0;
+        data[i].source.rotation.y = data[i].rotation ? data[i].rotation.y : 0;
+        data[i].source.rotation.z = data[i].rotation ? data[i].rotation.z : 0;
+      }
     }
-  }, [data, layoutIdx]);
+  }, [data, layoutIdx, realTimeProgress]);
   useLayout({ data, layoutIdx });
   useEffect(() => {
-    for (let i = 0; i < data.length; i++) {
-      data[i].target.position.x = data[i].position ? data[i].position.x : 0;
-      data[i].target.position.y = data[i].position ? data[i].position.y : 0;
-      data[i].target.position.z = data[i].position ? data[i].position.z : 0;
-      data[i].target.rotation.x = data[i].rotation ? data[i].rotation.x : 0;
-      data[i].target.rotation.y = data[i].rotation ? data[i].rotation.y : 0;
-      data[i].target.rotation.z = data[i].rotation ? data[i].rotation.z : 0;
+    if (!realTimeProgress) {
+      for (let i = 0; i < data.length; i++) {
+        data[i].target.position.x = data[i].position ? data[i].position.x : 0;
+        data[i].target.position.y = data[i].position ? data[i].position.y : 0;
+        data[i].target.position.z = data[i].position ? data[i].position.z : 0;
+        data[i].target.rotation.x = data[i].rotation ? data[i].rotation.x : 0;
+        data[i].target.rotation.y = data[i].rotation ? data[i].rotation.y : 0;
+        data[i].target.rotation.z = data[i].rotation ? data[i].rotation.z : 0;
+      }
     }
-  }, [data, layoutIdx]);
+  }, [data, layoutIdx, realTimeProgress]);
+  //If Real Time
 }
 
 function interpolateLayout({ data, progress }) {
@@ -81,17 +92,30 @@ function interpolateLayout({ data, progress }) {
   }
 }
 
-export function useAnimatedLayout({ data, layoutIdx, onChange }) {
-  useSourceTargetLayout({ data, layoutIdx });
+export function useAnimatedLayout({
+  realTimeProgress,
+  data,
+  layoutIdx,
+  onChange,
+}) {
+  useSourceTargetLayout({ data, layoutIdx, realTimeProgress });
   const prevLayout = useRef(layoutIdx);
 
+  // if (realTimeProgress) {
+  //   console.log(realTimeProgress);
+  //   interpolateLayout({ data, progress: realTimeProgress });
+  //   console.log("96");
+  //   console.log(data);
+  //   onChange({ realTimeProgress });
+  // }
   const animProps = useSpring({
     from: { animProgress: 0 },
     to: { animProgress: 1 },
-    config: CONFIG[0].animation,
+    config: realTimeProgress ? CONFIG[0].animation[0] : CONFIG[0].animation[1],
     reset: layoutIdx !== prevLayout.current,
     onChange: (animProgress) => {
       const progress = animProgress.value.animProgress;
+
       interpolateLayout({ data, progress });
       onChange({ progress });
     },
