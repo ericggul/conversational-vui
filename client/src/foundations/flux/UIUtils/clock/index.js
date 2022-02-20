@@ -64,7 +64,8 @@ export default function Clock({
           top={unitWidth / 2 + adjustedInner * Math.cos((e / 6) * Math.PI)}
           left={unitWidth / 2 - adjustedInner * Math.sin((e / 6) * Math.PI)}
           angle={30 * e}
-          onClick={() => {
+          onClick={(ev) => {
+            ev.preventDefault();
             !realTimeMode && clicked((e + 6) % 12);
             !realTimeMode && setCurrentLayout((e + 6) % 12);
           }}

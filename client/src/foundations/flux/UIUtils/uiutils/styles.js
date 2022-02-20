@@ -1,5 +1,35 @@
 import styled from "styled-components";
 
+export const UtilsShower = styled.div`
+  position: absolute;
+  bottom: 14rem;
+  right: 2rem;
+  font-size: 0.8rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const UtilsContainer = styled.div`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  ${({ theme }) => theme.windowWidth < 768 && "left: 0;"}
+  ${({ theme }) => theme.windowWidth > 768 && "right: 3rem;"}
+  ${({ theme }) => theme.windowWidth < 768 && "margin: auto;"}
+  width: 12rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  ${({ theme }) => theme.windowWidth < 768 && "width: 100%;"}
+  ${({ theme }) => theme.windowWidth < 768 && "flex-direction: row;"}
+
+  
+  transition: opacity 1s;
+`;
+
 export const RealTimeModal = styled.div`
   color: white;
   display: flex;
@@ -7,13 +37,16 @@ export const RealTimeModal = styled.div`
   justify-content: center;
   flex-direction: column;
   margin: 1rem;
+
+  ${({ theme }) => theme.windowWidth < 768 && "width: calc(50vw - 6rem);"}
+  ${({ theme }) => theme.windowWidth < 768 && "margin: 1rem 0;"}
 `;
 
 export const Box = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0.3rem;
+  margin: 0.8rem 0;
 `;
 
 export const El = styled.div`
@@ -29,20 +62,6 @@ export const El = styled.div`
   transition: 2s;
 `;
 
-export const UtilsContainer = styled.div`
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  ${({ theme }) => theme.windowWidth < 768 && "left: 0;"}
-  ${({ theme }) => theme.windowWidth > 768 && "right: 3rem;"}
-  ${({ theme }) => theme.windowWidth < 768 && "margin: auto;"}
-  width: 12rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-`;
-
 export const ResetPosition = styled.div`
   width: 12rem;
   color: white;
@@ -52,4 +71,6 @@ export const ResetPosition = styled.div`
   flex-direction: column;
   margin-bottom: 2rem;
   cursor: pointer;
+
+  ${({ theme }) => theme.windowWidth < 768 && "width: calc(50vw - 6rem);"}
 `;

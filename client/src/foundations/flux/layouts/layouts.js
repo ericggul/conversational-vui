@@ -272,8 +272,8 @@ export function squareLayout(data) {
   for (let i = 0; i < numPoints; i++) {
     const datum = data[i];
 
-    datum.store.position.x = (Math.floor(i / 32) - 8) * 10;
-    datum.store.position.y = ((i % 32) - 16) * 10;
+    datum.store.position.x = (Math.floor(i / 32) - 7.5) * 10;
+    datum.store.position.y = ((i % 32) - 15.5) * 10;
     datum.store.position.z = 0;
 
     datum.store.rotation.x = Math.PI / 2;
