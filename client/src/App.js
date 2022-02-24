@@ -1,5 +1,5 @@
 import useResize from "@U/hooks/useResize";
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, Suspense } from "react";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
@@ -9,11 +9,11 @@ import MainPage from "@P/MainPage";
 
 import ChatInterface1 from "@P/ChatUIPage/ChatInterface1";
 import ChatInterface2 from "@P/ChatUIPage/ChatInterface2";
-import ChatIntro from "@P/ChatUIPage/ChatIntro";
-import ChatPage from "@P/ChatUIPage/ChatPage";
 
 import MetaPage from "@P/Meta";
-import FluxPage from "@P/Flux";
+import ChronologyPage from "@P/Chronology";
+
+import SuspenseLoading from "@/foundations/chronology/Suspense";
 
 function App() {
   // useEffect(() => {
@@ -51,14 +51,16 @@ function App() {
     <ThemeProvider theme={themeWithWindowSize}>
       <GlobalStyle />
       <Router>
-        <Switch>
-          <Route exact={true} path="/" component={MainPage} />
-          <Route path="/chat-interface-one" component={ChatInterface1} />
-          <Route path="/chat-interface-two" component={ChatInterface2} />
+        <Suspense fallback={<SuspenseLoading />}>
+          <Switch>
+            <Route exact={true} path="/" component={MainPage} />
+            <Route path="/chat-interface-one" component={ChatInterface1} />
+            <Route path="/chat-interface-two" component={ChatInterface2} />
 
-          <Route path="/meta" component={MetaPage} />
-          <Route path="/flux" component={FluxPage} />
-        </Switch>
+            <Route path="/meta" component={MetaPage} />
+            <Route path="/chronology" component={ChronologyPage} />
+          </Switch>
+        </Suspense>
       </Router>
     </ThemeProvider>
   );

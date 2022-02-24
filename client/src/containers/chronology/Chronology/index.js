@@ -8,9 +8,9 @@ import React, {
 import * as THREE from "three";
 import { Canvas, useThree, useFrame } from "@react-three/fiber";
 
-import UIUtils from "@/foundations/flux/UIUtils/uiutils";
-
-import { Model } from "@F/flux/model";
+import UIUtils from "@F/chronology/UIUtils/uiutils";
+import Caption from "@F/chronology/Caption";
+import { Model } from "@F/chronology/model";
 import * as S from "./styles";
 import { OrbitControls } from "@react-three/drei";
 
@@ -52,13 +52,15 @@ const CameraControls = ({ reset, resetComplete }) => {
       ref={controls}
       args={[camera, domElement]}
       enableDamping
-      zoomSpeed={0.3}
+      panSpeed={0.2}
+      rotateSpeed={0.2}
+      zoomSpeed={0.1}
       dampingFactor={0.01}
     />
   );
 };
 
-function Flux() {
+function Chronology() {
   const [resetCamera, setResetCamera] = useState(false);
   const [realTimeMode, setRealTimeMode] = useState(true);
 
@@ -126,6 +128,7 @@ function Flux() {
             resetComplete={() => setResetCamera(false)}
           />
         </Canvas>
+        <Caption layout={layout} realTimeMode={realTimeMode} />
         <UIUtils
           current={layoutIdx}
           clicked={(i) => setLayoutIdx(i)}
@@ -139,6 +142,6 @@ function Flux() {
     </>
   );
 }
-export default Flux;
+export default Chronology;
 
-Flux.propTypes = {};
+Chronology.propTypes = {};

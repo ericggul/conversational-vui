@@ -1,16 +1,5 @@
 import styled from "styled-components";
 
-export const UtilsShower = styled.div`
-  position: absolute;
-  bottom: 14rem;
-  right: 2rem;
-  font-size: 0.8rem;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
 export const UtilsContainer = styled.div`
   position: absolute;
   bottom: 0;
@@ -26,8 +15,17 @@ export const UtilsContainer = styled.div`
   ${({ theme }) => theme.windowWidth < 768 && "width: 100%;"}
   ${({ theme }) => theme.windowWidth < 768 && "flex-direction: row;"}
 
-  
-  transition: opacity 1s;
+
+  @keyframes appear {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  animation: appear 1s backwards;
 `;
 
 export const RealTimeModal = styled.div`
@@ -54,12 +52,14 @@ export const El = styled.div`
   width: 2rem;
   height: 1rem;
   padding: 0.3rem 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
   color: rgba(255, 255, 255, 0.5);
   border: 1px solid rgba(0, 0, 0, 0);
   ${(props) => props.selected && `border: 1px solid white;`}
   ${(props) => props.selected && `color: white;`}
-  transition: 2s;
 `;
 
 export const ResetPosition = styled.div`

@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import * as S from "./styles";
 
-import Clock from "@F/flux/UIUtils/clock";
-
+import Clock from "@F/chronology/UIUtils/clock";
+import useMouseInteraction from "@U/hooks/useMouseInteraction";
 export default function UIUtils({
   current,
   clicked,
@@ -15,20 +15,23 @@ export default function UIUtils({
   const [showUtils, setShowUtils] = useState(false);
   const containerRef = useRef(null);
 
-  const utilToggle = (e) => {
-    if (!containerRef.current || !containerRef.current.contains(e.target)) {
-      setShowUtils((util) => !util);
-    }
-  };
+  const { handlePointerDown, handleClick } = useMouseInteraction({
+    containerRef,
+
+    setShowUtils,
+  });
 
   useEffect(() => {
     const timeout = setTimeout(() => {
       setShowUtils(true);
     }, 3000);
-    document.addEventListener("click", utilToggle);
+
+    document.addEventListener("pointerdown", handlePointerDown);
+    document.addEventListener("click", handleClick);
     return () => {
       clearTimeout(timeout);
-      document.removeEventListener("click", utilToggle);
+      document.removeEventListener("pointerdown", handlePointerDown);
+      document.removeEventListener("click", handleClick);
     };
   }, []);
 

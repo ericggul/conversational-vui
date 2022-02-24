@@ -27,6 +27,7 @@ export const Small = styled.div`
   position: absolute;
   width: 0.125rem;
   height: 2rem;
+
   background: linear-gradient(#fff, rgba(0, 0, 0, 0));
   ${(props) => props.current && `background: #fff;`}
   ${(props) =>
@@ -51,8 +52,17 @@ export const Text = styled.div`
   top: ${(props) => props.top}rem;
   left: ${(props) => props.left}rem;
 
+  opacity: 0;
+  opacity: ${(props) => props.show && "1"};
   cursor: pointer;
   color: white;
+
+  transition: opacity 0.3s;
+
+  display: flex;
+  align-items: center;
+  justify-contetn: center;
+  padding: 2rem;
 `;
 
 export const Hour = styled.div`

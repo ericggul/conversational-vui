@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useSpring } from "@react-spring/three";
-import { CONFIG } from "@F/flux/layouts/config";
+import { CONFIG } from "@/foundations/chronology/layouts/config";
 import {
   circleLayout,
   sphereLayout,
@@ -15,7 +15,7 @@ import {
   jarLayout,
   giwaLayout,
   randomLayout,
-} from "@F/flux/layouts/layouts";
+} from "@/foundations/chronology/layouts/layouts";
 
 export function useLayout({ data, layoutIdx, update = true }) {
   useEffect(() => {

@@ -2,7 +2,7 @@ import React, { useState, Suspense, useRef, useEffect } from "react";
 import * as THREE from "three";
 import { Canvas, useLoader } from "@react-three/fiber";
 import { PLYLoader } from "three/examples/jsm/loaders/PLYLoader";
-import { useAnimatedLayout } from "@/foundations/flux/layouts/hooks";
+import { useAnimatedLayout } from "@/foundations/chronology/layouts/hooks";
 
 function updateInstancedMeshMaterials({ mesh, data }) {
   const scratchObject3D = new THREE.Object3D();
@@ -24,11 +24,12 @@ function updateInstancedMeshMaterials({ mesh, data }) {
 }
 
 export const Model = ({ layout, progress, data, realTimeMode }) => {
+  const [loaded, setLoaded] = useState(false);
   const object = useLoader(
     PLYLoader,
-    "/assets/flux/tower.ply",
+    "/assets/chronology/tower.ply",
     (loader) => {
-      //success
+      setLoaded(true);
     },
     (xhr) => {
       const loadedStatus = xhr.loaded / xhr.total;
@@ -47,8 +48,10 @@ export const Model = ({ layout, progress, data, realTimeMode }) => {
   });
 
   useEffect(() => {
-    updateInstancedMeshMaterials({ mesh: meshRef.current, data });
-  }, [data, layout, realTimeMode]);
+    if (loaded) {
+      updateInstancedMeshMaterials({ mesh: meshRef.current, data });
+    }
+  }, [data, layout, realTimeMode, loaded]);
 
   return (
     <>

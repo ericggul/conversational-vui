@@ -205,17 +205,17 @@ export function orbitalLayout(data) {
 export function helixLayout(data) {
   const numPoints = data.length;
 
-  const r = 30;
-  const radialElements = 16;
+  const r = 60;
+  const radialElements = 140;
   const helixNumber = 2;
-  const yInterval = 10;
+  const yInterval = 2.4;
 
   for (let i = 0; i < numPoints; i++) {
     const datum = data[i];
 
     const j = Math.floor(i / helixNumber);
 
-    const yPos = j;
+    const yPos = j - numPoints / 4;
     const theta =
       ((j % radialElements) / radialElements) * Math.PI * 2 +
       ((i % helixNumber) / helixNumber) * Math.PI * 2;
@@ -223,19 +223,44 @@ export function helixLayout(data) {
     const straightX = r * Math.cos(theta);
     const straightY = yPos * yInterval;
     const straightZ = r * Math.sin(theta);
-    const yMax = 256 * yInterval;
 
-    const phi = (straightY / yMax) * Math.PI * 2;
-    const R = yMax / (Math.PI * 2);
+    // const phi = (straightY / yMax) * Math.PI * 2;
+    // const R = yMax / (Math.PI * 2);
 
-    datum.store.position.x = (R + straightX) * Math.sin(phi);
-    datum.store.position.y = (R + straightX) * Math.cos(phi);
-    datum.store.position.z = -100 + straightZ;
+    datum.store.position.x = straightX;
+    datum.store.position.y = straightY;
+    datum.store.position.z = straightZ;
+
+    // datum.store.position.x = (R + straightX) * Math.sin(phi);
+    // datum.store.position.y = (R + straightX) * Math.cos(phi);
+    // datum.store.position.z = -100 + straightZ;
 
     datum.store.rotation.x = 0;
     datum.store.rotation.y = -theta;
-    datum.store.rotation.z = -phi;
+    datum.store.rotation.z = 0;
   }
+
+  // for (let k = numPoints/2; k< numPoints; k++) {
+  //   let i = k - numPoints/2;
+  //   const datum = data[i];
+  //   const j = Math.floor(i / helixNumber);
+
+  //   const yPos = j;
+  //   const theta =
+  //     ((j % radialElements) / radialElements) * Math.PI * 2 +
+  //     ((i % helixNumber) / helixNumber) * Math.PI * 2;
+
+  //   const straightX = r * Math.cos(theta);
+  //   const straightY = yPos * yInterval;
+  //   const straightZ = r * Math.sin(theta);
+  //   datum.store.position.x = straightX;
+  //   datum.store.position.y = straightY;
+  //   datum.store.position.z = straightZ;
+
+  //   datum.store.rotation.x = 0;
+  //   datum.store.rotation.y = -theta;
+  //   datum.store.rotation.z = 0;
+  // }
 }
 
 export function bellLayout(data) {

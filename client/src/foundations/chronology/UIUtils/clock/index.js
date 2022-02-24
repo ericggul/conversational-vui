@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import * as S from "./styles";
-import { useSpring } from "@react-spring/three";
-import { CONFIG } from "@F/flux/layouts/config";
+
 export default function Clock({
   current,
   clicked,
@@ -42,21 +41,22 @@ export default function Clock({
         />
       ))}
 
-      {!realTimeMode && (
-        <S.Text
-          top={
-            unitWidth / 2 -
-            adjustedText * Math.cos((currentLayout / 6) * Math.PI)
-          }
-          left={
-            unitWidth / 2 +
-            adjustedText * Math.sin((currentLayout / 6) * Math.PI)
-          }
-          angle={30 * currentLayout}
-        >
-          {currentLayout === 0 ? null : currentLayout}
-        </S.Text>
-      )}
+      {!realTimeMode &&
+        [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((e, i) => (
+          <S.Text
+            top={unitWidth / 2 - adjustedText * Math.cos((e / 6) * Math.PI)}
+            left={unitWidth / 2 + adjustedText * Math.sin((e / 6) * Math.PI)}
+            angle={30 * e}
+            onClick={(ev) => {
+              ev.preventDefault();
+              !realTimeMode && clicked(e);
+              !realTimeMode && setCurrentLayout(e);
+            }}
+            show={e === currentLayout}
+          >
+            {e}
+          </S.Text>
+        ))}
 
       {[1, 2, 4, 5, 7, 8, 10, 11].map((e, i) => (
         <S.Small
