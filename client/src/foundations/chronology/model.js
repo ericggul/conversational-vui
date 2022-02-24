@@ -23,7 +23,7 @@ function updateInstancedMeshMaterials({ mesh, data }) {
   mesh.instanceMatrix.needsUpdate = true;
 }
 
-export const Model = ({ layout, progress, data, realTimeMode }) => {
+export const Model = ({ layout, prevLayout, progress, data, realTimeMode }) => {
   const [loaded, setLoaded] = useState(false);
   const object = useLoader(
     PLYLoader,
@@ -42,6 +42,7 @@ export const Model = ({ layout, progress, data, realTimeMode }) => {
     realTimeProgress: progress,
     data,
     layoutIdx: layout,
+    prevLayout: prevLayout,
     onChange: () => {
       updateInstancedMeshMaterials({ mesh: meshRef.current, data });
     },

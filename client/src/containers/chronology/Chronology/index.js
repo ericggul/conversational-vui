@@ -69,22 +69,30 @@ function Chronology() {
   const [layout, setLayout] = useState(
     realTimeMode ? timeNow.getHours() % 12 : layoutIdx
   );
+  const [prevLayout, setPrevLayout] = useState(null);
   const [progress, setProgress] = useState(
     realTimeMode ? timeNow.getMinutes() / 60 + 0.001 : null
   );
 
-  const timeChecker = useCallback(() => {
-    timeNow = new Date();
-    setLayout(timeNow.getHours() % 12);
-    setProgress(timeNow.getMinutes() / 60 + 0.001);
-  }, [realTimeMode]);
+  const timeChecker = useCallback(
+    (firstAttempt = false) => {
+      timeNow = new Date();
+      if (!firstAttempt) {
+        setPrevLayout(layout);
+      }
+      setLayout(timeNow.getHours() % 12);
+      setProgress(timeNow.getMinutes() / 60 + 0.001);
+    },
+    [realTimeMode]
+  );
   useEffect(() => {
     if (realTimeMode) {
-      timeChecker();
-      let interval = window.setInterval(timeChecker, 60000);
+      timeChecker(true);
+      let interval = window.setInterval(timeChecker, 1000);
       return () => window.clearInterval(interval);
     } else {
       setLayout(layoutIdx);
+      setPrevLayout(null);
       setProgress(null);
     }
   }, [realTimeMode, layoutIdx]);
@@ -118,6 +126,7 @@ function Chronology() {
           <Suspense fallback={null}>
             <Model
               layout={layout}
+              prevLayout={prevLayout}
               progress={progress}
               data={DATA}
               realTimeMode={realTimeMode}

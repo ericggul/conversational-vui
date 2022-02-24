@@ -16,6 +16,7 @@
     "@react-three/cannon": "^2.6.1",
     "@react-three/drei": "^7.4.0",
     "@react-three/fiber": "^7.0.6",
+    "@reduxjs/toolkit": "^1.7.2",
     "aes256": "^1.1.0",
     "axios": "^0.23.0",
     "canvas-confetti": "^1.4.0",

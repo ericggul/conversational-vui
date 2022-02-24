@@ -41,21 +41,32 @@ const DUMMY_DATA = new Array(8 ** 3).fill(0).map((_, id) => ({
   store: { position: { x: 0, y: 0, z: 0 }, rotation: { x: 0, y: 0, z: 0 } },
 }));
 
-export function useDoubleLayout({ data, layoutIdx, update = true }) {
+export function useDoubleLayout({
+  data,
+  layoutIdx,
+  prevLayout,
+  update = true,
+}) {
   useEffect(() => {
     if (update) {
-      if (layoutIdx === 0) circleLayout(DUMMY_DATA);
-      else if (layoutIdx === 1) sphereLayout(DUMMY_DATA);
-      else if (layoutIdx === 2) cylinderLayout(DUMMY_DATA);
-      else if (layoutIdx === 3) pyramidesLayout(DUMMY_DATA);
-      else if (layoutIdx === 4) cubeLayout(DUMMY_DATA);
-      else if (layoutIdx === 5) towerLayout(DUMMY_DATA);
-      else if (layoutIdx === 6) orbitalLayout(DUMMY_DATA);
-      else if (layoutIdx === 7) helixLayout(DUMMY_DATA);
-      else if (layoutIdx === 8) bellLayout(DUMMY_DATA);
-      else if (layoutIdx === 9) squareLayout(DUMMY_DATA);
-      else if (layoutIdx === 10) jarLayout(DUMMY_DATA);
-      else if (layoutIdx === 11) giwaLayout(DUMMY_DATA);
+      if (prevLayout != null) {
+        for (let i = 0; i < data.length; i++) {
+          DUMMY_DATA[i].store = data[i].store;
+        }
+      } else {
+        if (layoutIdx === 0) circleLayout(DUMMY_DATA);
+        else if (layoutIdx === 1) sphereLayout(DUMMY_DATA);
+        else if (layoutIdx === 2) cylinderLayout(DUMMY_DATA);
+        else if (layoutIdx === 3) pyramidesLayout(DUMMY_DATA);
+        else if (layoutIdx === 4) cubeLayout(DUMMY_DATA);
+        else if (layoutIdx === 5) towerLayout(DUMMY_DATA);
+        else if (layoutIdx === 6) orbitalLayout(DUMMY_DATA);
+        else if (layoutIdx === 7) helixLayout(DUMMY_DATA);
+        else if (layoutIdx === 8) bellLayout(DUMMY_DATA);
+        else if (layoutIdx === 9) squareLayout(DUMMY_DATA);
+        else if (layoutIdx === 10) jarLayout(DUMMY_DATA);
+        else if (layoutIdx === 11) giwaLayout(DUMMY_DATA);
+      }
     }
     if (update) {
       if (layoutIdx === 11) circleLayout(data);
@@ -74,8 +85,18 @@ export function useDoubleLayout({ data, layoutIdx, update = true }) {
   }, [data, layoutIdx, update]);
 }
 
-export function useRealTimeLayout({ data, layoutIdx, realTimeProgress }) {
-  useDoubleLayout({ data, layoutIdx, update: realTimeProgress != null });
+export function useRealTimeLayout({
+  data,
+  layoutIdx,
+  prevLayout,
+  realTimeProgress,
+}) {
+  useDoubleLayout({
+    data,
+    layoutIdx,
+    prevLayout,
+    update: realTimeProgress != null && prevLayout !== layoutIdx,
+  });
 
   useEffect(() => {
     if (realTimeProgress) {
@@ -126,7 +147,12 @@ export function useRealTimeLayout({ data, layoutIdx, realTimeProgress }) {
   }, [data, layoutIdx, realTimeProgress]);
 }
 
-function useSourceTargetLayout({ data, layoutIdx, realTimeProgress }) {
+function useSourceTargetLayout({
+  data,
+  layoutIdx,
+  prevLayout,
+  realTimeProgress,
+}) {
   //If Not Real Time
   useLayout({ data, layoutIdx, update: realTimeProgress == null });
   useEffect(() => {
@@ -160,7 +186,7 @@ function useSourceTargetLayout({ data, layoutIdx, realTimeProgress }) {
     }
   }, [data, layoutIdx, realTimeProgress]);
   //If Real Time
-  useRealTimeLayout({ data, layoutIdx, realTimeProgress });
+  useRealTimeLayout({ data, layoutIdx, prevLayout, realTimeProgress });
 }
 
 function interpolateLayout({ data, progress }) {
@@ -190,10 +216,11 @@ export function useAnimatedLayout({
   realTimeProgress,
   data,
   layoutIdx,
+  prevLayout,
   onChange,
 }) {
-  useSourceTargetLayout({ data, layoutIdx, realTimeProgress });
-  const prevLayout = useRef(layoutIdx);
+  useSourceTargetLayout({ data, layoutIdx, prevLayout, realTimeProgress });
+  const springLayoutUpdateCheck = useRef(layoutIdx);
   const timeProgress = useRef(realTimeProgress);
 
   const animProps = useSpring({
@@ -201,7 +228,7 @@ export function useAnimatedLayout({
     to: { animProgress: 1 },
     config: realTimeProgress ? CONFIG[0].animation[0] : CONFIG[0].animation[1],
     reset:
-      layoutIdx !== prevLayout.current ||
+      layoutIdx !== springLayoutUpdateCheck.current ||
       realTimeProgress !== timeProgress.current,
     onChange: (animProgress) => {
       const progress = animProgress.value.animProgress;
@@ -209,7 +236,7 @@ export function useAnimatedLayout({
       onChange({ progress });
     },
     onRest: () => {
-      prevLayout.current = layoutIdx;
+      springLayoutUpdateCheck.current = layoutIdx;
       timeProgress.current = realTimeProgress;
     },
   });

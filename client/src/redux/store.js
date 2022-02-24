@@ -1,18 +1,4 @@
-import { createStore, combineReducers, compose, applyMiddleware } from "redux";
+import { configureStore } from "@reduxjs/toolkit";
+import counterReducer from "./slice";
 
-const ProcessReducer = (state = {}, action) => {
-  switch (action.type) {
-    case "PROCESS":
-      return { ...action.payload };
-    default:
-      return state;
-  }
-};
-
-const reducer = combineReducers({
-  ProcessReducer: ProcessReducer,
-});
-
-const store = createStore(reducer);
-
-export default store;
+export const store = configureStore({ reducer: counterReducer });

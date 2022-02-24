@@ -14,6 +14,7 @@
 //layout 10: Helix
 //layout 11: White Jar
 //layout 12: Giwa
+
 const getRandom = (a, b) => Math.random() * (b - a) + a;
 
 export function circleLayout(data) {
@@ -239,28 +240,6 @@ export function helixLayout(data) {
     datum.store.rotation.y = -theta;
     datum.store.rotation.z = 0;
   }
-
-  // for (let k = numPoints/2; k< numPoints; k++) {
-  //   let i = k - numPoints/2;
-  //   const datum = data[i];
-  //   const j = Math.floor(i / helixNumber);
-
-  //   const yPos = j;
-  //   const theta =
-  //     ((j % radialElements) / radialElements) * Math.PI * 2 +
-  //     ((i % helixNumber) / helixNumber) * Math.PI * 2;
-
-  //   const straightX = r * Math.cos(theta);
-  //   const straightY = yPos * yInterval;
-  //   const straightZ = r * Math.sin(theta);
-  //   datum.store.position.x = straightX;
-  //   datum.store.position.y = straightY;
-  //   datum.store.position.z = straightZ;
-
-  //   datum.store.rotation.x = 0;
-  //   datum.store.rotation.y = -theta;
-  //   datum.store.rotation.z = 0;
-  // }
 }
 
 export function bellLayout(data) {
@@ -347,7 +326,7 @@ export function giwaLayout(data) {
     datum.store.position.y =
       -Math.cos(xLoc / 25) * 130 +
       90 +
-      (-zLoc) ** 1.1 * 5 +
+      (-zLoc + 0.05) ** 1.1 * 4.5 +
       getRandom(
         getRandom(0.13 * (zLoc - 2), 0),
         getRandom(0, 0.13 * -(zLoc - 2))

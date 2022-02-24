@@ -31,7 +31,6 @@ function Caption({ layout, realTimeMode }) {
   }, [layout, realTimeMode]);
 
   useEffect(() => {
-    console.log(text);
     if (textRef && textRef.current && text) {
       let target = textRef.current;
       target.innerHTML = "";
@@ -54,8 +53,24 @@ function Caption({ layout, realTimeMode }) {
             ],
             {
               duration: 1000,
-              delay: i * 500,
+              delay: i * 350,
               fill: "backwards",
+            }
+          );
+
+          n.animate(
+            [
+              {
+                opacity: 1,
+              },
+              {
+                opacity: 0,
+              },
+            ],
+            {
+              duration: 1000,
+              delay: i * 350 + 8000,
+              fill: "forwards",
             }
           );
 
