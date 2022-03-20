@@ -11,7 +11,8 @@ export const Original = styled.div`
   width: 100vw;
   ${FlexCenterStyle};
   flex-direction: column;
-  margin: 1rem;
+  margin: 0;
+  padding: 0;
 `;
 
 export const CanvasContainer = styled.div`

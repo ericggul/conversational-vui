@@ -52,17 +52,51 @@ const MorphingBox = () => {
   );
 };
 
+const PlaneMesh = ({ texture, size }) => {
+  const [planeSize, setPlaneSize] = useState({ width: 10, height: 10 });
+  const planeRef = useRef();
+  useThree((state) => {
+    const distance = state.camera.position.z;
+    const fov = (state.camera.fov * Math.PI) / 180;
+    const planeHeightAtDistance = 2 * Math.tan(fov / 2) * distance;
+    // setPlaneSize({
+    //   width: (planeHeightAtDistance * size.width) / size.height,
+    //   height: planeHeightAtDistance,
+    // });
+    if (planeRef && planeRef.current) {
+      //   planeRef.current.setScale(2);
+      console.log(planeRef.current);
+    }
+  });
+
+  console.log(planeSize);
+  return (
+    <mesh>
+      <planeGeometry ref={planeRef} args={[10, 10, 32, 32]} color="white" />
+      <meshPhongMaterial map={texture} />
+    </mesh>
+  );
+};
+
 const OriginalItem = () => {
   const [canvas, setCanvas] = useState(null);
   const htmlRef = useRef();
   const canvasRef = useRef();
+  const [texture, setTexture] = useState(null);
+  const [size, setSize] = useState({ width: 0, height: 0 });
+
   useEffect(() => {
     if (htmlRef && htmlRef.current) {
+      const boundingSize = htmlRef.current.getBoundingClientRect();
+      setSize({ width: boundingSize.width, height: boundingSize.height });
+
       html2canvas(htmlRef.current).then((canvas) => {
         setTimeout(() => {
           setCanvas(canvas);
-          canvasRef.current.appendChild(canvas);
-        }, 3000);
+          let tempTexture = new THREE.CanvasTexture(canvas);
+          tempTexture.needsUpdate = true;
+          setTexture(tempTexture);
+        }, 100);
       });
     }
   }, [htmlRef]);
@@ -75,7 +109,11 @@ const OriginalItem = () => {
           <S.Body>{`${Math.random().toString(36)} `.repeat(100)}</S.Body>
         </S.Original>
       ) : (
-        <S.CanvasContainer ref={canvasRef} />
+        <Canvas shadows dpr={[1, 2]} camera={{ fov: 100, position: [0, 0, 20] }}>
+          <ambientLight intensity={0.2} />
+          <directionalLight intensity={3} color={"white"} position={[100, 0, 100]} castShadow shadow-mapSize={[1024, 1024]} />
+          <PlaneMesh texture={texture} size={size} />
+        </Canvas>
       )}
     </>
   );

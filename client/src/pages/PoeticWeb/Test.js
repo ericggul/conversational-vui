@@ -1,7 +1,7 @@
 import React from "react";
-import CylinderContainer from "@C/poeticWeb/CylinderTexture";
+import Triptych from "@/containers/poeticWeb/Triptych";
 
 function MainPage() {
-  return <CylinderContainer />;
+  return <Triptych />;
 }
 export default MainPage;
