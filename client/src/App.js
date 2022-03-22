@@ -15,6 +15,7 @@ import ChronologyPage from "@P/Chronology";
 import PoeticWebTestPage from "@P/PoeticWeb/Test";
 
 import SuspenseLoading from "@/foundations/chronology/Suspense";
+import poeticRoutes from "@P/PoeticWeb/Router";
 
 function App() {
   useEffect(() => {
@@ -30,12 +31,14 @@ function App() {
         <Suspense fallback={<SuspenseLoading />}>
           <Switch>
             <Route exact={true} path="/" component={MainPage} />
-            <Route path="/chat-interface-one" component={ChatInterface1} />
-            <Route path="/chat-interface-two" component={ChatInterface2} />
+            <Route exact path="/chat-interface-one" component={ChatInterface1} />
+            <Route exact path="/chat-interface-two" component={ChatInterface2} />
 
-            <Route path="/meta" component={MetaPage} />
-            <Route path="/chronology" component={ChronologyPage} />
-            <Route path="/poetic-web-test" component={PoeticWebTestPage} />
+            <Route exact path="/meta" component={MetaPage} />
+            <Route exact path="/chronology" component={ChronologyPage} />
+            {poeticRoutes.map((route, i) => (
+              <Route exact key={i} path={`/poetic-web${route.path}`} component={route.component} />
+            ))}
           </Switch>
         </Suspense>
       </Router>

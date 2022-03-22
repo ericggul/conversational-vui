@@ -5,8 +5,11 @@ export const Container = styled.div`
   width: ${({ theme }) => theme.windowWidth}px;
 
   flex-direction: column;
-  font-family: TimesNewRomand, "Times New Roman";
+
+  // font-family: TimesNewRomand, "Times New Roman";
   margin: -2rem 0;
+  overflow-x: hidden;
+  background: black;
 `;
 
 export const HeaderContainer = styled.div`
@@ -49,6 +52,7 @@ export const NewsEl = styled.div`
 
   width: 80%;
   margin-left: 10%;
+  cursor: pointer;
 `;
 
 export const NewsTitle = styled.div`

@@ -1,4 +1,18 @@
 @font-face {
+  font-family: "Raleway Dots", cursive;
+  src: url("./PlayfairDisplay-VariableFont_wght.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Raleway Dots", cursive;
+  src: url("./PlayfairDisplay-Italic-VariableFont_wght.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
   font-family: "EB Garamond", serif;
   src: url("./EBGaramond-Bold.ttf") format("truetype");
   font-weight: bold;

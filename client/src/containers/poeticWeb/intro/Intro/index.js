@@ -1,38 +1,10 @@
 import { useEffect, useState, useRef, useCallback } from "react";
+import { useHistory } from "react-router-dom";
 import * as S from "./styles";
 import deepai from "deepai";
 import axios from "axios";
 import useResize from "@U/hooks/useResize";
-import Hydra from "hydra-synth";
-
-const NewsComp = ({ news }) => {
-  return (
-    <S.NewsContainer>
-      <S.NewsTitle>{news.topic}</S.NewsTitle>
-      <S.NewsAbstract>{news.abstract}</S.NewsAbstract>
-    </S.NewsContainer>
-  );
-};
-
-const HydraComp = () => {
-  const canvasRef = useRef();
-
-  const [windowWidth, windowHeight] = useResize();
-  useEffect(() => {
-    if (canvasRef && canvasRef.current) {
-      canvasRef.current.width = windowWidth;
-      canvasRef.current.height = windowHeight / 3;
-      const h = new Hydra({ canvas: canvasRef.current, detectAudio: false }).synth;
-      h.osc().rotate().out();
-    }
-  }, [canvasRef]);
-
-  return (
-    <S.HydraContainer>
-      <canvas ref={canvasRef} style={{ width: "100%", height: "100%" }} />
-    </S.HydraContainer>
-  );
-};
+import { BasicHeaderContainer } from "@F/poeticWeb/text/IntroHeader";
 
 export default function WebText() {
   const [newsSets, setNewsSets] = useState([]);
@@ -58,7 +30,7 @@ export default function WebText() {
             abstract: res.data.results[i].abstract,
           };
 
-          resultArray.push(news);
+          resultArray.push(res.data.results[i]);
         }
         setNewsSets(resultArray);
       } catch (error) {
@@ -70,11 +42,30 @@ export default function WebText() {
 
   const containerRef = useRef();
 
+  const history = useHistory();
+  const newsElClick = useCallback(
+    (i) => {
+      history.push({
+        pathname: "/poetic-web/detail",
+        state: {
+          newsSets: newsSets[i],
+        },
+      });
+    },
+    [newsSets]
+  );
+
   return (
     <S.Container ref={containerRef}>
-      <HydraComp />
-      {newsSets[3] && <NewsComp news={newsSets[3]} />}
-      <HydraComp />
+      <BasicHeaderContainer text="Breaking News" />
+      {newsSets.length > 0 && newsSets.slice(0, 5).map((news, i) => <BasicHeaderContainer onClick={() => newsElClick(i)} text={news.title} />)}
+      <BasicHeaderContainer text="Live from World" />
+      {newsSets.length > 0 && newsSets.slice(5, 10).map((news, i) => <BasicHeaderContainer text={news.title} />)}
+      <BasicHeaderContainer text="Breaking News" />
+      {newsSets.length > 0 && newsSets.slice(10, 15).map((news, i) => <BasicHeaderContainer text={news.title} />)}
+      <BasicHeaderContainer text="Like, Comment, Subscribe" />
+      {newsSets.length > 0 && newsSets.slice(15, 20).map((news, i) => <BasicHeaderContainer text={news.title} />)}
+      <BasicHeaderContainer text="Breaking News" />
     </S.Container>
   );
 }
