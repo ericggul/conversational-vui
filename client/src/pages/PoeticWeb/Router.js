@@ -1,16 +1,12 @@
-import IntroPage from "@P/PoeticWeb/Intro";
-import DetailPage from "@P/PoeticWeb/Detail";
+import TestingPage from "@P/PoeticWeb/Testing";
+
 import TheMoreTheBetterIntro from "@P/PoeticWeb/theMoreTheBetter/Intro";
 import TheMoreTheBetterDetail from "@P/PoeticWeb/theMoreTheBetter/Detail";
 
 const poeticRoutes = [
   {
-    path: "/poetic-web",
-    component: IntroPage,
-  },
-  {
-    path: "/poetic-web/detail",
-    component: DetailPage,
+    path: "/poetic-web-testing",
+    component: TestingPage,
   },
 ];
 

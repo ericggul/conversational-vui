@@ -2,7 +2,7 @@ import useResize from "@U/hooks/useResize";
 import React, { useEffect, useMemo, Suspense } from "react";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import styled, { ThemeProvider } from "styled-components";
+import { ThemeProvider } from "styled-components";
 import { GlobalStyle, theme } from "@S/index";
 
 import MainPage from "@P/MainPage";
@@ -12,9 +12,8 @@ import ChatInterface2 from "@P/ChatUIPage/ChatInterface2";
 
 import MetaPage from "@P/Meta";
 import ChronologyPage from "@P/Chronology";
-import PoeticWebTestPage from "@P/PoeticWeb/Test";
 
-import SuspenseLoading from "@/foundations/chronology/Suspense";
+import SuspenseLoading from "@F/chronology/Suspense";
 import poeticRoutes from "@P/PoeticWeb/Router";
 
 function App() {
