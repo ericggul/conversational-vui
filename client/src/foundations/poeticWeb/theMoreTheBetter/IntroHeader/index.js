@@ -50,7 +50,6 @@ const BasicHeaderContainer = ({ text = "Breaking News", onClick }) => {
         <S.MovingHeader top={(Math.random() < 0.5 ? -1 : 1) * getRandom(0, getRandom(0, 0.5))} key={i} idx={i} elNumber={elNumber} ref={ref}>
           {text}{" "}
         </S.MovingHeader>
-        // <FlipHeader key={i} text={text} ref={ref} />
       ))}
     </S.HeaderContainer>
   );

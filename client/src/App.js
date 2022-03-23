@@ -37,7 +37,7 @@ function App() {
             <Route exact path="/meta" component={MetaPage} />
             <Route exact path="/chronology" component={ChronologyPage} />
             {poeticRoutes.map((route, i) => (
-              <Route exact key={i} path={`/poetic-web${route.path}`} component={route.component} />
+              <Route exact key={i} path={route.path} component={route.component} />
             ))}
           </Switch>
         </Suspense>

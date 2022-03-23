@@ -58,8 +58,6 @@ export default function WebText(props) {
     <S.Container ref={containerRef}>
       <HydraComp />
       <ContentsComp news={news} />
-      {/* {news && <NewsComp news={news} />}
-      <HydraComp /> */}
     </S.Container>
   );
 }
