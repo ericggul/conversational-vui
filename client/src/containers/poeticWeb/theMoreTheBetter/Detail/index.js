@@ -1,8 +1,7 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import * as S from "./styles";
-import deepai from "deepai";
-import HydraComp from "@F/poeticWeb/theMoreTheBetter/HydraComp";
-import ContentsComp from "@F/poeticWeb/theMoreTheBetter/ContentsComp";
+import HydraComp from "@F/poeticWeb/TheMoreTheBetter/HydraComp";
+import ContentsComp from "@F/poeticWeb/TheMoreTheBetter/ContentsComp";
 import { useHistory } from "react-router-dom";
 
 export default function WebText(props) {

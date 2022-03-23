@@ -1,7 +1,7 @@
 import TestingPage from "@P/PoeticWeb/Testing";
-
-import TheMoreTheBetterIntro from "@P/PoeticWeb/theMoreTheBetter/Intro";
-import TheMoreTheBetterDetail from "@P/PoeticWeb/theMoreTheBetter/Detail";
+import BreakingNewsRoutes from "@P/PoeticWeb/BreakingNews/BreakingNewsRoutes";
+import TheMoreTheBetterIntro from "@/pages/PoeticWeb/TheMoreTheBetter/Intro";
+import TheMoreTheBetterDetail from "@/pages/PoeticWeb/TheMoreTheBetter/Detail";
 
 const poeticRoutes = [
   {
@@ -21,6 +21,6 @@ const theMoreTheBetterRoutes = [
   },
 ];
 
-const routes = [...poeticRoutes, ...theMoreTheBetterRoutes];
+const routes = [...poeticRoutes, ...BreakingNewsRoutes, ...theMoreTheBetterRoutes];
 
 export default routes;

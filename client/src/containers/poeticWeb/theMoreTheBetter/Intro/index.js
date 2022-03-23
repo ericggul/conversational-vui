@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import * as S from "./styles";
 import deepai from "deepai";
 import axios from "axios";
-import { BasicHeaderContainer } from "@F/poeticWeb/theMoreTheBetter/IntroHeader";
+import { BasicHeaderContainer } from "@/foundations/poeticWeb/TheMoreTheBetter/IntroHeader";
 
 export default function WebText() {
   const [newsSets, setNewsSets] = useState([]);

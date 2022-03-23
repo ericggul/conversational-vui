@@ -1,5 +1,5 @@
 import React from "react";
-import Detail from "@/containers/poeticWeb/theMoreTheBetter/Detail";
+import Detail from "@C/poeticWeb/TheMoreTheBetter/Detail";
 
 function DetailPage() {
   return <Detail />;

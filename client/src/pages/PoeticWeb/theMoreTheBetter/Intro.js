@@ -1,5 +1,5 @@
 import React from "react";
-import Intro from "@C/poeticWeb/theMoreTheBetter/Intro";
+import Intro from "@/containers/poeticWeb/TheMoreTheBetter/Intro";
 
 function IntroPage() {
   return <Intro />;

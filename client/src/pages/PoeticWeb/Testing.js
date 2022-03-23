@@ -1,5 +1,5 @@
 import React from "react";
-import Rythm from "@C/poeticWeb/Rythm";
+import Rythm from "@/containers/poeticWeb/BreakingNews/BreakingNews1";
 
 function TestingPage() {
   return <Rythm />;
