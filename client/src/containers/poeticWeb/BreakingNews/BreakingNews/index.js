@@ -5,7 +5,7 @@ import useResize from "@U/hooks/useResize";
 import POS_META_DATA from "@C/poeticWeb/BreakingNews/Data/data";
 
 const NewsEl = ({ pageIdx, news, j, i, size }) => {
-  const metaDataObject = useMemo(() => POS_META_DATA[0], [pageIdx]);
+  const metaDataObject = useMemo(() => POS_META_DATA[pageIdx], [pageIdx]);
   const top = metaDataObject.top(news, i, j, size);
   const left = metaDataObject.left(news, i, j, size);
   const opacity = metaDataObject.opacity ? metaDataObject.opacity(news, i, j, size) : 1;
