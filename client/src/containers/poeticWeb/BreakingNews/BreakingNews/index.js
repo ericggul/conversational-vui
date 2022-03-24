@@ -33,7 +33,6 @@ export default function WebText(props) {
   const [windowWidth, windowHeight] = useResize();
 
   useEffect(() => {
-    test();
     async function getFirstNews() {
       try {
         let res = await axios.request({
@@ -46,6 +45,7 @@ export default function WebText(props) {
         console.log(error);
       }
     }
+    // test();
     getFirstNews();
   }, []);
 
