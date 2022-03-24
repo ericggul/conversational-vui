@@ -8,7 +8,7 @@ const NewsEl = ({ news, j, i, windowWidth, windowHeight }) => {
   const test = news.asset_id % (i + 10);
   const updated_time = news.updated.split(" ")[1].split(":");
   const top = useMemo(() => i * 40 + 10, [news, j, i]);
-  const left = useMemo(() => 10 + j * test + parseInt(updated_time[0]), [news, j, i]);
+  const left = useMemo(() => 10, [news, j, i]);
 
   return (
     <S.NewsEl key={i * 100 + j} top={top} left={left}>

@@ -19,16 +19,17 @@ export const NewsEl = styled.div`
   top: 0;
   left: 0;
   transform: translate(${({ left }) => left}px, ${({ top }) => top}px);
+  opacity: ${({ opacity }) => opacity};
 `;
 
 export const NewsTitle = styled.div`
-  font-size: 1.5rem;
+  font-size: ${({ size }) => size}rem;
 
   flex-direction: column;
 `;
 
 export const NewsAbstract = styled.div`
-  font-size: 1rem;
+  font-size: ${({ size }) => size}rem;
 `;
 
 export const Rectangle = styled.div`

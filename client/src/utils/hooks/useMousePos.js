@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { debounce } from "timer";
+import { debounce } from "@U/functions/timer";
 
 export function useMousePos() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -9,7 +9,7 @@ export function useMousePos() {
   };
 
   useEffect(() => {
-    const listener = window.addEventListener("mousemove", debounce(handleMouseMove));
+    const listener = window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", listener);
   }, []);
 
@@ -24,9 +24,16 @@ export function useTouchPos() {
   };
 
   useEffect(() => {
-    window.addEventListener("touchmove", debounce(handleTouchMove));
-    return () => window.removeEventListener("touchmove", debounce(handleTouchMove));
+    const listener = window.addEventListener("touchmove", handleTouchMove);
+    return () => window.removeEventListener("touchmove", listener);
   }, []);
 
   return touchPos;
+}
+
+export function useMouseOrTouchPos() {
+  const mousePos = useMousePos();
+  const touchPos = useTouchPos();
+
+  return mousePos.x === 0 && mousePos.y === 0 ? touchPos : mousePos;
 }

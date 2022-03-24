@@ -5,11 +5,11 @@ import useResize from "@U/hooks/useResize";
 import { useMouseOrTouchPos } from "@U/hooks/useMousePos";
 
 const NewsEl = ({ news, j, i, windowWidth, windowHeight }) => {
-  const test = news.asset_id % (i + 10);
+  const test = news.asset_id % (j + 10);
   const updated_time = news.updated.split(" ")[1].split(":");
+
   const top = useMemo(() => i * 40 + 10, [news, j, i]);
   const left = useMemo(() => 10 + j * test + parseInt(updated_time[0]), [news, j, i]);
-
   return (
     <S.NewsEl key={i * 100 + j} top={top} left={left}>
       <S.NewsTitle>{news.title}</S.NewsTitle>
@@ -42,6 +42,9 @@ export default function WebText() {
 
   console.log(newsSets[0]);
   const containerRef = useRef();
+
+  //asset_id 100000008258714
+  //updated: 2022-03-21 23:19:08
 
   return (
     <S.Container ref={containerRef}>
