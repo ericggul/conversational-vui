@@ -4,11 +4,14 @@ import axios from "axios";
 import useResize from "@U/hooks/useResize";
 import POS_META_DATA from "@C/poeticWeb/BreakingNews/Data/data";
 
+//test
+import { test } from "../text/textTesting";
+
 const NewsEl = ({ pageIdx, news, j, i, size }) => {
   const metaDataObject = useMemo(() => POS_META_DATA[pageIdx], [pageIdx]);
   const top = metaDataObject.top(news, i, j, size);
   const left = metaDataObject.left(news, i, j, size);
-  const opacity = metaDataObject.opacity ? metaDataObject.opacity(news, i, j, size) : 1;
+  const opacity = metaDataObject.opacity ? metaDataObject.opacity(news, i, j, size) : 0.2;
   const titleSize = metaDataObject.titleSize ? metaDataObject.titleSize(news, i, j, size) : 1.5;
   const abstractSize = metaDataObject.abstractSize ? metaDataObject.abstractSize(news, i, j, size) : 1;
   const textEditFunction = metaDataObject.textEditFunction ? metaDataObject.textEditFunction : (text) => text;
@@ -30,6 +33,7 @@ export default function WebText(props) {
   const [windowWidth, windowHeight] = useResize();
 
   useEffect(() => {
+    test();
     async function getFirstNews() {
       try {
         let res = await axios.request({
