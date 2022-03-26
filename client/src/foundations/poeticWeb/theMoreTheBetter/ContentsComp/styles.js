@@ -8,7 +8,7 @@ export const ElementContainer = styled.div`
   width: ${({ theme }) => theme.windowWidth}px;
   height: ${({ theme }) => theme.windowHeight}px;
   ${FlexCenterStyle};
-  overflow-y: none;
+  overflow-y: hidden;
 `;
 
 export const VideoWrapper = styled.div`
@@ -17,5 +17,9 @@ export const VideoWrapper = styled.div`
   left: ${({ dimensions, theme }) => dimensions.left * theme.windowWidth}px;
   width: ${({ dimensions, theme }) => dimensions.width * theme.windowWidth}px;
   height: ${({ dimensions, theme }) => (dimensions.width * theme.windowWidth * 9) / 16}px;
+
   ${FlexCenterStyle};
+
+  opacity: ${({ opacity }) => opacity};
+  mix-blend-mode: hard-light;
 `;

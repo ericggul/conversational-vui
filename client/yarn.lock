@@ -11013,6 +11013,11 @@ react-lazyload@^3.2.0:
   resolved "https://registry.yarnpkg.com/react-lazyload/-/react-lazyload-3.2.0.tgz#497bd06a6dbd7015e3376e1137a67dc47d2dd021"
   integrity sha512-zJlrG8QyVZz4+xkYZH5v1w3YaP5wEFaYSUWC4CT9UXfK75IfRAIEdnyIUF+dXr3kX2MOtL1lUaZmaQZqrETwgw==
 
+react-lite-youtube-embed@^2.2.1-a:
+  version "2.2.1-a"
+  resolved "https://registry.yarnpkg.com/react-lite-youtube-embed/-/react-lite-youtube-embed-2.2.1-a.tgz#ec56269349ced080a9bb7e70ef3cc6c9cb8b8a5a"
+  integrity sha512-Gi/MKquU8e6J1oMnF1/RzrNEymjdgZLfcCGq4OM3cNKAB3G4YmAvc0moFMc0yhKU6hn43aRowAyn4K2wgjrbIg==
+
 react-lottie@^1.2.3:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/react-lottie/-/react-lottie-1.2.3.tgz#8544b96939e088658072eea5e12d912cdaa3acc1"

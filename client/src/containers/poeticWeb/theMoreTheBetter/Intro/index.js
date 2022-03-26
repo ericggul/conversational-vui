@@ -20,18 +20,7 @@ export default function WebText() {
           url: `https://api.nytimes.com/svc/mostpopular/v2/viewed/7.json?api-key=${NYTIMES_API_KEY}`,
         });
 
-        console.log(res.data.results[0]);
-
-        let resultArray = [];
-        for (let i = 0; i < res.data.results.length; i++) {
-          let news = {
-            title: res.data.results[i].title,
-            abstract: res.data.results[i].abstract,
-          };
-
-          resultArray.push(res.data.results[i]);
-        }
-        setNewsSets(resultArray);
+        setNewsSets(res.data.results);
       } catch (error) {
         console.log(error);
       }
@@ -56,15 +45,15 @@ export default function WebText() {
 
   return (
     <S.Container ref={containerRef}>
-      <BasicHeaderContainer text="Breaking News" />
-      {newsSets.length > 0 && newsSets.slice(0, 5).map((news, i) => <BasicHeaderContainer onClick={() => newsElClick(i)} text={news.title} />)}
-      <BasicHeaderContainer text="Live from World" />
-      {newsSets.length > 0 && newsSets.slice(5, 10).map((news, i) => <BasicHeaderContainer text={news.title} />)}
-      <BasicHeaderContainer text="Breaking News" />
-      {newsSets.length > 0 && newsSets.slice(10, 15).map((news, i) => <BasicHeaderContainer text={news.title} />)}
-      <BasicHeaderContainer text="Like, Comment, Subscribe" />
-      {newsSets.length > 0 && newsSets.slice(15, 20).map((news, i) => <BasicHeaderContainer text={news.title} />)}
-      <BasicHeaderContainer text="Breaking News" />
+      <BasicHeaderContainer text="Breaking News" header />
+      {newsSets.length > 0 && newsSets.slice(0, 5).map((news, i) => <BasicHeaderContainer onClick={() => newsElClick(i)} text={news.title ? news.title : ""} />)}
+      <BasicHeaderContainer text="Live from World" header />
+      {newsSets.length > 0 && newsSets.slice(5, 10).map((news, i) => <BasicHeaderContainer onClick={() => newsElClick(i + 5)} text={news.title ? news.title : ""} />)}
+      <BasicHeaderContainer text="Breaking News" header />
+      {newsSets.length > 0 && newsSets.slice(10, 15).map((news, i) => <BasicHeaderContainer onClick={() => newsElClick(i + 10)} text={news.title ? news.title : ""} />)}
+      <BasicHeaderContainer text="Like, Comment, Subscribe" header />
+      {newsSets.length > 0 && newsSets.slice(15, 20).map((news, i) => <BasicHeaderContainer onClick={() => newsElClick(i + 15)} text={news.title ? news.title : ""} />)}
+      <BasicHeaderContainer text="Breaking News" header />
     </S.Container>
   );
 }

@@ -12,7 +12,7 @@ export const HeaderContainer = styled.div`
   position: relative;
 
   opacity: ${({ visible }) => (visible ? 1 : 0)};
-  transition: opacity 0.3s;
+  transition: opacity ${({ visibleSec }) => visibleSec}s;
 
   animation: infiniteMove ${({ rotateSec }) => rotateSec}s linear infinite;
   @keyframes infiniteMove {
