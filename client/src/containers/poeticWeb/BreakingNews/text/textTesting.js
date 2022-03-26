@@ -84,6 +84,25 @@ export const sillyMoveCharCode = (text, randomness = 0.1, moveRange = 15, moveRa
   return newText;
 };
 
+export const totallyRandom = (text, capitalLetterRatio = 0.1, spaceRatio = 0.05) => {
+  let newText = "";
+  for (let i = 0; i < text.length; i++) {
+    const randomCharacter = Math.random() > capitalLetterRatio ? String.fromCharCode(97 + Math.floor(Math.random() * 26)) : String.fromCharCode(65 + Math.floor(Math.random() * 26));
+    newText += randomCharacter;
+    if (Math.random() < spaceRatio) {
+      newText += " ";
+    } else if (Math.random() < 0.01) {
+      newText += ",";
+    } else if (Math.random() < 0.01) {
+      newText += "?";
+    }
+  }
+  newText += ".";
+  return newText;
+};
+
+export const randomWithKeywords = () => {};
+
 export const test = () => {
   // console.log(sillyMoveCharCode(SAMPLE_TEXT, 1, false));
 };

@@ -8,6 +8,7 @@ import POS_META_DATA from "@C/poeticWeb/BreakingNews/Data/data";
 import { test } from "../text/textTesting";
 
 const NewsEl = ({ pageIdx, news, j, i, size }) => {
+  const keywordArray = [...news.des_facet, ...news.geo_facet, ...news.org_facet, ...news.per_facet];
   const metaDataObject = useMemo(() => POS_META_DATA[pageIdx], [pageIdx]);
   const top = metaDataObject.top(news, i, j, size);
   const left = metaDataObject.left(news, i, j, size);
@@ -18,8 +19,8 @@ const NewsEl = ({ pageIdx, news, j, i, size }) => {
 
   return (
     <S.NewsEl key={i * 100 + j} top={top} left={left} opacity={opacity}>
-      <S.NewsTitle size={titleSize}>{textEditFunction(news.title)}</S.NewsTitle>
-      <S.NewsAbstract size={abstractSize}>{textEditFunction(news.abstract)}</S.NewsAbstract>
+      <S.NewsTitle size={titleSize}>{textEditFunction(news.title, keywordArray)}</S.NewsTitle>
+      <S.NewsAbstract size={abstractSize}>{textEditFunction(news.abstract, keywordArray)}</S.NewsAbstract>
     </S.NewsEl>
   );
 };
