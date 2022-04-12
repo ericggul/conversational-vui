@@ -31,8 +31,6 @@ const BasicHeaderContainer = ({ text = "Breaking News", onClick, header }) => {
     }
   }, [elWidth, windowWidth]);
 
-  useEffect(() => {}, []);
-
   return (
     <S.HeaderContainer ref={containerRef} visible={visible} visibleSec={getRandom(0.5, 3.5)} color={color} rotateSec={rotateSec} onClick={onClick}>
       {new Array(elNumber).fill(0).map((e, i) => (

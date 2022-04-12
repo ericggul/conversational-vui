@@ -102,11 +102,11 @@ const POS_META_DATA = [
   },
   {
     idx: 12,
-    top: (news, i, j, size) => getRandom(-3 * size.windowHeight, size.windowHeight),
-    left: (news, i, j, size) => getRandom(-3 * size.windowWidth, size.windowWidth),
-    opacity: (news, i, j, size) => getRandom(0.05, 0.4),
-    titleSize: (news, i, j, size) => 100,
-    abstractSize: (news, i, j, size) => 100,
+    top: (news, i, j, size) => getRandom(-1 * size.windowHeight, size.windowHeight),
+    left: (news, i, j, size) => getRandom(-1 * size.windowWidth, size.windowWidth),
+    opacity: (news, i, j, size) => getRandom(0.3, 0.4),
+    titleSize: (news, i, j, size) => getRandom(10, 10),
+    abstractSize: (news, i, j, size) => getRandom(10, 10),
     textEditFunction: (text, keyword) => sillyMoveCharCode(text, 0.3, 100),
   },
   {

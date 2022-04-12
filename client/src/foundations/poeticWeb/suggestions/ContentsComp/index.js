@@ -1,12 +1,26 @@
 import { useEffect, useState, useMemo, useRef, useCallback } from "react";
 import * as S from "./styles";
+import "./youtube.css";
 import useResize from "@/utils/hooks/useResize";
-import YouTube from "react-youtube";
-import LiteYouTubeEmbed from "react-lite-youtube-embed";
 import "react-lite-youtube-embed/dist/LiteYouTubeEmbed.css";
 import { YOUTUBE_API_KEY } from "@/static/apikey";
 import axios from "axios";
 import { speak } from "@U/functions/speech";
+
+import { useHistory } from "react-router-dom";
+
+const getPowerofTwo = (a) => {
+  if (a === 0) {
+    return 0;
+  }
+  let power = 0;
+  let num = a;
+  while (num % 2 === 0) {
+    num = num / 2;
+    power++;
+  }
+  return power;
+};
 
 const TEMP_DATA = [
   {
@@ -254,51 +268,40 @@ const TEMP_DATA = [
 const getRandom = (a, b) => Math.random() * (b - a) + a;
 
 const VideoWrapper = ({ videoId, i, widthHeight }) => {
+  const widthUnit = useMemo(() => getRandom(0.8, getRandom(0.5, 1.3)), []);
+
   const [dimensions, setDimensions] = useState({
-    top: 0,
-    left: 0,
-    width: 0,
+    top: getRandom(-widthUnit * 0.3, 1 - widthUnit * 0.7),
+    left: getRandom(-widthUnit * 0.3, 1 - widthUnit * 0.7),
+    width: widthUnit,
   });
   const [show, setShow] = useState(false);
-
-  const widthUnit = useMemo(() => getRandom(0.5, getRandom(0.5, 1.3)), []);
+  const opacity = useMemo(() => getRandom(0.15, 0.4), []);
+  const showTime = useMemo(
+    () => ({
+      start: 1200 * i,
+      end: 1200 * i + 1200 * 30,
+    }),
+    []
+  );
 
   useEffect(() => {
-    if (widthHeight) {
-      setDimensions({
-        top: getRandom(-widthUnit * 0.3, 1 - widthUnit * 0.7),
-        left: getRandom(-widthUnit * 0.3, 1 - widthUnit * 0.7),
-        width: widthUnit,
-      });
-    } else {
-      setDimensions({
-        top: getRandom(-widthUnit * 0.3, 1),
-        left: getRandom(-widthUnit * 0.3, 1 - widthUnit * 0.7),
-        width: (widthUnit * 16) / 9,
-      });
-    }
-
-    const timeout = setTimeout(() => {
+    const timeout1 = setTimeout(() => {
       setShow(true);
-    }, i * 700);
-    return () => clearTimeout(timeout);
+    }, showTime.start);
+    const timeout2 = setTimeout(() => {
+      setShow(false);
+    }, showTime.end);
+
+    return () => {
+      clearTimeout(timeout1);
+      clearTimeout(timeout2);
+    };
   }, []);
 
-  // <iframe
-  //   src={`https://www.youtube.com/embed/${videoId}?autoplay=1&loop=1&controls=0`}
-  //   allow="autoplay"
-  //   title="Youtube"
-  //   frameborder="0"
-  //   border="0"
-  //   cellspacing="0"
-  //   style={{
-  //     width: "100%",
-  //     height: "100%",
-  //   }}
-  // />
-  //  <LiteYouTubeEmbed id={videoId} title="video" autoplay="true" activeClass="lyt-activated" playerClass="lty-playbtn" wrapperClass="yt-lite" />
   return (
-    <S.VideoWrapper dimensions={dimensions} opacity={getRandom(0.1, getRandom(0.2, 0.7))}>
+    <S.VideoWrapper dimensions={dimensions} opacity={opacity}>
+      {/* <LiteYouTubeEmbed id={videoId} title="video" autoplay="true" activeClass="lyt-activated" playerClass="lty-playbtn" wrapperClass="yt-lite" /> */}
       {show && (
         <iframe
           src={`https://www.youtube.com/embed/${videoId}?autoplay=1&loop=1&controls=0`}
@@ -319,18 +322,18 @@ const VideoWrapper = ({ videoId, i, widthHeight }) => {
 
 const ContentsComp = ({ news }) => {
   const [vidArray, setVidArray] = useState([]);
-  const [keywords, setKeywords] = useState([...news.des_facet, ...news.org_facet, ...news.per_facet]);
+
   const [windowWidth, windowHeight] = useResize();
 
   useEffect(() => {
     speak(news.abstract);
+
     async function getYoutubeData(keyword) {
       try {
         let res = await axios.request({
           method: "GET",
-          url: `https://www.googleapis.com/youtube/v3/search?key=${YOUTUBE_API_KEY}&type=video&q=${keyword}&maxResults=20`,
+          url: `https://www.googleapis.com/youtube/v3/search?key=${YOUTUBE_API_KEY}&type=video&q=${keyword}&maxResults=50`,
         });
-
         setVidArray((vidArray) => [...vidArray, ...res.data.items]);
       } catch (e) {
         console.log(e);
@@ -342,11 +345,18 @@ const ContentsComp = ({ news }) => {
     });
   }, []);
 
-  return (
-    <S.ElementContainer>
-      {vidArray.length > 0 && vidArray.slice(0, Math.min(vidArray.length, 50)).map((vid, i) => <VideoWrapper videoId={vid.id.videoId} i={i} widthHeight={windowWidth > windowHeight} key={i} />)}
-    </S.ElementContainer>
-  );
+  const history = useHistory();
+  useEffect(() => {
+    if (vidArray.length > 0) {
+      const timeout = setTimeout(() => {
+        history.goBack();
+      }, vidArray.length * 1200 + 1200 * 15);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [vidArray]);
+
+  return <S.ElementContainer>{vidArray.length > 0 && vidArray.map((vid, i) => <VideoWrapper videoId={vid.id.videoId} i={i} widthHeight={windowWidth > windowHeight} key={i} />)}</S.ElementContainer>;
 };
 
 export default ContentsComp;

@@ -4,7 +4,7 @@ import * as S from "./styles";
 
 import { NYTIMES_API_KEY } from "@ST/apikey";
 import axios from "axios";
-import { BasicHeaderContainer } from "@/foundations/poeticWeb/TheMoreTheBetter/IntroHeader";
+import { BasicHeaderContainer } from "@F/poeticWeb/suggestions/IntroHeader";
 
 export default function WebText() {
   const [newsSets, setNewsSets] = useState([]);
@@ -31,7 +31,7 @@ export default function WebText() {
   const newsElClick = useCallback(
     (i) => {
       history.push({
-        pathname: "/the-more-the-better/detail",
+        pathname: "/suggestions/detail",
         state: {
           newsSets: newsSets[i],
         },
@@ -43,13 +43,13 @@ export default function WebText() {
   return (
     <S.Container ref={containerRef}>
       <BasicHeaderContainer text="Breaking News" header />
-      {newsSets.length > 0 && newsSets.slice(0, 5).map((news, i) => <BasicHeaderContainer onClick={() => newsElClick(i)} text={news.title ? news.title : ""} />)}
+      {newsSets.length > 0 ? newsSets.slice(0, 5).map((news, i) => <BasicHeaderContainer onClick={() => newsElClick(i)} text={news.title || ""} />) : <S.EmptyRow />}
       <BasicHeaderContainer text="Live from World" header />
-      {newsSets.length > 0 && newsSets.slice(5, 10).map((news, i) => <BasicHeaderContainer onClick={() => newsElClick(i + 5)} text={news.title ? news.title : ""} />)}
+      {newsSets.length > 0 ? newsSets.slice(5, 10).map((news, i) => <BasicHeaderContainer onClick={() => newsElClick(i + 5)} text={news.title || ""} />) : <S.EmptyRow />}
       <BasicHeaderContainer text="Breaking News" header />
-      {newsSets.length > 0 && newsSets.slice(10, 15).map((news, i) => <BasicHeaderContainer onClick={() => newsElClick(i + 10)} text={news.title ? news.title : ""} />)}
+      {newsSets.length > 0 ? newsSets.slice(10, 15).map((news, i) => <BasicHeaderContainer onClick={() => newsElClick(i + 10)} text={news.title || ""} />) : <S.EmptyRow />}
       <BasicHeaderContainer text="Like, Comment, Subscribe" header />
-      {newsSets.length > 0 && newsSets.slice(15, 20).map((news, i) => <BasicHeaderContainer onClick={() => newsElClick(i + 15)} text={news.title ? news.title : ""} />)}
+      {newsSets.length > 0 ? newsSets.slice(15, 20).map((news, i) => <BasicHeaderContainer onClick={() => newsElClick(i + 15)} text={news.title || ""} />) : <S.EmptyRow />}
       <BasicHeaderContainer text="Breaking News" header />
     </S.Container>
   );

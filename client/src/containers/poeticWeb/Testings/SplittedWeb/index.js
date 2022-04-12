@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import * as S from "./styles";
-import deepai from "deepai";
+
+import { NYTIMES_API_KEY } from "@ST/apikey";
 import axios from "axios";
 
 const generateElement = (news) => {
@@ -45,11 +46,7 @@ export default function SplittedWeb() {
   const [newsArray, setNewsArray] = useState([]);
   const [nextKeyword, setNextKeyword] = useState("");
 
-  const NYTIMES_API_KEY = "80GOFZe14tQYlGjepOwgAsSvrqijaSzo";
-  const DEEPAI_API_KEY = "9a58cd15-c026-4c76-a3fb-0ee0fd6516ee";
-
   useEffect(() => {
-    deepai.setApiKey(DEEPAI_API_KEY);
     async function generateNews(givenText) {
       try {
         let res = await deepai.callStandardApi("text-generator", {

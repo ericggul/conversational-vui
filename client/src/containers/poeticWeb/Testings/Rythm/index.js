@@ -1,7 +1,9 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import * as S from "./styles";
-import deepai from "deepai";
+
 import axios from "axios";
+
+import { NYTIMES_API_KEY } from "@ST/apikey";
 
 const getRandom = (a, b) => Math.random() * (b - a) + a;
 const Element = ({ newsSets }) => {
@@ -24,11 +26,7 @@ const Element = ({ newsSets }) => {
 export default function WebText() {
   const [newsSets, setNewsSets] = useState([]);
 
-  const NYTIMES_API_KEY = "80GOFZe14tQYlGjepOwgAsSvrqijaSzo";
-  const DEEPAI_API_KEY = "9a58cd15-c026-4c76-a3fb-0ee0fd6516ee";
-
   useEffect(() => {
-    deepai.setApiKey(DEEPAI_API_KEY);
     async function getFirstNews() {
       try {
         let res = await axios.request({

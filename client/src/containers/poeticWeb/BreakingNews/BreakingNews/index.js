@@ -3,6 +3,9 @@ import * as S from "./styles";
 import axios from "axios";
 import useResize from "@U/hooks/useResize";
 import POS_META_DATA from "@C/poeticWeb/BreakingNews/Data/data";
+import { useHistory } from "react-router-dom";
+
+import { NYTIMES_API_KEY } from "@ST/apikey";
 
 //test
 import { test } from "../text/textTesting";
@@ -26,11 +29,12 @@ const NewsEl = ({ pageIdx, news, j, i, size }) => {
 };
 
 export default function WebText(props) {
-  const pageIdx = useMemo(() => (props.match.params ? props.match.params.id : 0), [props]);
+  console.log(props.match.params);
+  const [pageIdx, setPageIdx] = useState(props.match.params ? parseInt(props.match.params.id) : 0);
 
+  const [loading, setLoading] = useState(true);
   const [newsSets, setNewsSets] = useState([]);
 
-  const NYTIMES_API_KEY = "80GOFZe14tQYlGjepOwgAsSvrqijaSzo";
   const [windowWidth, windowHeight] = useResize();
 
   useEffect(() => {
@@ -46,11 +50,28 @@ export default function WebText(props) {
         console.log(error);
       }
     }
-    // test();
+
     getFirstNews();
   }, []);
 
-  console.log(newsSets[0]);
+  const history = useHistory();
+  const goNextPage = (idx) => {
+    setLoading(true);
+    console.log("clicked!");
+    console.log("60", idx);
+    window.location.href = `/breaking-news/${(idx + 1) % 24}`;
+  };
+
+  useEffect(() => {
+    setPageIdx(props.match.params ? parseInt(props.match.params.id) : 0);
+  }, [props]);
+
+  console.log("65", pageIdx);
+
+  useEffect(() => {
+    const listener = document.addEventListener("click", () => goNextPage(pageIdx));
+    return () => document.removeEventListener("click", listener);
+  }, [pageIdx]);
 
   return (
     <S.Container>
