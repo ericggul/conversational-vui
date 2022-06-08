@@ -7,14 +7,14 @@ import { GlobalStyle, theme } from "@S/index";
 
 import MainPage from "@P/MainPage";
 
-import ChatInterface1 from "@P/ChatUIPage/ChatInterface1";
-import ChatInterface2 from "@P/ChatUIPage/ChatInterface2";
+import ChatInterface1 from "@/pages/chat/ChatInterface1";
+import ChatInterface2 from "@/pages/chat/ChatInterface2";
 
 import MetaPage from "@P/Meta";
 import ChronologyPage from "@P/Chronology";
 
 import SuspenseLoading from "@F/chronology/Suspense";
-import poeticRoutes from "@P/PoeticWeb/Router";
+import poeticRoutes from "@/pages/newsAndMedia/Router";
 
 function App() {
   useEffect(() => {
