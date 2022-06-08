@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import PropTypes from "prop-types";
 import { formatCurrentDateTime } from "@U/functions/format-time";
 
-import VoiceInput from "@F/voice/VoiceInput";
-import VoicePlayer from "@/foundations/voice/voice-player/VoicePlayer";
+import VoiceInput from "@/foundations/chat/VoiceInput";
+import VoicePlayer from "@/foundations/chat/voice-player/VoicePlayer";
 
 import useInput from "@U/hooks/useInput";
 
@@ -95,10 +95,7 @@ function ChatInterface2() {
   useEffect(() => {
     const lastItem = messages[messages.length - 1];
     if (messages.length > 0 && lastItem.type === "voice") {
-      if (
-        messages.length > 1 &&
-        messages[messages.length - 2].userName !== lastItem.userName
-      ) {
+      if (messages.length > 1 && messages[messages.length - 2].userName !== lastItem.userName) {
         setMessages((msg) => [
           ...msg.slice(0, -1),
           {
@@ -162,10 +159,7 @@ function ChatInterface2() {
     if (messages.length > currentVoice + 1) {
       if (messages[currentVoice + 1].type === "voice") {
         setCommandStartVoiceIdx(currentVoice + 1);
-      } else if (
-        messages.length > currentVoice + 3 &&
-        messages[currentVoice + 3].type === "voice"
-      ) {
+      } else if (messages.length > currentVoice + 3 && messages[currentVoice + 3].type === "voice") {
         setCommandStartVoiceIdx(currentVoice + 3);
       }
     }
@@ -196,11 +190,7 @@ function ChatInterface2() {
       <S.ChatDisplay>
         {messages.map((msg, i) => {
           return msg.type !== "voice" ? (
-            <S.ChatContents
-              leftAlign={msg.userName !== "Me"}
-              isTime={msg.type === "time"}
-              key={i}
-            >
+            <S.ChatContents leftAlign={msg.userName !== "Me"} isTime={msg.type === "time"} key={i}>
               {msg.text}
             </S.ChatContents>
           ) : (
@@ -214,9 +204,7 @@ function ChatInterface2() {
               onVoiceClick={onVoiceClick}
               onVoiceEnd={onVoiceEnd}
               audioConfirmed={(dur) => handleAudioLength(dur, i)}
-              marginTop={
-                i > 1 && Math.min(audioLengths[i], audioLengths[i - 1])
-              }
+              marginTop={i > 1 && Math.min(audioLengths[i], audioLengths[i - 1])}
             />
           );
         })}

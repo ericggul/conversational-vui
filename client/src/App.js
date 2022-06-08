@@ -12,6 +12,7 @@ import ChatInterface2 from "@/pages/chat/ChatInterface2";
 
 import MetaPage from "@P/Meta";
 import ChronologyPage from "@P/Chronology";
+import CalendarPage from "@P/Calendar";
 
 import SuspenseLoading from "@F/chronology/Suspense";
 import poeticRoutes from "@/pages/newsAndMedia/Router";
@@ -35,6 +36,7 @@ function App() {
 
             <Route exact path="/meta" component={MetaPage} />
             <Route exact path="/chronology" component={ChronologyPage} />
+            <Route exact path="/calendar" component={CalendarPage} />
             {poeticRoutes.map((route, i) => (
               <Route exact key={i} path={route.path} component={route.component} />
             ))}

@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useRef,
-  useCallback,
-  useEffect,
-  useMemo,
-} from "react";
+import React, { useState, useRef, useCallback, useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
 import { Howl } from "howler";
 
@@ -13,20 +7,10 @@ import { faPlay, faPause } from "@fortawesome/free-solid-svg-icons";
 
 import Mickey from "@I/mickey.png";
 import Minnie from "@I/minnie.png";
-import * as S1 from "@F/voice/voice-player/interfaces/Interface1/styles";
-import * as S2 from "@F/voice/voice-player/interfaces/Interface2/styles";
+import * as S1 from "@/foundations/chat/voice-player/interfaces/Interface1/styles";
+import * as S2 from "@/foundations/chat/voice-player/interfaces/Interface2/styles";
 
-function VoicePlayer({
-  interfaceVersion,
-  voiceIdx,
-  msg,
-  commandPauseVoice,
-  commandStartVoice,
-  onVoiceClick,
-  onVoiceEnd,
-  audioConfirmed = null,
-  marginTop = 0,
-}) {
+function VoicePlayer({ interfaceVersion, voiceIdx, msg, commandPauseVoice, commandStartVoice, onVoiceClick, onVoiceEnd, audioConfirmed = null, marginTop = 0 }) {
   const [voicePlaying, setVoicePlaying] = useState(false);
   const [playingSound, setPlayingSound] = useState(null);
   const [soundId, setSoundId] = useState(null);
@@ -103,15 +87,7 @@ function VoicePlayer({
     } else {
       pauseVoice();
     }
-  }, [
-    playingSound,
-    soundId,
-    seekPos,
-    voicePlaying,
-    onVoiceClick,
-    pauseVoice,
-    voiceIdx,
-  ]);
+  }, [playingSound, soundId, seekPos, voicePlaying, onVoiceClick, pauseVoice, voiceIdx]);
 
   useEffect(() => {
     if (commandStartVoice) {
@@ -149,51 +125,26 @@ function VoicePlayer({
   }, [commandPauseVoice, pauseVoice, voicePlaying]);
 
   const leftAlign = useMemo(() => msg.userName !== "Me", [msg.userName]);
-  const interface2Width = useMemo(
-    () => (audioDuration !== 0 ? Math.min(audioDuration ** 0.6, 5) : 3),
-    [audioDuration]
-  );
+  const interface2Width = useMemo(() => (audioDuration !== 0 ? Math.min(audioDuration ** 0.6, 5) : 3), [audioDuration]);
 
-  const margin2Width = useMemo(
-    () => (audioDuration !== 0 ? Math.min(marginTop ** 0.6, 5) : 0),
-    [marginTop, audioDuration]
-  );
+  const margin2Width = useMemo(() => (audioDuration !== 0 ? Math.min(marginTop ** 0.6, 5) : 0), [marginTop, audioDuration]);
 
   return (
     <>
       {interfaceVersion === 1 ? (
         <S1.VoiceElement1 onClick={voicePlayer} leftAlign={leftAlign}>
-          <S1.Profile1
-            leftAlign={leftAlign}
-            src={msg.userName === "Me" ? Mickey : Minnie}
-          />
+          <S1.Profile1 leftAlign={leftAlign} src={msg.userName === "Me" ? Mickey : Minnie} />
           <S1.Bar1 leftAlign={leftAlign}>
-            <S1.BarText1 leftAlign={leftAlign}>
-              {`${Math.floor(audioDuration)}s`}
-            </S1.BarText1>
-            <S1.Progress1
-              leftAlign={leftAlign}
-              audioDuration={audioDuration}
-              seekPos={!voicePlaying && played ? audioDuration : seekPos}
-            />
+            <S1.BarText1 leftAlign={leftAlign}>{`${Math.floor(audioDuration)}s`}</S1.BarText1>
+            <S1.Progress1 leftAlign={leftAlign} audioDuration={audioDuration} seekPos={!voicePlaying && played ? audioDuration : seekPos} />
           </S1.Bar1>
         </S1.VoiceElement1>
       ) : (
-        <S2.VoiceElement1
-          onClick={voicePlayer}
-          leftAlign={leftAlign}
-          width={interface2Width}
-          marginTop={margin2Width}
-        >
+        <S2.VoiceElement1 onClick={voicePlayer} leftAlign={leftAlign} width={interface2Width} marginTop={margin2Width}>
           <S2.ProgressWrapper>
             {audioDuration !== 0 && (
               <S2.ProgressSvg>
-                <S2.ProgressCircle
-                  width={interface2Width}
-                  audioDuration={audioDuration}
-                  seekPos={!voicePlaying && played ? audioDuration : seekPos}
-                  leftAlign={leftAlign}
-                />
+                <S2.ProgressCircle width={interface2Width} audioDuration={audioDuration} seekPos={!voicePlaying && played ? audioDuration : seekPos} leftAlign={leftAlign} />
               </S2.ProgressSvg>
             )}
           </S2.ProgressWrapper>
@@ -209,11 +160,7 @@ function VoicePlayer({
           ) : (
             <S2.Loading>Loading...</S2.Loading>
           )}
-          {audioDuration !== 0 && (
-            <S2.DurationText leftAlign={leftAlign}>
-              {`${Math.floor(audioDuration)}s`}
-            </S2.DurationText>
-          )}
+          {audioDuration !== 0 && <S2.DurationText leftAlign={leftAlign}>{`${Math.floor(audioDuration)}s`}</S2.DurationText>}
         </S2.VoiceElement1>
       )}
     </>

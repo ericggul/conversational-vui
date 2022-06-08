@@ -4,8 +4,8 @@ import { to_Decrypt, to_Encrypt } from "@U/functions/aes";
 import { process } from "@/redux/action";
 import { useDispatch } from "react-redux";
 import io from "socket.io-client";
-import VoiceInput from "@F/voice/VoiceInput";
-import VoicePlayer from "@/foundations/voice/voice-player/VoicePlayer";
+import VoiceInput from "@/foundations/chat/VoiceInput";
+import VoicePlayer from "@/foundations/chat/voice-player/VoicePlayer";
 import { Howl } from "howler";
 
 import useInput from "@U/hooks/useInput";
@@ -61,11 +61,7 @@ function ChatInterfaceWithSocket({ userName, roomName, socket }) {
 
   // useEffect(scrollToBottom, [messages]);
 
-  const {
-    value: chatInput,
-    onChange: onChatInputChange,
-    setValue: setChatInput,
-  } = useInput("constinantonple", null);
+  const { value: chatInput, onChange: onChatInputChange, setValue: setChatInput } = useInput("constinantonple", null);
 
   const sendData = (input) => {
     if (input !== "") {
@@ -103,13 +99,7 @@ function ChatInterfaceWithSocket({ userName, roomName, socket }) {
               <S.ChatContents>{msg.text}</S.ChatContents>
             </S.ChatElement>
           ) : (
-            <VoicePlayer
-              key={i}
-              voiceIdx={i}
-              msg={msg}
-              commandPauseVoice={commandPauseVoiceIdx === i ? true : false}
-              onVoiceClick={onVoiceClick}
-            />
+            <VoicePlayer key={i} voiceIdx={i} msg={msg} commandPauseVoice={commandPauseVoiceIdx === i ? true : false} onVoiceClick={onVoiceClick} />
           );
         })}
       </S.ChatDisplay>
