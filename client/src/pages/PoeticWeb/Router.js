@@ -22,11 +22,11 @@ const theMoreTheBetterRoutes = [
     component: TheMoreTheBetterDetail,
   },
   {
-    path: "/suggestions",
+    path: "/recommendations",
     component: SuggestionsIntro,
   },
   {
-    path: "/suggestions/detail",
+    path: "/recommendations/detail",
     component: SuggestionsDetail,
   },
 ];

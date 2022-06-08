@@ -279,8 +279,8 @@ const VideoWrapper = ({ videoId, i, widthHeight }) => {
   const opacity = useMemo(() => getRandom(0.15, 0.4), []);
   const showTime = useMemo(
     () => ({
-      start: 1200 * i,
-      end: 1200 * i + 1200 * 30,
+      start: 1500 * i,
+      end: 1500 * i + 1500 * 25,
     }),
     []
   );
@@ -301,7 +301,6 @@ const VideoWrapper = ({ videoId, i, widthHeight }) => {
 
   return (
     <S.VideoWrapper dimensions={dimensions} opacity={opacity}>
-      {/* <LiteYouTubeEmbed id={videoId} title="video" autoplay="true" activeClass="lyt-activated" playerClass="lty-playbtn" wrapperClass="yt-lite" /> */}
       {show && (
         <iframe
           src={`https://www.youtube.com/embed/${videoId}?autoplay=1&loop=1&controls=0`}
@@ -340,6 +339,7 @@ const ContentsComp = ({ news }) => {
       }
     }
 
+    getYoutubeData(news.title);
     news.des_facet.forEach((data) => {
       getYoutubeData(data);
     });

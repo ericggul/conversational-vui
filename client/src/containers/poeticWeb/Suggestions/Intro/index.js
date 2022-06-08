@@ -10,6 +10,11 @@ export default function WebText() {
   const [newsSets, setNewsSets] = useState([]);
 
   useEffect(() => {
+    console.log("Suggestions(2022), Jeanyoon Choi");
+    console.log("This web art work ");
+  }, []);
+
+  useEffect(() => {
     async function getFirstNews() {
       try {
         let res = await axios.request({
@@ -31,7 +36,7 @@ export default function WebText() {
   const newsElClick = useCallback(
     (i) => {
       history.push({
-        pathname: "/suggestions/detail",
+        pathname: "/recommendations/detail",
         state: {
           newsSets: newsSets[i],
         },
