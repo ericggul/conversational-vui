@@ -4,8 +4,10 @@ import { FlexCenterStyle } from "@S/responsive/display";
 export const WholeContainer = styled.div`
   ${FlexCenterStyle};
 
-  ${({ fadeOut }) => fadeOut && `opacity: 0;`});
-  transition: opacity 1s cubic-bezier(0.39, 1.2, 0.55, -0.63);
+  width: ${({ theme }) => theme.windowWidth}px;
+  height: ${({ theme }) => theme.windowHeight}px;
+  background: black;
+  overflow: hidden;
 `;
 
 export const ArrowContainer = styled.div`

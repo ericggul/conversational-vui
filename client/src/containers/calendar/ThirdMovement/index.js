@@ -40,7 +40,7 @@ function Day({ week, day, firstDayOfMonth, monthLength, UIVersion, handleSpecial
   return <S.CalendarDay>{display ? <DayFormatter date={date} UIVersion={UIVersion} handleSpecialClick={handleSpecialClick} /> : ""}</S.CalendarDay>;
 }
 
-function MonthDisplayer({ year, month, handleMonthChange, moveToNextMovement }) {
+function MonthDisplayer({ year, month, moveToNextMovement }) {
   const [firstDay, setFirstDay] = useState(new Date(year, month - 1, 1).getDay());
   const monthLength = useMemo(() => new Date(year, month, 0).getDate(), [year, month]) + 2;
   const rowNum = useMemo(() => Math.ceil((firstDay + monthLength) / 7), [monthLength, firstDay]);
@@ -50,22 +50,20 @@ function MonthDisplayer({ year, month, handleMonthChange, moveToNextMovement }) 
   }, [year, month]);
 
   const [UIVersion, setUIVersion] = useState(0);
-  const [fadeOut, setFadeOut] = useState(false);
 
   const handleUIVersionUpdate = () => {
     if (UIVersion < 9) {
       setUIVersion((e) => e + 1);
       return;
     }
-    setFadeOut(true);
+
     setTimeout(() => {
       moveToNextMovement();
     }, 1000);
   };
 
   return (
-    <S.WholeContainer fadeOut={fadeOut}>
-      <S.ArrowContainer onClick={() => handleMonthChange(true)}>{"<"}</S.ArrowContainer>
+    <S.WholeContainer>
       <S.StyledMonthDisplayer>
         {new Array(rowNum).fill(0).map((_, i) => (
           <S.CalendarRow key={i}>
@@ -75,7 +73,6 @@ function MonthDisplayer({ year, month, handleMonthChange, moveToNextMovement }) 
           </S.CalendarRow>
         ))}
       </S.StyledMonthDisplayer>
-      <S.ArrowContainer onClick={() => handleMonthChange(false)}>{">"}</S.ArrowContainer>
     </S.WholeContainer>
   );
 }

@@ -1,86 +1,105 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { FlexCenterStyle } from "@S/responsive/display";
+
+export const WholeContainer = styled.div`
+  ${FlexCenterStyle};
+
+  ${({ fadeOut }) => fadeOut && `opacity: 0;`});
+  transition: opacity 1s cubic-bezier(0.39, 1.2, 0.55, -0.63);
+`;
+
+export const ArrowContainer = styled.div`
+  font-size: 3rem;
+  font-weight: bold;
+  width: 3rem;
+  height: 3rem;
+
+  border-radius: 50%;
+
+  margin: 3rem;
+  ${FlexCenterStyle};
+  cursor: pointer;
+`;
 
 export const StyledMonthDisplayer = styled.div`
   ${FlexCenterStyle};
   flex-direction: column;
-
-  animation: appear 2s backwards ease-in;
-
-  @keyframes appear {
-    from {
-      opacity: 0;
-      filter: blur(20px);
-    }
-    to {
-      opacity: 1;
-      filter: blur(0);
-    }
-  }
 `;
 
 export const CalendarRow = styled.div`
   ${FlexCenterStyle};
-
-  ${({ enableAnimation, idx }) => enableAnimation && `animation: rotate-${idx} 10s forwards;`}
-
-  @keyframes rotate-${({ idx }) => idx} {
-    from {
-      transform: rotate(0) scale(1);
-    }
-    to {
-      transform: rotate(360deg) scale(3);
-    }
-  }
 `;
 
 export const CalendarDay = styled.div`
-  width: 6rem;
-  height: 6rem;
+  width: 5rem;
+  height: 5rem;
+
   text-align: center;
-`;
-
-//Date Formatter
-export const DayFormatter = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1.4rem);
-  grid-template-rows: repeat(3, 1.5rem);
-
-  ${({ mouseEntered, color, enableEnlarge }) => (mouseEntered % 2 === 1 || !enableEnlarge) && `color: ${color}`};
-  ${({ mouseEntered }) => `transform: scale(${mouseEntered / 4 + 1})`};
-
+  ${FlexCenterStyle};
   transition: all 1s;
 `;
 
-export const Date = styled.div`
+//Date Formatter Styles
+const DayCommon = css`
   ${FlexCenterStyle};
-  text-align: center;
 
-  ${({ reverse }) => reverse && "transform: scaleY(-1)"};
+  font-size: 3rem;
+  width: 4rem;
+  height: 4rem;
 
-  font-size: 1rem;
+  background: black;
+  color: white;
+  transition: all 1s;
+`;
 
-  ${({ enableAnimation }) =>
-    enableAnimation ? `animation: font-size-animation 60s infinite linear alternate, rotation-animation 4s infinite alternate;` : "  animation: rotation-animation 4s infinite alternate;"}
+export const Day = styled.div`
+  ${DayCommon};
 
-  animation-delay: ${({ delay }) => delay}s;
+  border: ${({ UIVersion }) => (UIVersion > 0 ? "4px solid black" : "4px solid transparent")};
+  border-radius: ${({ UIVersion }) => (UIVersion === 0 || UIVersion === 1) && "50%"};
 
-  // animations
-  @keyframes font-size-animation {
-    0% {
-      font-size: 3rem;
-    }
-    0.1% {
-      font-size: 1rem;
-    }
-  }
+  ${({ specialHover }) => specialHover && "cursor: help"};
+  ${({ mouseEntered, specialHover, UIVersion }) =>
+    mouseEntered % 2 === 1
+      ? specialHover
+        ? UIVersion > 0
+          ? `background: red; color: white; border: 4px solid red;`
+          : `background: red; color: white;`
+        : `background: black; color: white;`
+      : `background: white; color: black;`}
 
-  @keyframes rotation-animation {
-    0% {
-      transform: rotate(0);
-    }
-    10% {
-      transform: rotate(180deg);
-    }
-  }
+  ${({ UIVersion }) => UIVersion === 3 && `transform: rotate(90deg);`}
+  ${({ UIVersion }) => UIVersion === 4 && `transform: rotate(0deg) skew(10deg, 5deg);`}
+  ${({ UIVersion }) => UIVersion === 5 && `transform: rotate(540deg) skew(-10deg, 5deg) scaleY(1.6) perspective(2rem) rotateY(10deg);`}
+  ${({ UIVersion }) => UIVersion === 6 && `transform: rotate(270deg) skew(30deg, 40deg) scaleY(3.0) perspective(1rem) rotateY(10deg);`}
+  ${({ UIVersion }) => UIVersion === 7 && `transform: matrix(0.0, 2.0, 3.0, 1.0, 5.0, 6.0);`}
+  ${({ UIVersion }) => UIVersion === 8 && `transform: scale(10);`}
+  ${({ UIVersion }) => UIVersion === 9 && `opacity: 0.2;`}
+`;
+
+export const Day7 = styled.div`
+  ${DayCommon};
+  border: 4px solid black;
+  transform: rotate(180deg) skew(20deg 10deg);
+  ${({ specialHover }) => specialHover && "cursor: help"};
+  ${({ mouseEntered, specialHover }) =>
+    mouseEntered % 2 === 1 ? (specialHover ? `background: red; color: white; border: 4px solid red;` : `background: black; color: white;`) : `background: white; color: black;`}
+`;
+
+export const Day8 = styled.div`
+  ${DayCommon};
+  border: 4px solid black;
+  transform: rotate(180deg) skew(20deg 10deg);
+  ${({ specialHover }) => specialHover && "cursor: help"};
+  ${({ mouseEntered, specialHover }) =>
+    mouseEntered % 2 === 1 ? (specialHover ? `background: red; color: white; border: 4px solid red;` : `background: black; color: white;`) : `background: white; color: black;`}
+`;
+
+export const Day9 = styled.div`
+  ${DayCommon};
+  border: 4px solid black;
+  transform: rotate(180deg) skew(20deg 10deg);
+  ${({ specialHover }) => specialHover && "cursor: help"};
+  ${({ mouseEntered, specialHover }) =>
+    mouseEntered % 2 === 1 ? (specialHover ? `background: red; color: white; border: 4px solid red;` : `background: black; color: white;`) : `background: white; color: black;`}
 `;
