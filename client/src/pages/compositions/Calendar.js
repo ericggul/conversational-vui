@@ -1,5 +1,5 @@
 import React from "react";
-import CalendarContainer from "@C/calendar/Calendar";
+import CalendarContainer from "@/containers/compositions/calendar/Calendar";
 
 function CalendarPage() {
   return <CalendarContainer />;

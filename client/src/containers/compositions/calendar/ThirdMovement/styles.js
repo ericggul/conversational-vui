@@ -8,6 +8,7 @@ export const WholeContainer = styled.div`
   height: ${({ theme }) => theme.windowHeight}px;
   background: black;
   overflow: hidden;
+  cursor: pointer;
 `;
 
 export const ArrowContainer = styled.div`

@@ -64,15 +64,7 @@ function MonthDisplayer({ year, month, moveToNextMovement }) {
 
   return (
     <S.WholeContainer>
-      <S.StyledMonthDisplayer>
-        {new Array(rowNum).fill(0).map((_, i) => (
-          <S.CalendarRow key={i}>
-            {new Array(7).fill(0).map((_, j) => (
-              <Day week={i} day={j} firstDayOfMonth={firstDay} monthLength={monthLength} key={j} UIVersion={UIVersion} handleSpecialClick={handleUIVersionUpdate} />
-            ))}
-          </S.CalendarRow>
-        ))}
-      </S.StyledMonthDisplayer>
+      <S.StyledMonthDisplayer></S.StyledMonthDisplayer>
     </S.WholeContainer>
   );
 }

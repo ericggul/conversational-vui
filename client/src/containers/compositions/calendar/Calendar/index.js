@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-import FirstMovement from "@/containers/calendar/FirstMovement";
-import SecondMovement from "@/containers/calendar/SecondMovement";
-import ThirdMovement from "@/containers/calendar/ThirdMovement";
+import FirstMovement from "@/containers/compositions/calendar/FirstMovement";
+import SecondMovement from "@/containers/compositions/calendar/SecondMovement";
+import ThirdMovement from "@/containers/compositions/calendar/ThirdMovement";
 
 import * as S from "./styles";
 
 function Calendar() {
-  const [movement, setMovement] = useState(1);
+  const [movement, setMovement] = useState(0);
 
   const [year, setYear] = useState(2022);
   const [month, setMonth] = useState(6);
@@ -34,6 +34,8 @@ function Calendar() {
   const moveToNextMovement = () => {
     setMovement((mv) => mv + 1);
   };
+
+  console.log(movement);
 
   return (
     <S.StyledCalendar>

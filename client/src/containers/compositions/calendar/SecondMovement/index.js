@@ -119,19 +119,22 @@ function MonthDisplayer({ year, month, moveToNextMovement }) {
       position: absolute; 
       top: ${e.clientY}px; 
       left: ${e.clientX}px; 
-      font-size: ${getRandom(1, 3)}vw; 
+      font-size: ${getRandom(1, getRandom(4, 7))}vw; 
       transform: translate(-50%, -50%);
       color: black;
-      text-shadow: 0 0 .3vw white;
+      text-shadow: 0 0 .3vw white, 0 0 1vw white;
     `;
     el.innerHTML = getRandomDate();
     displayerRef.current.appendChild(el);
-    setOpacity((op) => op - (1.01 - op) * 0.3);
+    setOpacity((op) => op - (1.01 - op) * 0.4);
   }
 
   useEffect(() => {
     if (opacity < 0.03) {
-      moveToNextMovement();
+      const timeout = setTimeout(() => {
+        moveToNextMovement();
+      }, 1000);
+      return () => clearTimeout(timeout);
     }
   }, [opacity]);
 
