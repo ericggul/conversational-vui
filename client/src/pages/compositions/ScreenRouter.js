@@ -1,5 +1,5 @@
 import ScreenMain from "@C/compositions/screen/ScreenMain";
-import ScreenTesting from "@C/compositions/screen/ScreenTesting";
+import ScreenTesting from "@/containers/compositions/screen/Etoile";
 
 const Routes = [
   {

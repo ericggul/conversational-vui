@@ -80,6 +80,10 @@ function Row({ i, firstDay, monthLength, everythingGetEnlarge, triggerGetEnlarge
   const horizontalRange = useMemo(() => getRandom(-10, 10), [i]);
   const [enableAnimation, setEnableAnimation] = useState(false);
 
+  const scaleSize = useMemo(() => getRandom(2, 4), []);
+  const rotate = useMemo(() => getRandom(180, 540) * (Math.random() < 0.5 ? -1 : 1), []);
+  const animationDelay = useMemo(() => getRandom(0, 2), []);
+
   useEffect(() => {
     if (everythingGetEnlarge) {
       setEnableAnimation(true);
@@ -87,7 +91,7 @@ function Row({ i, firstDay, monthLength, everythingGetEnlarge, triggerGetEnlarge
   }, [everythingGetEnlarge]);
 
   return (
-    <S.CalendarRow key={i} idx={i} range={horizontalRange} enableAnimation={enableAnimation}>
+    <S.CalendarRow key={i} idx={i} range={horizontalRange} enableAnimation={enableAnimation} animationDelay={animationDelay} scaleSize={scaleSize} rotate={rotate}>
       {new Array(7).fill(0).map((_, j) => (
         <Day week={i} day={j} firstDayOfMonth={firstDay} monthLength={monthLength} everythingGetEnlarge={everythingGetEnlarge} triggerGetEnlarge={triggerGetEnlarge} key={j} />
       ))}

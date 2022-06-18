@@ -71,7 +71,7 @@ export const Day = styled.div`
   ${({ UIVersion }) => UIVersion === 3 && `transform: rotate(90deg);`}
   ${({ UIVersion }) => UIVersion === 4 && `transform: rotate(0deg) skew(10deg, 5deg);`}
   ${({ UIVersion }) => UIVersion === 5 && `transform: rotate(540deg) skew(-10deg, 5deg) scaleY(1.6) perspective(2rem) rotateY(10deg);`}
-  ${({ UIVersion }) => UIVersion === 6 && `transform: rotate(270deg) skew(30deg, 40deg) scaleY(3.0) perspective(1rem) rotateY(10deg);`}
+  ${({ UIVersion }) => UIVersion === 6 && `transform: rotate(270deg) scaleY(3.0) perspective(1rem) rotateY(10deg);`}
   ${({ UIVersion }) => UIVersion === 7 && `transform: matrix(0.0, 2.0, 3.0, 1.0, 5.0, 6.0);`}
   ${({ UIVersion }) => UIVersion === 8 && `transform: scale(10);`}
   ${({ UIVersion }) => UIVersion === 9 && `opacity: 0.2;`}

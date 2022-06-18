@@ -52,9 +52,11 @@ export const CalendarRow = styled.div`
       transform: rotate(0) scale(1);
     }
     100% {
-      transform: rotate(360deg) scale(3);
+      transform: rotate(${({ rotate }) => rotate}deg) scale(${({ scaleSize }) => scaleSize});
     }
   }
+
+  animation-delay: ${({ animationDelay }) => animationDelay}s;
 `;
 
 export const CalendarDay = styled.div`
