@@ -6,9 +6,10 @@ export const WholeContainer = styled.div`
 
   width: ${({ theme }) => theme.windowWidth}px;
   height: ${({ theme }) => theme.windowHeight}px;
-  background: black;
+  background: rgb(${({ white }) => white}, ${({ white }) => white}, ${({ white }) => white});
   overflow: hidden;
   cursor: pointer;
+  transition: background 0.2s;
 `;
 
 const DummyCommon = css`

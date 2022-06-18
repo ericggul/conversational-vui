@@ -8,7 +8,7 @@ import ThirdMovement from "@/containers/compositions/calendar/ThirdMovement";
 import * as S from "./styles";
 
 function Calendar() {
-  const [movement, setMovement] = useState(2);
+  const [movement, setMovement] = useState(0);
 
   const [year, setYear] = useState(2022);
   const [month, setMonth] = useState(6);

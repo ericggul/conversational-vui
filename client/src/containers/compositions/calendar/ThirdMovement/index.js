@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo, useState, useRef, useCallback } from "react";
 import axios from "axios";
+import { debounce } from "@U/functions/timer";
+import useResize from "@U/hooks/useResize";
 import * as S from "./styles";
 import "./styles.css";
 
@@ -7,55 +9,68 @@ const getRandom = (a, b) => Math.random() * (b - a) + a;
 
 function MonthDisplayer({ year, month, moveToNextMovement }) {
   const containerRef1 = useRef();
-  const containerRef2 = useRef();
-  const containerRef3 = useRef();
+
+  const [windowWidth, windowHeight] = useResize();
 
   const [UIVersion, setUIVersion] = useState(0);
   const [crazyLevel, setCrazyLevel] = useState(0);
 
-  const addElement = (x, y) => {
+  const addElement = (x, y, size, number) => {
     const el = document.createElement("div");
 
-    const unitSize = getRandom(30, 60);
     el.className = "date-el";
     el.style.left = `${x}px`;
     el.style.top = `${y}px`;
-    el.style.width = `${unitSize * 1.8}px`;
-    el.style.height = `${unitSize * 1.8}px`;
-    el.style.fontSize = `${unitSize}px`;
+    el.style.width = `${size}px`;
+    el.style.height = `${size}px`;
+    el.style.fontSize = `${size * 0.7}px`;
     el.style.transform = `translate(-50%, -50%)`;
     el.style.color = "white";
     el.style.background = `transparent`;
-    el.style.border = `${getRandom(4, 8)}px solid hsl(${getRandom(0, 350)}, 100%, ${getRandom(50, 80)}%)`;
-    el.style.animationDelay = `${getRandom(0, 0.5)}s`;
-    el.innerHTML = Math.floor(getRandom(1, 31));
+    el.style.border = `${size * 0.1}px solid white`;
+    let delay = getRandom(0, 0.5);
+    el.style.animationDelay = `${delay}s`;
+    el.innerHTML = number;
 
     containerRef1.current.appendChild(el);
-    setTimeout(() => {
-      containerRef1.current.removeChild(el);
-    }, getRandom(2000, 2500));
   };
 
-  const elementGenerator = useCallback(
-    (e) => {
-      const generatedNumber = Math.floor(getRandom(1, crazyLevel ** 1.2 + 1));
-      const bounded = Math.min(20 * crazyLevel ** 1.2, 500);
-      for (let i = 0; i < generatedNumber; i++) {
-        addElement(e.clientX + getRandom(-bounded, bounded), e.clientY + getRandom(-bounded, bounded));
-      }
-    },
-    [crazyLevel]
-  );
+  const elementGenerator = (xPos, yPos, number) => {
+    const generatedNumber = crazyLevel - 1;
+    let r = 0;
+    let angle = 0;
+    let size = 40;
+    let angleIncrement = getRandom(-0.02, 0.02);
 
-  const converTTS = async () => {
+    if (generatedNumber === -1) {
+      addElement(xPos, yPos, 40, number);
+    }
+    for (let i = 0; i < generatedNumber; i++) {
+      size = getRandom(0, getRandom(20, 20));
+      // size = getRandom(getRandom(getRandom(0, 20), 30), getRandom(50, 100));
+      r += size * 0.6;
+      angle += Math.PI * angleIncrement;
+      for (let j = 0; j < 4; j++) {
+        angle += Math.PI / 2;
+        addElement(xPos + r * Math.cos(angle), yPos + r * Math.sin(angle), size, number);
+      }
+      r += size * 0.6;
+    }
+  };
+
+  const converTTS = async (number) => {
     try {
-      const res = await axios.post("http://localhost:8000/tts",{text: "awet 02 4krnbal 39!"}, {
-      responseType: "arraybuffer",
-      "Access-Control-Allow-Origin": "*",
-    });
+      const res = await axios.post(
+        "http://localhost:8000/tts",
+        { text: `What are you doing on January ${number}?` },
+        {
+          responseType: "arraybuffer",
+          "Access-Control-Allow-Origin": "*",
+        }
+      );
       console.log(res.data);
 
-      //play audio 
+      //play audio
       const AudioContext = window.AudioContext || window.webkitAudioContext;
       const audioContext = new AudioContext();
       const audioBuffer = await audioContext.decodeAudioData(res.data);
@@ -64,43 +79,55 @@ function MonthDisplayer({ year, month, moveToNextMovement }) {
       source.connect(audioContext.destination);
       source.start();
       console.log(source);
-      
     } catch (e) {
       console.log(e);
     }
   };
 
+  const [backgroundWhite, setBackgroundWhite] = useState(1);
+  useEffect(() => {
+    if (crazyLevel > 40) {
+      const interval = setInterval(() => {
+        setBackgroundWhite((w) => Math.floor(w * 1.1) + 1);
+        elementGenerator(getRandom(0, windowWidth), getRandom(0, windowHeight), Math.floor(getRandom(1, 99)));
+      }, 400);
+      return () => clearInterval(interval);
+    }
+  }, [crazyLevel]);
+
   const handleClick = (e) => {
-    e.preventDefault();
-    setCrazyLevel((lv) => lv + 1);
-    elementGenerator(e);
-    converTTS();
+    if (crazyLevel <= 45) {
+      const number = Math.floor(getRandom(1, 31));
+
+      e.preventDefault();
+      setCrazyLevel((lv) => lv + 1);
+      elementGenerator(e.clientX, e.clientY, number);
+      converTTS(number);
+    }
   };
 
   //click event
   useEffect(() => {
-    if (containerRef1 && containerRef1.current && containerRef2 && containerRef2.current && containerRef3 && containerRef3.current) {
+    if (containerRef1 && containerRef1.current) {
       document.addEventListener("click", handleClick);
       return () => document.removeEventListener("click", handleClick);
     }
-  }, [containerRef1, containerRef2, containerRef3, crazyLevel]);
+  }, [containerRef1, crazyLevel]);
 
   const handleUIVersionUpdate = () => {
     if (UIVersion < 9) {
       setUIVersion((e) => e + 1);
       return;
     }
-    
+
     setTimeout(() => {
       moveToNextMovement();
     }, 1000);
   };
 
   return (
-    <S.WholeContainer>
+    <S.WholeContainer white={backgroundWhite}>
       <S.Dummy1 ref={containerRef1} />
-      <S.Dummy2 ref={containerRef2} />
-      <S.Dummy3 ref={containerRef3} />
     </S.WholeContainer>
   );
 }
