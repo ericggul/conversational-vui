@@ -49,8 +49,22 @@ function MonthDisplayer({ year, month, moveToNextMovement }) {
 
   const converTTS = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/tts", { responseType: "arraybuffer" });
-      console.log(res);
+      const res = await axios.post("http://localhost:8000/tts",{text: "awet 02 4krnbal 39!"}, {
+      responseType: "arraybuffer",
+      "Access-Control-Allow-Origin": "*",
+    });
+      console.log(res.data);
+
+      //play audio 
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      const audioContext = new AudioContext();
+      const audioBuffer = await audioContext.decodeAudioData(res.data);
+      const source = audioContext.createBufferSource();
+      source.buffer = audioBuffer;
+      source.connect(audioContext.destination);
+      source.start();
+      console.log(source);
+      
     } catch (e) {
       console.log(e);
     }

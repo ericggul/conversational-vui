@@ -4,25 +4,19 @@ const fs = require("fs");
 const util = require("util");
 
 const tts = async (req, res) => {
-  // const {text} = req.body;
-
-  // if(text!== ""){
-  //     return res.status(400).json({
-  //         msg: `Text is required`
-  //     })
-  // }
 
   const client = new textToSpeech.TextToSpeechClient();
 
-  const TEXT = "hello world";
+  const text = req.body.text || "HELLO WORLD"
   const request = {
-    input: { text: TEXT },
+    input: { text },
     voice: { languageCode: "en-UK", ssmlGender: "NEUTRAL" },
-    audioConfig: { audioEncoding: "MP3" },
+    audioConfig: { audioEncoding: "LINEAR16" },
   };
 
   const [response] = await client.synthesizeSpeech(request);
-  res.send(response.audioContext);
+  console.log(response);
+  res.send(response.audioContent);
 };
 
 module.exports = { tts };
