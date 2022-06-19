@@ -58,10 +58,11 @@ function MonthDisplayer({ year, month, moveToNextMovement }) {
     }
   };
 
-  const converTTS = async (number) => {
+  const convertTTS = async (number) => {
     try {
       const res = await axios.post(
         "http://localhost:8000/tts",
+
         { text: `What are you doing on January ${number}?` },
         {
           responseType: "arraybuffer",
@@ -87,10 +88,11 @@ function MonthDisplayer({ year, month, moveToNextMovement }) {
   const [backgroundWhite, setBackgroundWhite] = useState(1);
   useEffect(() => {
     if (crazyLevel > 40) {
-      const interval = setInterval(() => {
+      const interval = setInterval(async () => {
         setBackgroundWhite((w) => Math.floor(w * 1.1) + 1);
         elementGenerator(getRandom(0, windowWidth), getRandom(0, windowHeight), Math.floor(getRandom(1, 99)));
-      }, 400);
+        await convertTTS(Math.floor(getRandom(1, 99)));
+      }, 700);
       return () => clearInterval(interval);
     }
   }, [crazyLevel]);
@@ -102,7 +104,7 @@ function MonthDisplayer({ year, month, moveToNextMovement }) {
       e.preventDefault();
       setCrazyLevel((lv) => lv + 1);
       elementGenerator(e.clientX, e.clientY, number);
-      converTTS(number);
+      convertTTS(number);
     }
   };
 

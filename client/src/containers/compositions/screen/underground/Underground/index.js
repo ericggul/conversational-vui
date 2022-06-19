@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import ConsentForm from "@C/compositions/screen/underground/ConsentForm";
+import React, { useState, useMemo, useEffect } from "react";
+import axios from "axios";
+import { io } from "socket.io-client";
 import * as S from "./styles";
 
 const getRandom = (a, b) => Math.random() * (b - a) + a;
@@ -8,10 +9,12 @@ const getRandomColor = () => `hsl(${getRandom(50, 300)}, 100%, 50%)`;
 function ScreenTesting() {
   const [text, setText] = useState("");
   const [highState, setHighState] = useState(false);
+  const socket = useMemo(() => io("http://localhost:8000"), []);
 
   const [color, setColor] = useState(getRandomColor());
 
   const handleChange = (e) => {
+    socket.emit("simple input");
     setColor(getRandomColor());
     setText(e.target.value);
     setHighState(true);
@@ -20,8 +23,10 @@ function ScreenTesting() {
     }, 300);
   };
 
-  const [consentModalOpened, setConsentModalOpened] = useState(false);
-  const handleButtonClick = () => setConsentModalOpened(true);
+  const handleButtonClick = () => {
+    socket.emit("input send", text);
+    setText("");
+  };
 
   return (
     <S.Container highState={highState} color={color}>
@@ -38,7 +43,6 @@ function ScreenTesting() {
       <S.ButtonRight transit={text.length - 5} onClick={handleButtonClick}>
         X
       </S.ButtonRight>
-      {consentModalOpened && <ConsentForm closeModal={() => setConsentModalOpened(false)} />}
     </S.Container>
   );
 }

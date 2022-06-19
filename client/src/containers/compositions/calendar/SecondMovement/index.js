@@ -7,7 +7,7 @@ const getRandom = (a, b) => Math.random() * (b - a) + a;
 function getRandomDate() {
   const month = getRandom(1, 12);
   const day = getRandom(1, 31);
-  return new Date(2022, month - 1, day);
+  return new Date(2022, month - 1, day).toLocaleDateString("en-UK");
 }
 
 function SingleDate({ date, everythingGetEnlarge }) {
@@ -53,8 +53,7 @@ function DayFormatter({ date, triggerGetEnlarge, everythingGetEnlarge }) {
         }, 2000);
         return () => clearTimeout(timeout);
       }
-      if (mouseEntered > 17) {
-        console.log("trigger!");
+      if (mouseEntered > 25) {
         triggerGetEnlarge();
       }
     }

@@ -44,7 +44,7 @@ function Etoile() {
         </Suspense>
 
         <CameraControls />
-        {/* <Effect /> */}
+        <Effect />
       </Canvas>
     </S.Container>
   );
