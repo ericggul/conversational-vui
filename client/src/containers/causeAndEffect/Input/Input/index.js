@@ -14,7 +14,7 @@ function Input() {
   const [color, setColor] = useState(getRandomColor());
 
   const handleChange = (e) => {
-    socket.emit("simple input");
+    socket.emit("simple input", e.target.value);
     setColor(getRandomColor());
     setText(e.target.value);
     setHighState(true);

@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
+import { io } from "socket.io-client";
 
 export default function useSocketInput(triggerTimeout = 100) {
   const [triggered, setTriggered] = useState(false);
