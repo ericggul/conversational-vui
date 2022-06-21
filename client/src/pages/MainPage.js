@@ -1,5 +1,5 @@
 import React from "react";
-import MainContainer from "@C/main/Main";
+import MainContainer from "@/containers/Main";
 import { withTheme } from "styled-components";
 
 function MainPage() {
