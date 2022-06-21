@@ -43,7 +43,7 @@ function App() {
               <Route exact key={i} path={route.path} component={route.component} />
             ))}
             {causeAndEffectRoutes.map((route, i) => (
-              <Route exact key={i} path={`/cause-and-effect/${route.path}`} component={route.component} />
+              <Route exact key={i} path={`/cause-and-effect${route.path}`} component={route.component} />
             ))}
           </Switch>
         </Suspense>
