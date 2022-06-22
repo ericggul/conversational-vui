@@ -72,13 +72,12 @@ const DUMMY_DATA = [
 ];
 
 function Main() {
-  const triggered = useSocketInput();
-  console.log(triggered);
+  const triggered = useSocketInput(400);
 
   return (
     <S.StyledMain>
       {DUMMY_DATA.map((d, i) => (
-        <PlaceElement key={i} {...d} />
+        <PlaceElement key={i} {...d} triggered={triggered} />
       ))}
     </S.StyledMain>
   );

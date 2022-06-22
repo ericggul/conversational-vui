@@ -31,12 +31,16 @@ export const DeliverySign = styled.div`
   margin: 0.7rem;
   font-size: 1.1rem;
   font-weight: bold;
+  z-index: 2;
+
+  // ${({ deliveryFeePos }) => deliveryFeePos && `top: ${deliveryFeePos.top}px;   left: ${deliveryFeePos.left}px;`}
 `;
 
 export const Img = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
+  // ${({ invertImg }) => (invertImg ? `transform: scaleX(-1);` : "")};
 `;
 export const LowerContainer = styled.div`
   display: flex;
@@ -83,8 +87,8 @@ export const DeliveryMin = styled.div`
   position: absolute;
   bottom: 5rem;
   right: 1rem;
-  width: 7rem;
-  height: 4rem;
+
+  padding: 0.7rem 1rem;
   border-radius: 2rem;
   background: white;
   ${FlexCenterStyle};
