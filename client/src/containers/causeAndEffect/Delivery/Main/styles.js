@@ -5,4 +5,5 @@ export const StyledMain = styled.div`
   flex-direction: column;
   align-items: center;
   overflow-y: scroll;
+  max-height: ${({ theme }) => theme.windowHeight}px;
 `;

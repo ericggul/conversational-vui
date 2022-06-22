@@ -26,12 +26,23 @@ function Drawing() {
 
   useEffect(() => {
     //sessionOn State
-    if (record) {
-      setSessionOn(true);
-    } else {
+    if (!record) {
       setSessionOn(false);
+      return;
     }
+
+    setSessionOn(true);
   }, [record]);
+
+  useEffect(() => {
+    if (canvas && record) {
+      handleDraw();
+    }
+  }, [record, canvas]);
+
+  function handleDraw() {
+    canvas.animate(record);
+  }
 
   return (
     <S.StyledDrawing>
