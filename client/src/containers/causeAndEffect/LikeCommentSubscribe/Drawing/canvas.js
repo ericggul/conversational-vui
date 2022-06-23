@@ -35,17 +35,41 @@ export default class Canvas {
   }
 
   animate(record) {
-    console.log(record);
+    let text = record.msg;
+    let len = text.length;
 
-    for (let i = 0; i < 2000; i++) {
-      const center = { x: this.stageWidth / 2, y: this.stageHeight / 2 };
-      const distance = this.waveFunction(this.stageWidth, 100);
-      const angle = getRandom(0, Math.PI * 2);
+    const fontSize = (1.5 * this.stageWidth) / len ** 0.3;
+    this.ctx.fillStyle = `rgba(0, 0, 0, .01)`;
+    this.ctx.font = `${fontSize}px Times New Roman`;
 
-      this.ctx.fillStyle = `rgba(0, 0, 0, ${getRandom(0.5, 1)})`;
-      this.ctx.beginPath();
-      this.ctx.arc(distance, getRandom(0.4, 0.6) * this.stageHeight, getRandom(0, 2), 0, Math.PI * 2);
-      this.ctx.fill();
+    this.ctx.textBaseline = "middle";
+    this.ctx.textAlign = "center";
+
+    this.ctx.beginPath();
+    this.ctx.stroke();
+
+    this.ctx.fillText(text[len - 1], this.stageWidth / 2, this.stageHeight / 2);
+    this.ctx.restore();
+
+    const typeData = this.ctx.getImageData(0, 0, this.stageWidth, this.stageHeight).data;
+
+    const color = { r: getRandom(0, 255), g: getRandom(0, 255), b: getRandom(0, 255) };
+    for (let i = 0; i < this.stageWidth; i++) {
+      for (let j = 0; j < this.stageHeight; j++) {
+        if (Math.random() < 0.1) {
+          const index = (i + j * this.stageWidth) * 4;
+          const r = typeData[index];
+          const g = typeData[index + 1];
+
+          if (r !== 255 && r === g) {
+            console.log(r, g);
+            this.ctx.fillStyle = `rgba(${color.r}, ${color.g}, ${color.b}, ${getRandom(0, 0.1) * len})`;
+            this.ctx.beginPath();
+            this.ctx.arc(i, j, getRandom(1, getRandom(1, getRandom(1, 10))), 0, 2 * Math.PI);
+            this.ctx.fill();
+          }
+        }
+      }
     }
   }
 
