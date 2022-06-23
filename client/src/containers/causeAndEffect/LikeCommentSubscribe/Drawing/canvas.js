@@ -25,21 +25,15 @@ export default class Canvas {
   waveInit() {
     this.lambda = 70;
     this.waveFunction = (max, lambda) => ((Math.asin(getRandom(-1, 1)) + Math.PI / 2) * lambda) / Math.PI + getIntRandom(0, Math.ceil(max / lambda)) * lambda;
-    this.drawInit();
-  }
-
-  drawInit() {
-    this.ctx.fillStyle = "white";
-    this.ctx.fillRect(0, 0, this.stageWidth, this.stageHeight);
-    this.ctx.fillStyle = "black";
   }
 
   animate(record) {
+    let t = record.time;
     let text = record.msg;
     let len = text.length;
 
     const fontSize = (1.5 * this.stageWidth) / len ** 0.3;
-    this.ctx.fillStyle = `rgba(0, 0, 0, .01)`;
+    this.ctx.fillStyle = `rgba(254, 254, 254, 1)`;
     this.ctx.font = `${fontSize}px Times New Roman`;
 
     this.ctx.textBaseline = "middle";
@@ -53,7 +47,7 @@ export default class Canvas {
 
     const typeData = this.ctx.getImageData(0, 0, this.stageWidth, this.stageHeight).data;
 
-    const color = { r: getRandom(0, 255), g: getRandom(0, 255), b: getRandom(0, 255) };
+    const color = { r: t % 239, g: t % 227, b: t % 233 };
     for (let i = 0; i < this.stageWidth; i++) {
       for (let j = 0; j < this.stageHeight; j++) {
         if (Math.random() < 0.1) {
@@ -61,9 +55,8 @@ export default class Canvas {
           const r = typeData[index];
           const g = typeData[index + 1];
 
-          if (r !== 255 && r === g) {
-            console.log(r, g);
-            this.ctx.fillStyle = `rgba(${color.r}, ${color.g}, ${color.b}, ${getRandom(0, 0.1) * len})`;
+          if (r !== 255 && r !== 0 && r === g) {
+            this.ctx.fillStyle = `rgba(${color.r}, ${color.g}, ${color.b}, ${getRandom(0, 0.15)})`;
             this.ctx.beginPath();
             this.ctx.arc(i, j, getRandom(1, getRandom(1, getRandom(1, 10))), 0, 2 * Math.PI);
             this.ctx.fill();
