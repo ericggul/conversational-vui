@@ -46,8 +46,8 @@ class Model {
       socket.on("input send", (msg) => {
         console.log("chat", msg);
       });
-      socket.on("simple input", (msg) => {
-        this.io.emit("input", msg);
+      socket.on("simple input", (data) => {
+        this.io.emit("input", data);
       });
     });
   }

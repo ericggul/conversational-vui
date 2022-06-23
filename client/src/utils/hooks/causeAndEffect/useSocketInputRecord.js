@@ -5,8 +5,8 @@ export default function useSocketInputRecord() {
   const [record, setRecord] = useState(null);
   const socket = useMemo(() => io("http://localhost:8000"), []);
 
-  const handleSocketInput = (msg) => {
-    msg ? setRecord({ msg, time: Date.now() }) : setRecord(null);
+  const handleSocketInput = (data) => {
+    data ? setRecord({ ...data, time: Date.now() }) : setRecord(null);
   };
 
   useEffect(() => {

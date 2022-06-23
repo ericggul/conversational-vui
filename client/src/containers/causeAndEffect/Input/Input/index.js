@@ -4,7 +4,7 @@ import { io } from "socket.io-client";
 import * as S from "./styles";
 
 const getRandom = (a, b) => Math.random() * (b - a) + a;
-const getRandomColor = () => `hsl(${getRandom(50, 300)}, 100%, 50%)`;
+const getRandomColor = () => `hsl(${getRandom(0, 350)}, 100%,${getRandom(40, 60)}%)`;
 
 function Input() {
   const [text, setText] = useState("");
@@ -14,8 +14,9 @@ function Input() {
   const [color, setColor] = useState(getRandomColor());
 
   const handleChange = (e) => {
-    socket.emit("simple input", e.target.value);
-    setColor(getRandomColor());
+    const thisColor = getRandomColor();
+    socket.emit("simple input", { text: e.target.value, color: thisColor });
+    setColor(thisColor);
     setText(e.target.value);
     setHighState(true);
     setTimeout(() => {

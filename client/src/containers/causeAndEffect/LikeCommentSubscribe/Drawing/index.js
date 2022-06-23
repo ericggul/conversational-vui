@@ -9,48 +9,32 @@ function Drawing() {
 
   //states
   const [sessionOn, setSessionOn] = useState(false);
-  const [canvas, setCanvas] = useState(null);
-
   const [canvases, setCanvases] = useState([]);
 
-  //canvas installation, based on sessionon state
-  // useEffect(() => {
-  //   if (sessionOn) {
-  //     let canvasEl = new Canvas();
-  //     setCanvas(canvasEl);
-  //     return () => canvasEl.destroy();
-  //   }
-  //   if (!sessionOn && canvas) {
-  //     canvas.destroy();
-  //     setCanvas(null);
-  //   }
-  // }, [sessionOn]);
-
-  // useEffect(() => {
-  //   //sessionOn State
-  //   if (!record) {
-  //     setSessionOn(false);
-  //     return;
-  //   }
-
-  //   setSessionOn(true);
-  // }, [record]);
-
-  // useEffect(() => {
-  //   if (canvas && record) {
-  //     handleDraw();
-  //   }
-  // }, [record, canvas]);
-
-  // function handleDraw() {
-  //   canvas.animate(record);
-  // }
+  console.log(record);
+  console.log("drawing!");
 
   useEffect(() => {
-    if (record) {
+    if (!record) {
+      console.log("no record!");
+      setSessionOn(false);
+      cancelCanvases();
+      return;
+    }
+    setSessionOn(true);
+  }, [record]);
+
+  function cancelCanvases() {
+    console.log("cancel canvas!");
+    canvases.forEach((canvas) => canvas.destroy());
+    setCanvases([]);
+  }
+
+  useEffect(() => {
+    if (sessionOn && record) {
       handleDraw();
     }
-  }, [record]);
+  }, [record, sessionOn]);
 
   function handleDraw() {
     let canvas = new Canvas();
