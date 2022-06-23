@@ -122,7 +122,7 @@ function MonthDisplayer({ year, month, moveToNextMovement }) {
       position: absolute; 
       top: ${e.clientY}px; 
       left: ${e.clientX}px; 
-      font-size: ${getRandom(1, getRandom(4, 7))}vw; 
+      font-size: ${getRandom(2, getRandom(5, 8))}vw; 
       transform: translate(-50%, -50%);
       color: black;
       text-shadow: 0 0 .3vw white, 0 0 1vw white;
