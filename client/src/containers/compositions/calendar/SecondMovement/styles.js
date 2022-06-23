@@ -72,7 +72,7 @@ export const DayFormatter = styled.div`
   grid-template-rows: repeat(3, 1.5vw);
 
   ${({ mouseEntered, color, enableEnlarge }) => (mouseEntered % 2 === 1 || !enableEnlarge) && `color: ${color}`};
-  ${({ mouseEntered }) => `transform: scale(${mouseEntered / 4 + 1})`};
+  ${({ mouseEntered }) => `transform: scale(${mouseEntered / 3 + 1})`};
 
   transition: all 1s;
 `;

@@ -5,7 +5,10 @@ import useResize from "@U/hooks/useResize";
 import * as S from "./styles";
 import "./styles.css";
 
+const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
 const getRandom = (a, b) => Math.random() * (b - a) + a;
+const getRandomFromArray = (array) => array[Math.floor(getRandom(0, array.length))];
 
 function MonthDisplayer({ year, month, moveToNextMovement }) {
   const containerRef1 = useRef();
@@ -36,18 +39,18 @@ function MonthDisplayer({ year, month, moveToNextMovement }) {
   };
 
   const elementGenerator = (xPos, yPos, number) => {
-    const generatedNumber = crazyLevel - 1;
+    const generatedNumber = crazyLevel;
     let r = 0;
     let angle = 0;
     let size = 40;
     let angleIncrement = getRandom(-0.02, 0.02);
 
-    if (generatedNumber === -1) {
+    console.log(generatedNumber);
+    if (generatedNumber === 0) {
       addElement(xPos, yPos, 40, number);
     }
     for (let i = 0; i < generatedNumber; i++) {
-      size = getRandom(0, getRandom(20, 20));
-      // size = getRandom(getRandom(getRandom(0, 20), 30), getRandom(50, 100));
+      size = getRandom(Math.max(0, 6 - i), 20);
       r += size * 0.6;
       angle += Math.PI * angleIncrement;
       for (let j = 0; j < 4; j++) {
@@ -63,7 +66,7 @@ function MonthDisplayer({ year, month, moveToNextMovement }) {
       const res = await axios.post(
         "http://localhost:8000/tts",
 
-        { text: `What are you doing on January ${number}?` },
+        { text: `What are you doing on ${getRandomFromArray(MONTHS)} ${number}?` },
         {
           responseType: "arraybuffer",
           "Access-Control-Allow-Origin": "*",
@@ -91,19 +94,43 @@ function MonthDisplayer({ year, month, moveToNextMovement }) {
       const interval = setInterval(async () => {
         setBackgroundWhite((w) => Math.floor(w * 1.1) + 1);
         elementGenerator(getRandom(0, windowWidth), getRandom(0, windowHeight), Math.floor(getRandom(1, 99)));
+        elementGenerator(getRandom(0, windowWidth), getRandom(0, windowHeight), Math.floor(getRandom(1, 99)));
         await convertTTS(Math.floor(getRandom(1, 99)));
       }, 700);
-      return () => clearInterval(interval);
+      const timeout = setTimeout(() => {
+        moveToNextMovement();
+      }, 30000);
+      return () => {
+        clearInterval(interval);
+        clearTimeout(timeout);
+      };
     }
   }, [crazyLevel]);
 
   const handleClick = (e) => {
-    if (crazyLevel <= 45) {
-      const number = Math.floor(getRandom(1, 31));
+    if (crazyLevel <= 8) {
+      const number = Math.floor(getRandom(1, 29));
 
       e.preventDefault();
       setCrazyLevel((lv) => lv + 1);
       elementGenerator(e.clientX, e.clientY, number);
+      convertTTS(number);
+    } else if (crazyLevel <= 20) {
+      const number = Math.floor(getRandom(1, 32));
+
+      e.preventDefault();
+      setCrazyLevel((lv) => lv + 2);
+      elementGenerator(e.clientX + getRandom(-20, 20), e.clientY + getRandom(-20, 20), number);
+      elementGenerator(e.clientX + getRandom(-20, 20), e.clientY + getRandom(-20, 20), number);
+      convertTTS(number);
+    } else if (crazyLevel <= 45) {
+      const number = Math.floor(getRandom(1, 50));
+
+      e.preventDefault();
+      setCrazyLevel((lv) => lv + 3);
+      elementGenerator(e.clientX + getRandom(-30, 30), e.clientY + getRandom(-30, 30), number);
+      elementGenerator(e.clientX + getRandom(-30, 30), e.clientY + getRandom(-30, 30), number);
+      elementGenerator(e.clientX + getRandom(-30, 30), e.clientY + getRandom(-30, 30), number);
       convertTTS(number);
     }
   };
@@ -115,17 +142,6 @@ function MonthDisplayer({ year, month, moveToNextMovement }) {
       return () => document.removeEventListener("click", handleClick);
     }
   }, [containerRef1, crazyLevel]);
-
-  const handleUIVersionUpdate = () => {
-    if (UIVersion < 9) {
-      setUIVersion((e) => e + 1);
-      return;
-    }
-
-    setTimeout(() => {
-      moveToNextMovement();
-    }, 1000);
-  };
 
   return (
     <S.WholeContainer white={backgroundWhite}>
