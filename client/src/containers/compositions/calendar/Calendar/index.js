@@ -8,7 +8,7 @@ import Credit from "@/containers/compositions/calendar/Credit";
 import * as S from "./styles";
 
 function Calendar() {
-  const [movement, setMovement] = useState(3);
+  const [movement, setMovement] = useState(0);
 
   const [year, setYear] = useState(2022);
   const [month, setMonth] = useState(6);

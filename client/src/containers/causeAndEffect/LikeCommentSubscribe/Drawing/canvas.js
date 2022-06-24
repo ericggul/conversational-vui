@@ -49,7 +49,7 @@ export default class Canvas {
       const x = Math.floor((intervalUnit * (i + 0.5)) % this.stageWidth);
       const y = Math.round((intervalUnit * (i + 0.5)) / this.stageWidth);
       this.ctx.translate(x, y);
-      this.ctx.rotate(t % 360);
+      this.ctx.rotate((t % 360) + getRandom(-0.1, 0.1));
       this.ctx.beginPath();
       this.ctx.stroke();
 

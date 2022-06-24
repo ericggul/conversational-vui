@@ -8,6 +8,7 @@ export const StyledPlaceElement = styled.div`
   width: calc(100% - 1.5rem);
   margin: 0.75rem;
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3);
+  transition: all 0.2s;
 `;
 
 export const UpperContainer = styled.div`
@@ -29,18 +30,16 @@ export const DeliverySign = styled.div`
   top: 0;
   left: 0;
   margin: 0.7rem;
+
   font-size: 1.1rem;
   font-weight: bold;
   z-index: 2;
-
-  // ${({ deliveryFeePos }) => deliveryFeePos && `top: ${deliveryFeePos.top}px;   left: ${deliveryFeePos.left}px;`}
 `;
 
 export const Img = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  // ${({ invertImg }) => (invertImg ? `transform: scaleX(-1);` : "")};
 `;
 export const LowerContainer = styled.div`
   display: flex;
@@ -53,8 +52,10 @@ export const LowerContainer = styled.div`
 `;
 
 export const Name = styled.div`
+  position: relative;
   font-weight: bold;
   font-size: 1.2rem;
+  height: 1.5rem;
 `;
 export const Review = styled.div`
   font-size: 1rem;
@@ -67,13 +68,25 @@ export const Raiting = styled.span`
   color: #037d8b;
   display: flex;
   align-items: center;
+  position: relative;
   svg {
     font-size: 1.3rem;
     margin-top: -0.2rem;
     margin-left: -0.2rem;
+
+    ${({ triggered }) => triggered && `animation: rotate-icon .1s infinite linear;`}
+    @keyframes rotate-icon {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
   }
 `;
 export const Number = styled.span`
+  position: relative;
   color: #777;
   margin-left: 0.3rem;
 `;
@@ -81,6 +94,7 @@ export const Number = styled.span`
 export const Information = styled.div`
   color: #777;
   font-size: 1rem;
+  position: relative;
 `;
 
 export const DeliveryMin = styled.div`
@@ -108,4 +122,16 @@ export const DeliveryMin = styled.div`
     font-size: 1.5rem;
     font-weight: bold;
   }
+`;
+
+export const Ordinary = styled.div`
+  position: absolute;
+  ${({ triggered }) => (!triggered ? "opacity: 1;" : "opacity: 0;")}
+  transition: .2s;
+`;
+
+export const Triggered = styled.div`
+  position: absolute;
+  ${({ triggered }) => (triggered ? "opacity: 1;" : "opacity: 0;")}
+  transition: .2s;
 `;

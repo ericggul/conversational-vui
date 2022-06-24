@@ -2,8 +2,12 @@ import React, { useEffect, useState, useMemo } from "react";
 import axios from "axios";
 import * as S from "./styles";
 import TestImg from "static/image/NestedCircles.png";
+import ImageElement from "../ImageElement";
 import { IoMdStar } from "react-icons/io";
 import { SiStarbucks } from "react-icons/si";
+
+//utils
+import { distortLetter } from "./utils";
 
 const DISTANCE_UNITS = ["millimeters", "centimeters", "meters", "inches", "feet", "yards", "miles"];
 const TIME_UNITS = ["min", "hours", "seconds", "months", "days", "years"];
@@ -32,9 +36,9 @@ function Raiting({ raiting, triggered }) {
   }, [raiting]);
 
   return (
-    <S.Raiting>
-      {triggered ? <SiStarbucks /> : <IoMdStar />}
-      {raiting} {ment}
+    <S.Raiting triggered={triggered}>
+      {triggered ? <SiStarbucks style={{ marginRight: triggered && "0.2rem" }} /> : <IoMdStar />}
+      {triggered ? 5.1 : raiting.toFixed(1)} {ment}
     </S.Raiting>
   );
 }
@@ -66,8 +70,9 @@ function PlaceElement(props) {
   }, []);
 
   //trigger party!!
-  const initialRaiting = useMemo(() => getRandom(getRandom(0, getRandom(3, 4.5)), 5).toFixed(1), []);
+  const initialRaiting = useMemo(() => Math.floor(getRandom(getRandom(0, getRandom(30, 45)), 50)) / 10, []);
 
+  const [name, setName] = useState(props.name);
   const [raiting, setRaiting] = useState(initialRaiting);
   const [distance, setDistance] = useState(props.distance);
   const [distanceUnit, setDistanceUnit] = useState("miles");
@@ -77,22 +82,24 @@ function PlaceElement(props) {
   const [deliveryMinUnit, setDeliveryMinUnit] = useState("min");
 
   useEffect(() => {
+    let l = props.record && props.record.text ? props.record.text.length : 0;
     if (props.triggered) {
-      setRaiting(getRandom(-1000000, 100000));
-      setDistance(getRandom(-100, 100));
+      setName(props.record ? props.record.text : "undefined");
+      setRaiting((r) => initialRaiting + l * 0.05 + l ** 2 * 0.05 + l ** 3 * 0.05);
+      setDistance(getRandom(-100, 100).toFixed(2));
       setDistanceUnit(getRandomArray(DISTANCE_UNITS));
-      setDeliveryFee(props.fee + getRandom(-10000, -100000));
-      setDeliveryFeePos({ top: getRandom(0, 100), left: getRandom(0, 100) });
+      setDeliveryFee((props.fee + getRandom(-10, -100)).toFixed(1));
+      setDeliveryFeePos({ top: getRandom(0, 100).toFixed(2), left: getRandom(0, 100).toFixed(2) });
       setDeliveryMinUnit(getRandomArray(TIME_UNITS));
     } else {
-      setRaiting(initialRaiting);
+      setName(props.name);
       setDistance(props.distance);
-      setDistanceUnit("miles");
+      setDistanceUnit(distortLetter("miles", "M!|2$", l));
       setDeliveryFee(props.fee);
       setDeliveryFeePos({ top: 0, left: 0 });
-      setDeliveryMinUnit("min");
+      setDeliveryMinUnit(distortLetter("min", "~ï%", l / 2));
     }
-  }, [props.triggered, props.fee]);
+  }, [props.triggered, props.record, props.fee]);
 
   useEffect(() => {
     setDeliveryMin({ min: Math.round(distance * 4) * 5, max: Math.round(distance * 6) * 5 });
@@ -103,16 +110,24 @@ function PlaceElement(props) {
       <S.UpperContainer>
         <S.ImgContainer>
           <S.DeliverySign deliveryFeePos={deliveryFeePos}>&#163; {deliveryFee} delivery</S.DeliverySign>
-          <S.Img src={imgUrl || TestImg} invertImg={props.triggered} />
+          <ImageElement imgUrl={imgUrl || TestImg} record={props.record} />
         </S.ImgContainer>
       </S.UpperContainer>
       <S.LowerContainer>
-        <S.Name>{props.name}</S.Name>
+        <S.Name>
+          <S.Ordinary triggered={props.triggered}>{props.name}</S.Ordinary>
+          <S.Triggered triggered={props.triggered}>{name}</S.Triggered>
+        </S.Name>
         <S.Review>
           <Raiting raiting={raiting} triggered={props.triggered} /> <Number number={props.review.number} />
         </S.Review>
         <S.Information>
-          {distance} {distanceUnit} away &#183; &#163; {deliveryFee} delivery
+          <S.Ordinary triggered={props.triggered}>
+            {props.distance} {distanceUnit} away &#183; &#163; {props.fee} delivery
+          </S.Ordinary>
+          <S.Triggered triggered={props.triggered}>
+            {distance} {distanceUnit} away &#183; &#163; {deliveryFee} delivery
+          </S.Triggered>
         </S.Information>
       </S.LowerContainer>
       <S.DeliveryMin>

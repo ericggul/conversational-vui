@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import PlaceElement from "./PlaceElement";
 import * as S from "./styles";
-import useSocketInput from "@U/hooks/causeAndEffect/useSocketInput";
+import useSocketInputRecord from "@U/hooks/causeAndEffect/useSocketInputRecord";
+import { useEffect } from "react";
 
 const DUMMY_DATA = [
   {
-    name: "Pasta Evangelists",
+    name: "Pasta John's",
     review: {
       raiting: 4.4,
       number: 576,
@@ -18,7 +19,7 @@ const DUMMY_DATA = [
     fee: 2.49,
   },
   {
-    name: "Pasta Evangelists",
+    name: "Pasta John's",
     review: {
       raiting: 4.4,
       number: 576,
@@ -31,7 +32,7 @@ const DUMMY_DATA = [
     fee: 2.49,
   },
   {
-    name: "Pasta Evangelists",
+    name: "Pasta John's",
     review: {
       raiting: 4.4,
       number: 576,
@@ -44,7 +45,7 @@ const DUMMY_DATA = [
     fee: 2.49,
   },
   {
-    name: "Pasta Evangelists",
+    name: "Pasta John's",
     review: {
       raiting: 4.4,
       number: 576,
@@ -57,7 +58,7 @@ const DUMMY_DATA = [
     fee: 2.49,
   },
   {
-    name: "Pasta Evangelists",
+    name: "Pasta John's",
     review: {
       raiting: 4.4,
       number: 576,
@@ -72,12 +73,22 @@ const DUMMY_DATA = [
 ];
 
 function Main() {
-  const triggered = useSocketInput(400);
+  const record = useSocketInputRecord();
+  const [triggered, setTriggered] = useState(false);
+  useEffect(() => {
+    if (record) {
+      setTriggered(true);
+      const timeout = setTimeout(() => {
+        setTriggered(false);
+      }, 400);
+      return () => clearTimeout(timeout);
+    }
+  }, [record]);
 
   return (
     <S.StyledMain>
       {DUMMY_DATA.map((d, i) => (
-        <PlaceElement key={i} {...d} triggered={triggered} />
+        <PlaceElement key={i} {...d} record={record} triggered={triggered} />
       ))}
     </S.StyledMain>
   );
