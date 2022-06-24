@@ -52,7 +52,7 @@ function Number({ number, length }) {
     }
   };
 
-  return <S.Number>{formatNumber(number)}</S.Number>;
+  return <S.Number length={length}>{formatNumber(number)}</S.Number>;
 }
 
 function PlaceElement(props) {
@@ -115,7 +115,7 @@ function PlaceElement(props) {
   }, [distance]);
 
   return (
-    <S.StyledPlaceElement length={textLength}>
+    <S.StyledPlaceElement>
       <S.UpperContainer>
         <S.ImgContainer>
           <S.DeliverySign deliveryFeePos={deliveryFeePos}>&#163; {deliveryFee} delivery</S.DeliverySign>

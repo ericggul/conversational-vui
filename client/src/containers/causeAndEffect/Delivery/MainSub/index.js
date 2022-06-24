@@ -86,7 +86,7 @@ function Main() {
   }, [record]);
 
   return (
-    <S.StyledMain length={record ? record.text.length : 0} triggered={triggered}>
+    <S.StyledMain length={record ? record.text.length : 0}>
       {DUMMY_DATA.map((d, i) => (
         <PlaceElement key={i} {...d} record={record} triggered={triggered} />
       ))}

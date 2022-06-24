@@ -11,8 +11,6 @@ export const StyledPlaceElement = styled.div`
   margin: 0.75rem;
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3);
   transition: all 0.2s;
-
-  // transform: rotate(${({ length }) => length ** 2 * 0.1}deg);
 `;
 
 export const UpperContainer = styled.div`
@@ -47,7 +45,7 @@ export const Img = styled.img`
 `;
 export const LowerContainer = styled.div`
   display: flex;
-  height: 4.33rem;
+  height: ${({ length }) => Math.min(length, 20) * 0.05 + 4.33}rem;
   flex-direction: column;
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -59,9 +57,9 @@ export const LowerContainer = styled.div`
 export const Name = styled.div`
   position: relative;
   font-weight: bold;
-  font-size: 1.2rem;
-  height: 1.5rem;
-  color: black;
+  font-size: ${({ length }) => Math.min(length, 20) * 0.05 + 1.2}rem;
+  height: ${({ length }) => Math.min(length, 20) * 0.05 + 1.5}rem;
+  color: ${({ length, color }) => (length < 7 ? "black" : color)};
   transition: height 0.3s, color 0.1s;
 `;
 export const Review = styled.div`
@@ -72,7 +70,7 @@ export const Review = styled.div`
 `;
 
 export const Raiting = styled.span`
-  color: #037d8b;
+  color: ${({ length }) => (length < 7 ? "#037d8b" : "#6de9f7")};
   display: flex;
   align-items: center;
   position: relative;
@@ -85,12 +83,12 @@ export const Raiting = styled.span`
 `;
 export const Number = styled.span`
   position: relative;
-  color: #777;
+  color: ${({ length }) => (length < 7 ? "#777" : "#f585ff")};
   margin-left: 0.3rem;
 `;
 
 export const Information = styled.div`
-  color: #777;
+  color: ${({ length, color }) => (length < 7 ? "#777" : color)};
   font-size: 1rem;
   position: relative;
 `;

@@ -6,6 +6,6 @@ export const StyledMain = styled.div`
   align-items: center;
   overflow-y: scroll;
   max-height: ${({ theme }) => theme.windowHeight}px;
-
+  background: ${({ length }) => (length < 7 ? "transparent" : "black")};
   z-index: -2;
 `;
