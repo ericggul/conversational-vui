@@ -96,10 +96,10 @@ function PlaceElement(props) {
     } else {
       setName(props.name);
       setDistance(props.distance);
-      setDistanceUnit(distortLetter("miles", "M!|2$", l));
+      setDistanceUnit("miles");
       setDeliveryFee(props.fee);
       setDeliveryFeePos({ top: 0, left: 0 });
-      setDeliveryMinUnit(distortLetter("min", "~ï%", l / 2));
+      setDeliveryMinUnit("min");
     }
   }, [props.triggered, props.record, props.fee]);
 

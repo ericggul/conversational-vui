@@ -7,5 +7,7 @@ export const StyledMain = styled.div`
   overflow-y: scroll;
   max-height: ${({ theme }) => theme.windowHeight}px;
 
+  position: relative;
+
   z-index: -2;
 `;
