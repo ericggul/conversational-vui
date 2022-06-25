@@ -24,7 +24,7 @@ function Number({ number, length }) {
     }
   };
 
-  return <S.Number>{formatNumber(number)}</S.Number>;
+  return <S.Number length={length}>{formatNumber(number)}</S.Number>;
 }
 
 function PlaceElement(props) {
@@ -90,14 +90,18 @@ function PlaceElement(props) {
     <S.StyledPlaceElement length={textLength}>
       <S.UpperContainer>
         <S.ImgContainer>
-          <S.DeliverySign deliveryFeePos={deliveryFeePos}>&#163; {deliveryFee} delivery</S.DeliverySign>
+          <S.DeliverySign length={textLength} deliveryFeePos={deliveryFeePos}>
+            &#163; {deliveryFee} delivery
+          </S.DeliverySign>
           <ImageElement imgUrl={imgUrl || TestImg} record={props.record} />
         </S.ImgContainer>
       </S.UpperContainer>
-      <S.LowerContainer length={textLength}>
-        <S.Name length={textLength} color={color}>
+      <S.LowerContainer>
+        <S.Name color={color}>
           <S.Ordinary triggered={props.triggered}>{props.name}</S.Ordinary>
-          <S.Triggered triggered={props.triggered}>{name}</S.Triggered>
+          <S.Triggered triggered={props.triggered} style={{ textTransform: "uppercase" }}>
+            {name}
+          </S.Triggered>
         </S.Name>
         <S.Review>
           <Raiting raiting={raiting} triggered={props.triggered} length={textLength} /> <Number length={textLength} number={props.review.number} />
@@ -111,7 +115,7 @@ function PlaceElement(props) {
           </S.Triggered>
         </S.Information>
       </S.LowerContainer>
-      <S.DeliveryMin>
+      <S.DeliveryMin length={textLength}>
         <p>
           {deliveryMin.min} - {deliveryMin.max}
         </p>

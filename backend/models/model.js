@@ -20,7 +20,7 @@ class Model {
     };
     this.middlewares();
     this.routes();
-    this.connection();
+    this.socketConnection();
   }
 
   middlewares() {
@@ -37,7 +37,7 @@ class Model {
     });
   }
 
-  connection() {
+  socketConnection() {
     this.io.on("connection", (socket) => {
       console.log("a user connected");
       socket.on("disconnect", () => {

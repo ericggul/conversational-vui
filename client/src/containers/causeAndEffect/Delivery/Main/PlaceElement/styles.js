@@ -9,10 +9,10 @@ export const StyledPlaceElement = styled.div`
   flex-direction: column;
   width: calc(100% - 1.5rem);
   margin: 0.75rem;
-  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 ${({ length }) => length * 0.3 + 0.5}rem hsla(0, 100%, ${({ length }) => Math.min(length * 10, 50)}%, ${({ length }) => Math.min(length * 0.1 + 0.3, 1)});
   transition: all 0.2s;
 
-  // transform: rotate(${({ length }) => length ** 2 * 0.1}deg);
+  transform: rotate(${({ length }) => length ** 2 * 0.1}deg);
 `;
 
 export const UpperContainer = styled.div`
@@ -38,6 +38,9 @@ export const DeliverySign = styled.div`
   font-size: 1.1rem;
   font-weight: bold;
   z-index: 2;
+
+  ${({ length }) => length > 7 && `transform: scaleY(-1)`};
+  transition: all 1s;
 `;
 
 export const Img = styled.img`
@@ -86,13 +89,21 @@ export const Raiting = styled.span`
 export const Number = styled.span`
   position: relative;
   color: #777;
+  ${({ length }) => length > 5 && "font-weight: bold"};
+  ${({ length }) => length > 5 && `color: hsl(350, 100%, 50%)`};
+  transform: scale(${({ length }) => length > 6 && "3"});
+  transition: all 0.3s;
   margin-left: 0.3rem;
 `;
 
 export const Information = styled.div`
   color: #777;
+  ${({ length }) => length > 5 && `color: hsl(${getRandom(0, 350)}, 100%, 50%)`};
+  ${({ length }) => length > 5 && "font-weight: bold"};
+  transform: rotate(${({ length }) => Math.max(0, length - 5) * 20}deg);
   font-size: 1.1rem;
   position: relative;
+  transition: all 0.3s;
 `;
 
 export const DeliveryMin = styled.div`
@@ -107,6 +118,10 @@ export const DeliveryMin = styled.div`
   flex-direction: column;
 
   box-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.2);
+
+  background: hsl(175, 97%, ${({ length }) => 100 - Math.min(length * 4, 36)}%);
+  ${({ length }) => length > 8 && `transform: scaleX(-3) rotate(-20deg)`};
+
   p {
     margin: 0;
     padding: 0;
