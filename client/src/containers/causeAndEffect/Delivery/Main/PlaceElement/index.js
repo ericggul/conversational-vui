@@ -3,8 +3,7 @@ import axios from "axios";
 import * as S from "./styles";
 import TestImg from "static/image/NestedCircles.png";
 import ImageElement from "../ImageElement";
-import { IoMdStar } from "react-icons/io";
-import { SiStarbucks } from "react-icons/si";
+import Raiting from "./Raiting";
 
 //utils
 import { distortLetter } from "./utils";
@@ -15,33 +14,6 @@ const TIME_UNITS = ["min", "hours", "seconds", "months", "days", "years"];
 const getRandom = (a, b) => Math.random() * (b - a) + a;
 const getRandomDigit = (a, b, digit) => Math.round(getRandom(a, b) * Math.pow(10, -digit)) * Math.pow(10, digit);
 const getRandomArray = (array) => array[Math.floor(getRandom(0, array.length))];
-
-function Raiting({ raiting, triggered, length }) {
-  const ment = useMemo(() => {
-    if (raiting < 2) {
-      return "Poor";
-    }
-    if (raiting < 3) {
-      return "Normal";
-    }
-    if (raiting < 4) {
-      return "Good";
-    }
-    if (raiting < 4.5) {
-      return "Very Good";
-    }
-    if (raiting < 5) {
-      return "Perfect";
-    } else return "Schumpeterstrasse";
-  }, [raiting]);
-
-  return (
-    <S.Raiting triggered={triggered} length={length}>
-      {triggered ? <SiStarbucks style={{ marginRight: triggered && "0.2rem" }} /> : <IoMdStar />}
-      {triggered ? 5.1 : raiting.toFixed(1)} {ment}
-    </S.Raiting>
-  );
-}
 
 function Number({ number, length }) {
   const formatNumber = (n) => {

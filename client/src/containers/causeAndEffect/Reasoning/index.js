@@ -28,11 +28,20 @@ function GiantStep() {
           "http://localhost:8000/openai",
           { keyword },
           {
+            responseType: "arraybuffer",
             "Access-Control-Allow-Origin": "*",
           }
         );
         console.log(res.data);
-        console.log(res.data.result.text);
+
+        //play audio
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const audioContext = new AudioContext();
+        const audioBuffer = await audioContext.decodeAudioData(res.data);
+        const source = audioContext.createBufferSource();
+        source.buffer = audioBuffer;
+        source.connect(audioContext.destination);
+        source.start();
       } catch (e) {
         console.log(e);
       }

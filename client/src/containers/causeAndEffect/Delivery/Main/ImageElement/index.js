@@ -138,8 +138,7 @@ const Scene = (props) => {
 function ImageElement({ imgUrl, record }) {
   return (
     <S.Container>
-      {record && record.text.length > 0 && <Scene imgUrl={imgUrl} length={record.text.length} />}
-      <S.Img src={imgUrl} />
+      <Scene imgUrl={imgUrl} length={record ? record.text.length : 0} />
     </S.Container>
   );
 }

@@ -59,13 +59,13 @@ export const LowerContainer = styled.div`
 export const Name = styled.div`
   position: relative;
   font-weight: bold;
-  font-size: 1.2rem;
-  height: 1.5rem;
+  font-size: 1.3rem;
+  height: 1.6rem;
   color: black;
   transition: height 0.3s, color 0.1s;
 `;
 export const Review = styled.div`
-  font-size: 1rem;
+  font-size: 1.1rem;
   margin: 0.3rem 0;
   display: flex;
   align-items: center;
@@ -91,7 +91,7 @@ export const Number = styled.span`
 
 export const Information = styled.div`
   color: #777;
-  font-size: 1rem;
+  font-size: 1.1rem;
   position: relative;
 `;
 
@@ -113,7 +113,7 @@ export const DeliveryMin = styled.div`
   }
 
   color: #777;
-  font-size: 1rem;
+  font-size: 1.1rem;
 
   p:first-child {
     color: black;
