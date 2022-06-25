@@ -119,7 +119,7 @@ export const DeliveryMin = styled.div`
 
   box-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.2);
 
-  background: hsl(175, 97%, ${({ length }) => 100 - Math.min(length * 4, 36)}%);
+  background: hsl(175, 97%, ${({ length }) => (length > 4 ? 70 : 100)}%);
   ${({ length }) => length > 8 && `transform: scaleX(-3) rotate(-20deg)`};
 
   p {
