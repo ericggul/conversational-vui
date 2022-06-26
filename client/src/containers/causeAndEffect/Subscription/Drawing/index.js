@@ -55,6 +55,9 @@ function Drawing() {
 
   function cancelCanvases() {
     canvases.forEach((canvas) => canvas.destroy());
+    if (containerRef && containerRef.current) {
+      containerRef.current.innerHTML = "";
+    }
     setCanvases([]);
   }
 

@@ -49,6 +49,9 @@ class Model {
       socket.on("simple input", (data) => {
         this.io.emit("input", data);
       });
+      socket.on("screen shot", () => {
+        this.io.emit("screen shot signal");
+      });
     });
   }
 
