@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import useSocketInputRecord from "utils/hooks/causeAndEffect/useSocketInputRecord";
-import Canvas from "./canvas";
+import Canvas from "./utils/canvas";
+import html2canvas from "html2canvas";
+import uploadImage from "./utils/uploadFirestore";
 import * as S from "./styles";
 
 function Drawing() {
@@ -8,19 +10,43 @@ function Drawing() {
   const record = useSocketInputRecord();
 
   //states
+  const [storedText, setStoredText] = useState("");
   const [sessionOn, setSessionOn] = useState(false);
   const [canvases, setCanvases] = useState([]);
   const [canvasIdx, setCanvasIdx] = useState(0);
 
+  //ref
+  const containerRef = useRef(null);
+
   useEffect(() => {
     if (!record || record.text === "") {
-      setCanvasIdx(0);
-      setSessionOn(false);
-      cancelCanvases();
+      handleTextReset();
       return;
     }
     setSessionOn(true);
   }, [record]);
+
+  async function handleTextReset() {
+    await screenShot();
+    setCanvasIdx(0);
+    setSessionOn(false);
+    cancelCanvases();
+    setStoredText("");
+  }
+
+  async function screenShot() {
+    try {
+      if (containerRef && containerRef.current && sessionOn) {
+        const canvasScreenShot = await html2canvas(containerRef.current, { scale: 2 });
+        const image = canvasScreenShot.toDataURL("image/png");
+        const str = image.replace(/^data:image\/png;base64,/, "");
+        const buffer = Buffer.from(str, "base64");
+        uploadImage({ image: buffer, text: storedText });
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   function cancelCanvases() {
     canvases.forEach((canvas) => canvas.destroy());
@@ -28,8 +54,9 @@ function Drawing() {
   }
 
   useEffect(() => {
-    if (sessionOn && record) {
+    if (sessionOn && record && record.text) {
       setCanvasIdx((idx) => idx + 1);
+      setStoredText(record.text);
       handleDraw();
     }
   }, [record, sessionOn]);
@@ -42,7 +69,7 @@ function Drawing() {
 
   return (
     <S.StyledDrawing>
-      <div id="canvas-render" />
+      <div id="canvas-render" ref={containerRef} />
     </S.StyledDrawing>
   );
 }

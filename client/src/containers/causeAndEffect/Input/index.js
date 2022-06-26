@@ -32,10 +32,10 @@ function Input() {
 
   const timeout = useRef(null);
   useEffect(() => {
+    if (timeout.current) {
+      clearTimeout(timeout.current);
+    }
     if (text !== "") {
-      if (timeout.current) {
-        clearTimeout(timeout.current);
-      }
       timeout.current = setTimeout(() => {
         setText("");
         socket.emit("simple input", { text: "", color: `red` });

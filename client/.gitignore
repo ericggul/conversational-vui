@@ -12,6 +12,8 @@
 /build
 
 /src/static/apiKey
+/src/utils/initializer/firebase
+
 
 # misc
 .DS_Store
