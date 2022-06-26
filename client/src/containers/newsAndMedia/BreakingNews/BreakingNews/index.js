@@ -5,7 +5,7 @@ import useResize from "@U/hooks/useResize";
 import POS_META_DATA from "@/containers/newsAndMedia/BreakingNews/Data/data";
 import { useHistory } from "react-router-dom";
 
-import { NYTIMES_API_KEY } from "@ST/apikey";
+import { NYTIMES_API_KEY } from "static/apikey";
 
 //test
 import { test } from "../text/textTesting";

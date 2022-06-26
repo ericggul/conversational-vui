@@ -2,7 +2,7 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import { useHistory } from "react-router-dom";
 import * as S from "./styles";
 
-import { NYTIMES_API_KEY } from "@ST/apikey";
+import { NYTIMES_API_KEY } from "static/apikey";
 import axios from "axios";
 import { BasicHeaderContainer } from "@/foundations/newsAndMedia/suggestions/IntroHeader";
 
