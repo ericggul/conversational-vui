@@ -51,6 +51,8 @@ function ChatInterfaceWithSocket({ userName, roomName, socket }) {
       });
       setMessages([...temp]);
     });
+
+    return () => socket.disconnect();
   }, [socket]);
 
   // const messagesEndRef = useRef(null);

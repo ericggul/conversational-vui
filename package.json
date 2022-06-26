@@ -11,7 +11,8 @@
     "nodemon": "^2.0.16",
     "openai": "^3.0.0",
     "socket.io": "^4.5.1",
-    "node": "16.x"
+    "node": "16.x",
+    "yarn": "1.x"
   },
   "scripts": {
     "start": "nodemon app.js",
