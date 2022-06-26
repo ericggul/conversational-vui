@@ -97,7 +97,7 @@ function PlaceElement(props) {
         </S.ImgContainer>
       </S.UpperContainer>
       <S.LowerContainer>
-        <S.Name color={color}>
+        <S.Name length={textLength}>
           <S.Ordinary triggered={props.triggered}>{props.name}</S.Ordinary>
           <S.Triggered triggered={props.triggered} style={{ textTransform: "uppercase" }}>
             {name}

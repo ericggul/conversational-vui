@@ -1,6 +1,7 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, useRef } from "react";
 import axios from "axios";
 import { io } from "socket.io-client";
+import { BsSearch } from "react-icons/bs";
 import * as S from "./styles";
 
 const getRandom = (a, b) => Math.random() * (b - a) + a;
@@ -29,11 +30,24 @@ function Input() {
     setText("");
   };
 
+  const timeout = useRef(null);
+  useEffect(() => {
+    if (text !== "") {
+      if (timeout.current) {
+        clearTimeout(timeout.current);
+      }
+      timeout.current = setTimeout(() => {
+        setText("");
+        socket.emit("simple input", { text: "", color: `red` });
+      }, 15000);
+    }
+  }, [text]);
+
   return (
     <S.Container highState={highState} color={color}>
       <S.Inner>
         <S.Circle highState={highState} color={color} rotate={text.length - 6}>
-          <S.Input value={text} onChange={handleChange} />
+          <S.Input value={text} onChange={handleChange} placeholder={"X".repeat(10)} />
         </S.Circle>
       </S.Inner>
       {text.length > 1 && <S.ButtonTop onClick={handleButtonClick} />}

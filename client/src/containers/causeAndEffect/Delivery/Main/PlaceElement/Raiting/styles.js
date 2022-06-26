@@ -26,4 +26,6 @@ export const RaitingAbsolute = styled.span`
   top: 0;
   left: 0;
   ${Common};
+
+  ${({ pos }) => `transform: translate(${pos.x}px, ${pos.y}px)`}
 `;

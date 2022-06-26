@@ -10,13 +10,11 @@ function Drawing() {
   //states
   const [sessionOn, setSessionOn] = useState(false);
   const [canvases, setCanvases] = useState([]);
-
-  console.log(record);
-  console.log("drawing!");
+  const [canvasIdx, setCanvasIdx] = useState(0);
 
   useEffect(() => {
-    if (!record) {
-      console.log("no record!");
+    if (!record || record.text === "") {
+      setCanvasIdx(0);
       setSessionOn(false);
       cancelCanvases();
       return;
@@ -25,19 +23,19 @@ function Drawing() {
   }, [record]);
 
   function cancelCanvases() {
-    console.log("cancel canvas!");
     canvases.forEach((canvas) => canvas.destroy());
     setCanvases([]);
   }
 
   useEffect(() => {
     if (sessionOn && record) {
+      setCanvasIdx((idx) => idx + 1);
       handleDraw();
     }
   }, [record, sessionOn]);
 
   function handleDraw() {
-    let canvas = new Canvas();
+    let canvas = new Canvas(canvasIdx);
     canvas.animate(record);
     setCanvases([...canvases, canvas]);
   }

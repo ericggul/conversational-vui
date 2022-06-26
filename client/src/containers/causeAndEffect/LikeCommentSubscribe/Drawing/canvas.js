@@ -2,7 +2,8 @@ const getRandom = (a, b) => Math.random() * (b - a) + a;
 const getIntRandom = (a, b) => Math.floor(getRandom(a, b));
 
 export default class Canvas {
-  constructor() {
+  constructor(idx) {
+    this.canvasIdx = idx;
     this.init();
   }
 
@@ -39,7 +40,7 @@ export default class Canvas {
     let elNumbers = (t % 46) + 20;
     let intervalUnit = (this.stageWidth * this.stageHeight) / elNumbers;
     for (let i = 0; i < elNumbers; i++) {
-      this.ctx.font = `${getRandom(50, this.stageWidth / 6)}px Times New Roman`;
+      this.ctx.font = `${getRandom(60, this.stageWidth / 5) * (6 / (this.canvasIdx + 5))}px Times New Roman`;
 
       this.ctx.textBaseline = "middle";
       this.ctx.textAlign = "center";

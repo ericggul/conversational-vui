@@ -1,8 +1,10 @@
-import Input from "@C/causeAndEffect/Input/Input";
-import Untitled from "@/containers/causeAndEffect/Delivery";
+import Input from "@C/causeAndEffect/Input";
+import Reception from "@C/causeAndEffect/Reception";
 import MariahilferStrasse from "@C/causeAndEffect/MariahilferStrasse";
+import Reasoning from "@C/causeAndEffect/Reasoning";
+import Delivery from "@C/causeAndEffect/Delivery";
 import LikeCommentSubscribeDrawing from "@C/causeAndEffect/LikeCommentSubscribe/Drawing";
-import Reasoning from "@/containers/causeAndEffect/Reasoning";
+import LikeCommentSubscribePrint from "@C/causeAndEffect/LikeCommentSubscribe/Print";
 
 const Routes = [
   {
@@ -10,8 +12,12 @@ const Routes = [
     component: Input,
   },
   {
-    path: "/untitled",
-    component: Untitled,
+    path: "/reception",
+    component: Reception,
+  },
+  {
+    path: "/delivery",
+    component: Delivery,
   },
   {
     path: "/mariahilferstrasse",
@@ -24,6 +30,10 @@ const Routes = [
   {
     path: "/like-comment-subscribe/drawing",
     component: LikeCommentSubscribeDrawing,
+  },
+  {
+    path: "/like-comment-subscribe/print",
+    component: LikeCommentSubscribePrint,
   },
 ];
 

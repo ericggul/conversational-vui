@@ -66,6 +66,8 @@ export const Name = styled.div`
   height: 1.6rem;
   color: black;
   transition: height 0.3s, color 0.1s;
+
+  ${({ length }) => length > 1 && `text-shadow: 30px -40px 3px black, 50px -100px 1px pink`};
 `;
 export const Review = styled.div`
   font-size: 1.1rem;
@@ -120,7 +122,7 @@ export const DeliveryMin = styled.div`
   box-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.2);
 
   background: hsl(175, 97%, ${({ length }) => (length > 4 ? 70 : 100)}%);
-  ${({ length }) => length > 8 && `transform: scaleX(-3) rotate(-20deg)`};
+  ${({ length }) => length > 8 && `transform: scaleX(-2)`};
 
   p {
     margin: 0;

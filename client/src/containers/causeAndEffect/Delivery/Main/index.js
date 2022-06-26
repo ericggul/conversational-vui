@@ -22,8 +22,6 @@ function Main() {
   const [lengthStore, setLengthStore] = useState(0);
   const [triggered, setTriggered] = useState(false);
 
-  const [windowWidth, windowHeight] = useResize();
-
   useEffect(() => {
     if (record) {
       setLength(record.text.length);
@@ -49,7 +47,6 @@ function Main() {
 
   function removeBlurredRects() {
     blurredRectList.map((el) => {
-      console.log(el);
       el.remove();
     });
     setBlurredRectList([]);

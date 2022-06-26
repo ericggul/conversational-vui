@@ -1,4 +1,7 @@
 {
+  "name": "please-open-a-console",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
     "@google-cloud/text-to-speech": "^3.4.0",
     "cors": "^2.8.5",

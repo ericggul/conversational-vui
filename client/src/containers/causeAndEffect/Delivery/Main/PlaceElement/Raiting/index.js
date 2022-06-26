@@ -12,9 +12,9 @@ function RelativeEl({ triggered, length, ment, raiting }) {
   );
 }
 
-function AbsoluteEl({ triggered, length, ment, raiting }) {
+function AbsoluteEl({ triggered, length, ment, raiting, pos }) {
   return (
-    <S.RaitingAbsolute triggered={triggered} length={length}>
+    <S.RaitingAbsolute triggered={triggered} length={length} pos={pos}>
       {triggered ? <SiStarbucks style={{ marginRight: triggered && "0.2rem" }} /> : <IoMdStar />}
       {triggered ? 5.1 : raiting.toFixed(1)} {ment}
     </S.RaitingAbsolute>
@@ -44,7 +44,7 @@ function Raiting({ raiting, triggered, length }) {
     <S.Cover>
       <RelativeEl triggered={triggered} length={length} ment={ment} raiting={raiting} />
       {new Array(length).fill(0).map((_, i) => (
-        <AbsoluteEl triggered={triggered} length={length} ment={ment} raiting={raiting} key={i} />
+        <AbsoluteEl triggered={triggered} length={length} ment={ment} raiting={raiting} key={i} pos={{ x: 0, y: -i * 8 }} />
       ))}
     </S.Cover>
   );

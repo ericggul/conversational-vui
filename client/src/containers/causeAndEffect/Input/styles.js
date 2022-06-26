@@ -44,6 +44,10 @@ export const Input = styled.input.attrs({ spellCheck: "false" })`
   font-size: 2rem;
   text-transform: uppercase;
   cursor: pointer;
+
+  &::placeholder {
+    color: #aaa;
+  }
 `;
 
 const ButtonCommon = css`
