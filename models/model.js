@@ -26,14 +26,14 @@ class Model {
   middlewares() {
     this.app.use(cors());
     this.app.use(express.json());
-    this.app.use(express.static(path.join(__dirname, "../../client/build")));
+    this.app.use(express.static(path.join(__dirname, "../client/build")));
   }
 
   routes() {
     this.app.use(this.paths.tts, require("../routes/tts"));
     this.app.use(this.paths.openai, require("../routes/openai"));
     this.app.get("*", (req, res) => {
-      res.sendFile(path.join(__dirname, "../../client/build/index.html"));
+      res.sendFile(path.join(__dirname, "../client/build/index.html"));
     });
   }
 
