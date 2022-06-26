@@ -3,8 +3,8 @@ import Reception from "@C/causeAndEffect/Reception";
 import MariahilferStrasse from "@C/causeAndEffect/MariahilferStrasse";
 import Reasoning from "@C/causeAndEffect/Reasoning";
 import Delivery from "@C/causeAndEffect/Delivery";
-import LikeCommentSubscribeDrawing from "@C/causeAndEffect/LikeCommentSubscribe/Drawing";
-import LikeCommentSubscribePrint from "@C/causeAndEffect/LikeCommentSubscribe/Print";
+import SubscriptionDrawing from "@/containers/causeAndEffect/Subscription/Drawing";
+import SubscriptionSubscribe from "@/containers/causeAndEffect/Subscription/Subscribe";
 
 const Routes = [
   {
@@ -28,12 +28,12 @@ const Routes = [
     component: Reasoning,
   },
   {
-    path: "/like-comment-subscribe/drawing",
-    component: LikeCommentSubscribeDrawing,
+    path: "/subscription/drawing",
+    component: SubscriptionDrawing,
   },
   {
-    path: "/like-comment-subscribe/print",
-    component: LikeCommentSubscribePrint,
+    path: "/subscription/subscribe",
+    component: SubscriptionSubscribe,
   },
 ];
 
