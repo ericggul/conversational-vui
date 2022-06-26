@@ -25,7 +25,7 @@ function GiantStep() {
     if (keyword.length > 3) {
       try {
         const res = await axios.post(
-          "http://localhost:8000/openai",
+          "/openai",
           { keyword },
           {
             responseType: "arraybuffer",

@@ -10,7 +10,7 @@ const getRandomColor = () => `hsl(${getRandom(0, 350)}, 100%,${getRandom(40, 60)
 function Input() {
   const [text, setText] = useState("");
   const [highState, setHighState] = useState(false);
-  const socket = useMemo(() => io("http://localhost:8000"), []);
+  const socket = useMemo(() => io("/"), []);
 
   const [color, setColor] = useState(getRandomColor());
 

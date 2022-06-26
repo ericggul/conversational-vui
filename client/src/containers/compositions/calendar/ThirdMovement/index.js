@@ -64,7 +64,7 @@ function MonthDisplayer({ year, month, moveToNextMovement }) {
   const convertTTS = async (number) => {
     try {
       const res = await axios.post(
-        "http://localhost:8000/tts",
+        "/tts",
 
         { text: `What are you doing on ${getRandomFromArray(MONTHS)} ${number}?` },
         {

@@ -8,11 +8,12 @@ class Model {
   constructor() {
     this.app = express();
     this.server = http.createServer(this.app);
-    this.io = new Server(this.server, {
-      cors: {
-        origin: "http://localhost:3000",
-      },
-    });
+    // this.io = new Server(this.server, {
+    //   cors: {
+    //     origin: "http://localhost:3000",
+    //   },
+    // });
+    this.io = new Server(this.server);
     this.port = process.env.PORT || 8000;
     this.paths = {
       tts: "/tts",

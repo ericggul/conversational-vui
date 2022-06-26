@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 
 export default function useSocketInputRecord() {
   const [record, setRecord] = useState(null);
-  const socket = useMemo(() => io("http://localhost:8000"), []);
+  const socket = useMemo(() => io("/"), []);
 
   const handleSocketInput = (data) => {
     data ? setRecord({ ...data, time: Date.now() }) : setRecord(null);

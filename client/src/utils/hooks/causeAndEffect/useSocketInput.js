@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 
 export default function useSocketInput(triggerTimeout = 100) {
   const [triggered, setTriggered] = useState(false);
-  const socket = useMemo(() => io("http://localhost:8000"), []);
+  const socket = useMemo(() => io("/"), []);
 
   useEffect(() => {
     if (triggered) {
