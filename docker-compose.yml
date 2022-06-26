@@ -1,0 +1,11 @@
+version: "2"
+
+services:
+  please-open-a-console:
+    build: "."
+    env_file:
+      - .env
+    tty: true
+    stdin_open: true
+    ports:
+      - "8000:8000"
