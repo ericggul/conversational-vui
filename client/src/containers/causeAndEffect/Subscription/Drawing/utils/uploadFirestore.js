@@ -2,7 +2,7 @@ import { db, storage } from "utils/initializer/firebase";
 import { getDoc, doc, collection, addDoc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
-export default async function uploadImage({ image, text }) {
+export default async function uploadImage({ image, text, socket }) {
   const dataRef = collection(db, "images");
   const storageRef = ref(storage, "images");
   const imageRef = await addDoc(dataRef, {
@@ -26,4 +26,6 @@ export default async function uploadImage({ image, text }) {
   await updateDoc(parentChatRef, {
     imageUrl: imageUrl,
   });
+
+  socket.emit("screen shot");
 }

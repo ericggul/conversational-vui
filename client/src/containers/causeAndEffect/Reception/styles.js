@@ -17,7 +17,11 @@ export const WeatherSection = styled.div`
 
 export const IconSection = styled.div`
   ${FlexCenterStyle};
+  height: 18rem;
   font-size: 15rem;
+  svg {
+    filter: drop-shadow(0.7rem 2rem 0.7rem rgba(255, 255, 255, 0.8));
+  }
 `;
 
 export const InfoSection = styled.div`
@@ -43,15 +47,10 @@ export const Title = styled.div`
 export const Earth = styled.div`
   position: relative;
   color: red;
+  height: 18rem;
+  ${FlexCenterStyle};
 
-  div {
-    position: absolute;
-    right: 0;
-    top: 0;
-    font-size: 10rem;
-    z-index: 2;
-
-    transform: translate(4rem, -4rem) rotate(35deg);
-    color: red;
+  svg {
+    filter: none;
   }
 `;

@@ -12,7 +12,5 @@ export default async function retriveData() {
     result.push(data);
   });
 
-  console.log(result);
-
-  return result;
+  return result.sort((a, b) => b.createdAt.seconds - a.createdAt.seconds);
 }
