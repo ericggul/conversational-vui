@@ -14,6 +14,7 @@ class Model {
     //   },
     // });
     this.io = new Server(this.server);
+
     this.port = process.env.PORT || 8000;
     this.paths = {
       tts: "/tts",
