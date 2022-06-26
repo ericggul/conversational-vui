@@ -15,6 +15,6 @@
   },
   "scripts": {
     "start": "nodemon app.js",
-    "heroku-postbuild": "cd ../client && yarn build"
+    "heroku-postbuild": "cd client && yarn build"
   }
 }
