@@ -5,8 +5,6 @@ import useResize from "@U/hooks/useResize";
 import POS_META_DATA from "@/containers/newsAndMedia/BreakingNews/Data/data";
 import { useHistory } from "react-router-dom";
 
-import { NYTIMES_API_KEY } from "static/apikey";
-
 //test
 import { test } from "../text/textTesting";
 
@@ -42,7 +40,7 @@ export default function WebText(props) {
       try {
         let res = await axios.request({
           method: "GET",
-          url: `https://api.nytimes.com/svc/mostpopular/v2/viewed/30.json?api-key=${NYTIMES_API_KEY}`,
+          url: `https://api.nytimes.com/svc/mostpopular/v2/viewed/30.json?api-key=${process.env.REACT_APP_NYTIMES_API_KEY}`,
         });
 
         setNewsSets(res.data.results);

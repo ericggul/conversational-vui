@@ -3,7 +3,6 @@ import * as S from "./styles";
 import "./youtube.css";
 import useResize from "@/utils/hooks/useResize";
 import "react-lite-youtube-embed/dist/LiteYouTubeEmbed.css";
-import { YOUTUBE_API_KEY } from "@/static/apikey";
 import axios from "axios";
 import { speak } from "@U/functions/speech";
 
@@ -331,7 +330,7 @@ const ContentsComp = ({ news }) => {
       try {
         let res = await axios.request({
           method: "GET",
-          url: `https://www.googleapis.com/youtube/v3/search?key=${YOUTUBE_API_KEY}&type=video&q=${keyword}&maxResults=50`,
+          url: `https://www.googleapis.com/youtube/v3/search?key=${process.env.REACT_APP_YOUTUBE_API_KEY}&type=video&q=${keyword}&maxResults=50`,
         });
         setVidArray((vidArray) => [...vidArray, ...res.data.items]);
       } catch (e) {
