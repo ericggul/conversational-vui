@@ -9,7 +9,7 @@ import { io } from "socket.io-client";
 import * as S from "./styles";
 
 function Drawing() {
-  const socket = useMemo(() => io(), []);
+  const socket = useMemo(() => io({ transports: ["websocket"] }), []);
 
   //hooks
   const record = useSocketInputRecord();

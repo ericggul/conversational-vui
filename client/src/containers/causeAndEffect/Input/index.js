@@ -10,13 +10,14 @@ const getRandomColor = () => `hsl(${getRandom(0, 350)}, 100%,${getRandom(40, 60)
 function Input() {
   const [text, setText] = useState("");
   const [highState, setHighState] = useState(false);
-  const socket = useMemo(() => io(), []);
+  const socket = useMemo(() => io({ transports: ["websocket"] }), []);
 
   const [color, setColor] = useState(getRandomColor());
 
   const handleChange = (e) => {
     const thisColor = getRandomColor();
-    socket.emit("simple input", { text: e.target.value, color: thisColor });
+    socket.emit("simple input 1");
+    socket.emit("simple input 2", { text: e.target.value, color: thisColor });
     setColor(thisColor);
     setText(e.target.value);
     setHighState(true);
@@ -38,7 +39,7 @@ function Input() {
     if (text !== "") {
       timeout.current = setTimeout(() => {
         setText("");
-        socket.emit("simple input", { text: "", color: `red` });
+        socket.emit("simple input 2", { text: "", color: `red` });
       }, 15000);
     }
   }, [text]);

@@ -24,7 +24,7 @@ const Font = ({ text }) => {
 
 function Print() {
   const [imageData, setImageData] = useState([]);
-  const socket = useMemo(() => io(), []);
+  const socket = useMemo(() => io({ transports: ["websocket"] }), []);
 
   useEffect(() => {
     handleDataRetrive();

@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 
 export default function useSocketInput(triggerTimeout = 100) {
   const [triggered, setTriggered] = useState(false);
-  const socket = useMemo(() => io(), []);
+  const socket = useMemo(() => io({ transports: ["websocket"] }), []);
 
   useEffect(() => {
     if (triggered) {
@@ -19,9 +19,9 @@ export default function useSocketInput(triggerTimeout = 100) {
   };
 
   useEffect(() => {
-    socket.on("input", handleSocketInput);
+    socket.on("input 1", handleSocketInput);
     return () => {
-      socket.off("input", handleSocketInput);
+      socket.off("input 1", handleSocketInput);
     };
   }, []);
 

@@ -45,11 +45,12 @@ class Model {
       socket.on("disconnect", () => {
         console.log("user disconnected");
       });
-      socket.on("input send", (msg) => {
-        console.log("chat", msg);
+
+      socket.on("simple input 1", () => {
+        this.io.emit("input 1");
       });
-      socket.on("simple input", (data) => {
-        this.io.emit("input", data);
+      socket.on("simple input 2", (data) => {
+        this.io.emit("input 2", data);
       });
       socket.on("screen shot", () => {
         this.io.emit("screen shot signal");

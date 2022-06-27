@@ -3,7 +3,6 @@ import * as S from "./styles";
 import axios from "axios";
 import { WiDaySunny, WiRain, WiCloudy, WiFog, WiSnow, WiSleet, WiThunderstorm } from "react-icons/wi";
 import { GiEarthAmerica } from "react-icons/gi";
-import { FaTemperatureHigh } from "react-icons/fa";
 import useSocketInput from "@U/hooks/causeAndEffect/useSocketInput";
 
 const LONDON_POS = { lat: 51.5098, lon: -0.118 };

@@ -3,16 +3,16 @@ import { io } from "socket.io-client";
 
 export default function useSocketInputRecord() {
   const [record, setRecord] = useState(null);
-  const socket = useMemo(() => io(), []);
+  const socket = useMemo(() => io({ transports: ["websocket"] }), []);
 
   const handleSocketInput = (data) => {
     data ? setRecord({ ...data, time: Date.now() }) : setRecord(null);
   };
 
   useEffect(() => {
-    socket.on("input", handleSocketInput);
+    socket.on("input 2", handleSocketInput);
     return () => {
-      socket.off("input", handleSocketInput);
+      socket.off("input 2", handleSocketInput);
     };
   }, []);
 
