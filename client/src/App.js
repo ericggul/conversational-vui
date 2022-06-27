@@ -13,7 +13,7 @@ import ChatInterface2 from "@/pages/chat/ChatInterface2";
 import MetaPage from "@P/Meta";
 import ChronologyPage from "@P/Chronology";
 import CalendarPage from "@P/compositions/Calendar";
-import causeAndEffectRoutes from "@/pages/CauseAndEffectRouter";
+import causalityRoutes from "@/pages/CausalityRouter";
 
 import SuspenseLoading from "@F/chronology/Suspense";
 import poeticRoutes from "@/pages/newsAndMedia/Router";
@@ -42,8 +42,8 @@ function App() {
             {poeticRoutes.map((route, i) => (
               <Route exact key={i} path={route.path} component={route.component} />
             ))}
-            {causeAndEffectRoutes.map((route, i) => (
-              <Route exact key={i} path={`/cause-and-effect${route.path}`} component={route.component} />
+            {causalityRoutes.map((route, i) => (
+              <Route exact key={i} path={`/causality${route.path}`} component={route.component} />
             ))}
           </Switch>
         </Suspense>
