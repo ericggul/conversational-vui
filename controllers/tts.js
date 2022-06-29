@@ -20,7 +20,10 @@ const getRandomFromArray = (array) => array[Math.floor(Math.random() * array.len
 const ttsOpenAI = async (req, res) => {
   const client = new textToSpeech.TextToSpeechClient();
 
-  const text = req.openAIText || "HELLO WORLD";
+  const keyword = req.body.keyword;
+  const question = `Why is ${keyword} a ${keyword}?`;
+  let text = req.openAIText || "HELLO WORLD";
+  text = question.concat("/n", text);
 
   const request = {
     input: { text },

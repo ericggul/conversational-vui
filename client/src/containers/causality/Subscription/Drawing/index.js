@@ -9,6 +9,15 @@ import { io } from "socket.io-client";
 import * as S from "./styles";
 
 function Drawing() {
+  useEffect(() => {
+    console.log(`Subscription is situated at the last section of Causality.`);
+    console.log(`Within various web contents, including Youtube Videos and Blog Posts, we can easily witness a button or ment asking for subscription.`);
+    console.log(`Same for this artwork: It asks for the user's subscription to the artist's mailing list, in order to receive their artwork into their email.`);
+    console.log(
+      `This is not only an analogy between web spaces and exhibition spaces, but also argues that an act of subscription, an act of receiving information from a web activist who aims to bring a real value, is part of an 'active interaction' which this artwork is a part of.`
+    );
+  }, []);
+
   const socket = useMemo(() => io({ transports: ["websocket"] }), []);
 
   //hooks

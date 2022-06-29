@@ -1,10 +1,21 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import * as S from "./styles";
 import axios from "axios";
 import useSocketInputRecord from "@/utils/hooks/causeAndEffect/useSocketInputRecord";
-import { useEffect } from "react";
 
 function GiantStep() {
+  //explanations
+  useEffect(() => {
+    console.log(`Reasoning uses GPT-3 to generate an answer for the trivial question, asking why is a keyword a keyword, where keyword is the user's input.`);
+    console.log(`While answer for this question should be trivial, as A is always A, the GPT-3 model's response differs vastly accordingly to the inputted keyword.`);
+    console.log(
+      `This symbolically represents our narrative fallacy which tends to create false narrative to such a trivial question, as well as reveal that no AI model should be free from such a fallacy.`
+    );
+    console.log(
+      `It reveals the sillines of process of 'reasoning', and that all AI models is bounded to such a process. Only a human(A certain type of human) is capable of creating through coincidences.`
+    );
+  }, []);
+
   const record = useSocketInputRecord();
 
   const timeout = useRef(null);
@@ -12,9 +23,8 @@ function GiantStep() {
   useEffect(() => {
     if (record) {
       timeout.current = setTimeout(() => {
-        console.log(record);
         generateSentence(record.text);
-      }, 600);
+      }, 1500);
     }
     return () => {
       clearTimeout(timeout.current);
@@ -32,7 +42,6 @@ function GiantStep() {
             "Access-Control-Allow-Origin": "*",
           }
         );
-        console.log(res.data);
 
         //play audio
         const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -48,6 +57,6 @@ function GiantStep() {
     }
   }
 
-  return <S.StyledGiantStep>GiantStep</S.StyledGiantStep>;
+  return <S.StyledGiantStep>Reasoning</S.StyledGiantStep>;
 }
 export default GiantStep;

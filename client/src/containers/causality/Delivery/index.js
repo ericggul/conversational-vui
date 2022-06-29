@@ -8,6 +8,19 @@ import ReactCanvasConfetti from "react-canvas-confetti";
 const getRandom = (a, b) => Math.random() * (b - a) + a;
 
 function ScreenTesting() {
+  //ments
+  useEffect(() => {
+    console.log(`Delivery Application is one of the most visited application interface in our daily lives.`);
+    console.log(`It represents the modern platform economy.`);
+    console.log(
+      `Inside such platform economy, every different element(in this case, a restaurant), regardless of its aura, are treated as a similar component, with all its specifications are converted into quantified numbers: Raitings, Delivery Fee, etc.`
+    );
+    console.log(`Such a quantification always comes with benefits and drawbacks, with notable drawbacks containing dehumanisation of the element.`);
+    console.log(
+      `This artwork symbolically distorts such a ordered and structured platform interace, arguing that we need unique website with unforgettable characteristics as much as we need platformatic interfaces.`
+    );
+  }, []);
+
   const [windowWidth, windowHeight] = useResize();
   //confetti
   const canvasStyles = {

@@ -91,7 +91,7 @@ function PlaceElement(props) {
       <S.UpperContainer>
         <S.ImgContainer>
           <S.DeliverySign length={textLength} deliveryFeePos={deliveryFeePos}>
-            &#163; {deliveryFee} delivery
+            &#163; {deliveryFee} {textLength > 3 ? name : "delivery"}
           </S.DeliverySign>
           <ImageElement imgUrl={imgUrl || TestImg} record={props.record} />
         </S.ImgContainer>

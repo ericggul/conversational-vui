@@ -12,3 +12,18 @@ export const distortLetter = (original, finalOutput, numbersToReplace) => {
   }
   return output;
 };
+
+export const mixLetter = (original, output) => {
+  let maxLength = Math.max(original.length, output.length);
+  let minLength = Math.min(original.length, output.length);
+
+  let outputString = "";
+  for (let i = 0; i < maxLength; i++) {
+    if (i < minLength) {
+      outputString += original[i];
+    } else {
+      outputString += output[i];
+    }
+  }
+  return outputString;
+};

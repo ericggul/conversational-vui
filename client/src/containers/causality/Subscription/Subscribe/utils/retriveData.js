@@ -9,7 +9,9 @@ export default async function retriveData() {
   let result = [];
   querySnapShot.forEach((doc) => {
     let data = doc.data();
-    result.push(data);
+    if (data.imageUrl) {
+      result.push(data);
+    }
   });
 
   return result.sort((a, b) => b.createdAt.seconds - a.createdAt.seconds);
