@@ -5,6 +5,8 @@ import { WiDaySunny, WiRain, WiCloudy, WiFog, WiSnow, WiSleet, WiThunderstorm } 
 import { GiEarthAmerica } from "react-icons/gi";
 import useSocketInput from "@U/hooks/causeAndEffect/useSocketInput";
 
+import { Helmet } from "react-helmet-async";
+
 const LONDON_POS = { lat: 51.5098, lon: -0.118 };
 
 const getRandom = (a, b) => Math.random() * (b - a) + a;
@@ -69,18 +71,23 @@ function Reception() {
   }, [weatherCondition, weatherTemp, triggered]);
 
   return (
-    <S.StyledReception>
-      <S.WeatherSection>
-        <S.IconSection>{displayCondition && (displayCondition === "Earth" ? <Earth /> : WEATHER_CONDITIONS[displayCondition])}</S.IconSection>
-        <S.InfoSection>
-          <S.Temperature>
-            {displayTemp && Math.floor(displayTemp)}
-            <span>.{displayTemp && (displayTemp % 1).toFixed(2).split(".")[1]}&#8451;</span>
-          </S.Temperature>
-        </S.InfoSection>
-      </S.WeatherSection>
-      <S.NewsSection></S.NewsSection>
-    </S.StyledReception>
+    <>
+      <Helmet>
+        <title>Causality</title>
+      </Helmet>
+      <S.StyledReception>
+        <S.WeatherSection>
+          <S.IconSection>{displayCondition && (displayCondition === "Earth" ? <Earth /> : WEATHER_CONDITIONS[displayCondition])}</S.IconSection>
+          <S.InfoSection>
+            <S.Temperature>
+              {displayTemp && Math.floor(displayTemp)}
+              <span>.{displayTemp && (displayTemp % 1).toFixed(2).split(".")[1]}&#8451;</span>
+            </S.Temperature>
+          </S.InfoSection>
+        </S.WeatherSection>
+        <S.NewsSection></S.NewsSection>
+      </S.StyledReception>
+    </>
   );
 }
 export default Reception;

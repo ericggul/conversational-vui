@@ -6,6 +6,8 @@ import uploadImage from "./utils/uploadFirestore";
 
 import { io } from "socket.io-client";
 
+import { Helmet } from "react-helmet-async";
+
 import * as S from "./styles";
 
 function Drawing() {
@@ -85,9 +87,14 @@ function Drawing() {
   }
 
   return (
-    <S.StyledDrawing>
-      <div id="canvas-render" ref={containerRef} />
-    </S.StyledDrawing>
+    <>
+      <Helmet>
+        <title>Causality</title>
+      </Helmet>
+      <S.StyledDrawing>
+        <div id="canvas-render" ref={containerRef} />
+      </S.StyledDrawing>
+    </>
   );
 }
 export default Drawing;

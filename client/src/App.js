@@ -18,6 +18,8 @@ import causalityRoutes from "@/pages/CausalityRouter";
 import SuspenseLoading from "@F/chronology/Suspense";
 import poeticRoutes from "@/pages/newsAndMedia/Router";
 
+import { Helmet, HelmetProvider } from "react-helmet-async";
+
 function App() {
   useEffect(() => {
     console.warn = console.error = () => {};
@@ -26,29 +28,31 @@ function App() {
   const themeWithWindowSize = useMemo(() => ({ ...theme, windowWidth, windowHeight }), [windowWidth, windowHeight]);
 
   return (
-    <ThemeProvider theme={themeWithWindowSize}>
-      <GlobalStyle />
-      <Router>
-        <Suspense fallback={<SuspenseLoading />}>
-          <Switch>
-            <Route exact={true} path="/" component={MainPage} />
-            <Route exact path="/chat-interface-one" component={ChatInterface1} />
-            <Route exact path="/chat-interface-two" component={ChatInterface2} />
+    <HelmetProvider>
+      <ThemeProvider theme={themeWithWindowSize}>
+        <GlobalStyle />
+        <Router>
+          <Suspense fallback={<SuspenseLoading />}>
+            <Switch>
+              <Route exact={true} path="/" component={MainPage} />
+              <Route exact path="/chat-interface-one" component={ChatInterface1} />
+              <Route exact path="/chat-interface-two" component={ChatInterface2} />
 
-            <Route exact path="/meta" component={MetaPage} />
-            <Route exact path="/chronology" component={ChronologyPage} />
-            <Route exact path="/calendar" component={CalendarPage} />
+              <Route exact path="/meta" component={MetaPage} />
+              <Route exact path="/chronology" component={ChronologyPage} />
+              <Route exact path="/calendar" component={CalendarPage} />
 
-            {poeticRoutes.map((route, i) => (
-              <Route exact key={i} path={route.path} component={route.component} />
-            ))}
-            {causalityRoutes.map((route, i) => (
-              <Route exact key={i} path={`/causality${route.path}`} component={route.component} />
-            ))}
-          </Switch>
-        </Suspense>
-      </Router>
-    </ThemeProvider>
+              {poeticRoutes.map((route, i) => (
+                <Route exact key={i} path={route.path} component={route.component} />
+              ))}
+              {causalityRoutes.map((route, i) => (
+                <Route exact key={i} path={`/causality${route.path}`} component={route.component} />
+              ))}
+            </Switch>
+          </Suspense>
+        </Router>
+      </ThemeProvider>
+    </HelmetProvider>
   );
 }
 

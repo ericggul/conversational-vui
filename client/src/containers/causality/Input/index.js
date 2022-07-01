@@ -4,6 +4,8 @@ import { io } from "socket.io-client";
 import { BsSearch } from "react-icons/bs";
 import * as S from "./styles";
 
+import { Helmet } from "react-helmet-async";
+
 const getRandom = (a, b) => Math.random() * (b - a) + a;
 const getRandomColor = () => `hsl(${getRandom(0, 350)}, 100%,${getRandom(40, 60)}%)`;
 
@@ -58,21 +60,27 @@ function Input() {
   }, [text]);
 
   return (
-    <S.Container highState={highState} color={color}>
-      <S.Inner>
-        <S.Circle highState={highState} color={color} rotate={text.length - 6}>
-          <S.Input value={text} onChange={handleChange} placeholder={"CAUSALITY"} />
-        </S.Circle>
-      </S.Inner>
-      {text.length > 1 && <S.ButtonTop onClick={handleButtonClick} />}
-      {text.length > 2 && <S.ButtonBottom onClick={handleButtonClick} />}
-      <S.ButtonLeft transit={text.length - 4} onClick={handleButtonClick}>
-        !
-      </S.ButtonLeft>
-      <S.ButtonRight transit={text.length - 5} onClick={handleButtonClick}>
-        !
-      </S.ButtonRight>
-    </S.Container>
+    <>
+      <Helmet>
+        <title>Causality</title>
+      </Helmet>
+
+      <S.Container highState={highState} color={color}>
+        <S.Inner>
+          <S.Circle highState={highState} color={color} rotate={text.length - 6}>
+            <S.Input value={text} onChange={handleChange} placeholder={"CAUSALITY"} />
+          </S.Circle>
+        </S.Inner>
+        {text.length > 1 && <S.ButtonTop onClick={handleButtonClick} />}
+        {text.length > 2 && <S.ButtonBottom onClick={handleButtonClick} />}
+        <S.ButtonLeft transit={text.length - 4} onClick={handleButtonClick}>
+          !
+        </S.ButtonLeft>
+        <S.ButtonRight transit={text.length - 5} onClick={handleButtonClick}>
+          !
+        </S.ButtonRight>
+      </S.Container>
+    </>
   );
 }
 export default Input;

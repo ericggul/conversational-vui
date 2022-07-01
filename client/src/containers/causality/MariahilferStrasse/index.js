@@ -3,6 +3,8 @@ import { io } from "socket.io-client";
 import * as S from "./styles";
 import useSocketInput from "utils/hooks/causeAndEffect/useSocketInput";
 
+import { Helmet } from "react-helmet-async";
+
 function MariahilferStrasse() {
   useEffect(() => {
     console.log(`Named after the street in Vienna, where this project was inspired, Mariahilferstrasse shows symbollically how our 'active interaction' within the web space can trigger a change.`);
@@ -12,6 +14,13 @@ function MariahilferStrasse() {
   }, []);
 
   const triggered = useSocketInput();
-  return <S.Container triggered={triggered}></S.Container>;
+  return (
+    <>
+      <Helmet>
+        <title>Causality</title>
+      </Helmet>
+      <S.Container triggered={triggered}></S.Container>
+    </>
+  );
 }
 export default MariahilferStrasse;

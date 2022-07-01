@@ -5,6 +5,8 @@ import useResize from "@U/hooks/useResize";
 
 import ReactCanvasConfetti from "react-canvas-confetti";
 
+import { Helmet } from "react-helmet-async";
+
 const getRandom = (a, b) => Math.random() * (b - a) + a;
 
 function ScreenTesting() {
@@ -61,12 +63,17 @@ function ScreenTesting() {
   }, [refAnimationInstance]);
 
   return (
-    <S.StyledDeliveryUI>
-      <S.InnerContainer>
-        <Main />
-      </S.InnerContainer>
-      <ReactCanvasConfetti refConfetti={getInstance} style={canvasStyles} />
-    </S.StyledDeliveryUI>
+    <>
+      <Helmet>
+        <title>Causality</title>
+      </Helmet>
+      <S.StyledDeliveryUI>
+        <S.InnerContainer>
+          <Main />
+        </S.InnerContainer>
+        <ReactCanvasConfetti refConfetti={getInstance} style={canvasStyles} />
+      </S.StyledDeliveryUI>
+    </>
   );
 }
 export default ScreenTesting;

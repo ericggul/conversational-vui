@@ -10,6 +10,8 @@ import retriveData from "./utils/retriveData";
 //Modal
 import Modal from "./Modal";
 
+import { Helmet } from "react-helmet-async";
+
 const Font = ({ text }) => {
   return (
     <S.Text>
@@ -112,15 +114,22 @@ function Print() {
   };
 
   return (
-    <S.StyledPrint>
-      <S.Header>SELECT your IMAGE</S.Header>
-      <S.GridArea>
-        <Grid columnCount={colCount} columnWidth={width} height={windowHeight - 100} rowCount={rowCount} rowHeight={height} width={colCount * width}>
-          {Cell}
-        </Grid>
-      </S.GridArea>
-      <Modal modalData={modalData} modalOpened={modalOpened} handleModalClose={handleModalClose} />
-    </S.StyledPrint>
+    <>
+      <Helmet>
+        <title>Subscription</title>
+        <meta name="description" content="Subscription" />
+      </Helmet>
+
+      <S.StyledPrint>
+        <S.Header>SELECT your IMAGE</S.Header>
+        <S.GridArea>
+          <Grid columnCount={colCount} columnWidth={width} height={windowHeight - 100} rowCount={rowCount} rowHeight={height} width={colCount * width}>
+            {Cell}
+          </Grid>
+        </S.GridArea>
+        <Modal modalData={modalData} modalOpened={modalOpened} handleModalClose={handleModalClose} />
+      </S.StyledPrint>
+    </>
   );
 }
 export default Print;
