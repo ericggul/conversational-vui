@@ -10,6 +10,7 @@ const getRandomColor = () => `hsl(${getRandom(0, 350)}, 100%,${getRandom(40, 60)
 function Input() {
   useEffect(() => {
     console.log(`Causality: Input: useEffect`);
+    console.log(`\n`);
     console.log(`Causality: Input: useEffect: socket`);
     console.log(`Causality: Input: useEffect: socket: io`);
     console.log(`Causality: Input: useEffect: socket: io: socket`);
