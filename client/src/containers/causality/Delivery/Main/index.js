@@ -59,6 +59,7 @@ function Main() {
       for (let i = 0; i < 6; i++) {
         const rect = document.createElement("div");
         rect.classList.add("blurred-rect");
+        console.log("");
 
         const width = (boundingRect.width / 10) * getRandomInt(1, 3);
         const height = (boundingRect.height / 20) * getRandomInt(1, 4);
