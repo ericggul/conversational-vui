@@ -8,11 +8,6 @@ class Model {
   constructor() {
     this.app = express();
     this.server = http.createServer(this.app);
-    // this.io = new Server(this.server, {
-    //   cors: {
-    //     origin: "http://localhost:3000",
-    //   },
-    // });
     this.io = new Server(this.server);
 
     this.port = process.env.PORT || 8000;
@@ -28,6 +23,7 @@ class Model {
   middlewares() {
     this.app.use(cors());
     this.app.use(express.json());
+    this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.static(path.join(__dirname, "../client/build")));
   }
 

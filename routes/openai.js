@@ -1,9 +1,10 @@
 const { Router } = require("express");
 const router = Router();
 
-const { testFunction } = require("../controllers/openai.js");
+const { textGenerator } = require("../controllers/openai.js");
 const { ttsOpenAI } = require("../controllers/tts.js");
 
-router.post("/", testFunction, ttsOpenAI);
+router.get("/", (req, res) => res.send("OpenAI"));
+router.post("/", textGenerator, ttsOpenAI);
 
 module.exports = router;

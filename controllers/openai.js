@@ -6,7 +6,7 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-async function testFunction(req, res, next) {
+async function textGenerator(req, res, next) {
   const completion = await openai.createCompletion({
     model: "text-davinci-002",
     prompt: generatePrompt(req.body.keyword),
@@ -22,4 +22,4 @@ function generatePrompt(keyword) {
   return `Why is ${keyword} a ${keyword}?`;
 }
 
-module.exports = { testFunction };
+module.exports = { textGenerator };
