@@ -65,7 +65,6 @@ function MonthDisplayer({ year, month, moveToNextMovement }) {
     try {
       const res = await axios.post(
         "/tts",
-
         { text: `What are you doing on ${getRandomFromArray(MONTHS)} ${number}?` },
         {
           responseType: "arraybuffer",
