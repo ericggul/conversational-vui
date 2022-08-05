@@ -43,6 +43,7 @@ function GiantStep() {
           }
         );
 
+        console.log(res.data);
         //play audio
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         const audioContext = new AudioContext();
