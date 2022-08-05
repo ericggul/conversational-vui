@@ -40,9 +40,9 @@ const ttsOpenAI = async (req, res) => {
       audioConfig: { audioEncoding: "LINEAR16" },
     };
 
-    const [response] = await client.synthesizeSpeech(request);
+    // const [response] = await client.synthesizeSpeech(request);
     // res.send(response.audioContent);
-    res.send(response);
+    res.send(request);
   } catch (e) {
     console.log(e);
     res.send(e);
