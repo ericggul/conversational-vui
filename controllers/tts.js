@@ -43,7 +43,7 @@ const ttsOpenAI = async (req, res) => {
     //error in tts
     console.log(request);
     const [response] = await client.synthesizeSpeech(request);
-    res.send(response.audioContent);
+    res.send(response);
   } catch (e) {
     console.log(e);
     res.send(e);

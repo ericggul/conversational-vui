@@ -44,10 +44,11 @@ function GiantStep() {
         );
 
         console.log(res.data);
+        console.log(res.data.audioContent);
         //play audio
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         const audioContext = new AudioContext();
-        const audioBuffer = await audioContext.decodeAudioData(res.data);
+        const audioBuffer = await audioContext.decodeAudioData(res.data.audioContent);
         const source = audioContext.createBufferSource();
         source.buffer = audioBuffer;
         source.connect(audioContext.destination);
