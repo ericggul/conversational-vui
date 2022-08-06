@@ -38,17 +38,19 @@ function GiantStep() {
           "/openai",
           { keyword },
           {
-            responseType: "arraybuffer",
             "Access-Control-Allow-Origin": "*",
           }
+          // {
+          //   responseType: "arraybuffer",
+          //   "Access-Control-Allow-Origin": "*",
+          // }
         );
 
         console.log(res.data);
-        console.log(res.data.audioContent);
         //play audio
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         const audioContext = new AudioContext();
-        const audioBuffer = await audioContext.decodeAudioData(res.data.audioContent);
+        const audioBuffer = await audioContext.decodeAudioData(res.data);
         const source = audioContext.createBufferSource();
         source.buffer = audioBuffer;
         source.connect(audioContext.destination);
