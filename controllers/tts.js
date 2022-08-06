@@ -41,7 +41,6 @@ const ttsOpenAI = async (req, res) => {
     };
 
     //error in tts
-    //https://stackoverflow.com/questions/52506550/upload-synthesized-speech-from-firebase-function-node-js-servers-tmp-directory
     const [response] = await client.synthesizeSpeech(request);
     res.send(response.audioContent);
   } catch (e) {
