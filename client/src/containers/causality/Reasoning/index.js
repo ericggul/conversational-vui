@@ -36,11 +36,11 @@ function GiantStep() {
       try {
         const res = await axios.post(
           "/openai",
-          { keyword }
-          // {
-          //   responseType: "arraybuffer",
-          //   "Access-Control-Allow-Origin": "*",
-          // }
+          { keyword },
+          {
+            responseType: "arraybuffer",
+            "Access-Control-Allow-Origin": "*",
+          }
         );
 
         console.log(res.data);
