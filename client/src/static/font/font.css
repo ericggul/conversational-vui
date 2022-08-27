@@ -72,3 +72,22 @@
   font-weight: 400;
   font-style: normal;
 }
+
+@font-face {
+  font-family: "Volkswagen";
+  src: url("./Volkswagen-DemiBold.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Volkswagen";
+  src: url("./volkswagen-serial-bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Neonderthaw";
+  src: url("./Neonderthaw-Regular.ttf") format("truetype");
+}

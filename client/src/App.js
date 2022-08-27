@@ -18,7 +18,11 @@ import causalityRoutes from "@/pages/CausalityRouter";
 import SuspenseLoading from "@F/chronology/Suspense";
 import poeticRoutes from "@/pages/newsAndMedia/Router";
 
+import AnEchoPage from "@P/AnEcho";
+
 import { Helmet, HelmetProvider } from "react-helmet-async";
+
+import "@ST/font/font.css";
 
 function App() {
   useEffect(() => {
@@ -41,6 +45,8 @@ function App() {
               <Route exact path="/meta" component={MetaPage} />
               <Route exact path="/chronology" component={ChronologyPage} />
               <Route exact path="/calendar" component={CalendarPage} />
+
+              <Route exact path="/an-echo" component={AnEchoPage} />
 
               {poeticRoutes.map((route, i) => (
                 <Route exact key={i} path={route.path} component={route.component} />
