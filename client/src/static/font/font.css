@@ -91,3 +91,8 @@
   font-family: "Neonderthaw";
   src: url("./Neonderthaw-Regular.ttf") format("truetype");
 }
+
+@font-face {
+  font-family: "Transport";
+  src: url("./Transport-Medium.ttf") format("truetype");
+}

@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { FlexCenterStyle } from "@S/responsive/display";
 
 export const StyledSun = styled.div`
-  ${FlexCenterStyle};
   position: absolute;
   top: 1035px;
   left: 1250px;
@@ -34,4 +33,17 @@ export const Dot = styled.div`
   height: 2px;
   border-radius: 50%;
   background: black;
+`;
+
+export const MiniSun = styled.div`
+  position: absolute;
+  top: 180px;
+  left: 1730px;
+
+  background: white;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+
+  box-shadow: 0 0 0.5rem white, 0 0 1rem white, 0 0 1.5rem white, 0 0 2.5rem white, 0 0 3.5rem white, 0 0 4rem white, 0 0 5rem white, 0 0 7rem white;
 `;

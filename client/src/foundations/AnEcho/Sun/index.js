@@ -3,10 +3,12 @@ import * as S from "./styles";
 
 function Sun() {
   return (
-    <S.StyledSun>
-      Sun
-      <S.Dot />
-    </S.StyledSun>
+    <>
+      <S.StyledSun>
+        <S.Dot />
+      </S.StyledSun>
+      <S.MiniSun />
+    </>
   );
 }
 export default Sun;

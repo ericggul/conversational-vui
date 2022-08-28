@@ -5,9 +5,20 @@ import { FlexCenterStyle } from "@S/responsive/display";
 export const TextLevel = styled.div`
   position: absolute;
 
-  width: 100%;
+  left: 0;
+  width: 0;
   height: 100%;
   z-index: 0;
+
+  ${({ triggerAnimate }) => triggerAnimate && `animation: reveal 12s linear forwards;`}
+  @keyframes reveal {
+    0% {
+      width: 0%;
+    }
+    100% {
+      width: 100%;
+    }
+  }
 `;
 
 const TextCommon = css`
@@ -19,17 +30,7 @@ const TextCommon = css`
 export const NumberRows = styled.div`
   position: absolute;
   top: 0;
-  width: 0%;
-
-  ${({ triggerAnimate }) => triggerAnimate && `animation: reveal 12s linear forwards;`}
-  @keyframes reveal {
-    0% {
-      width: 0%;
-    }
-    100% {
-      width: 100%;
-    }
-  }
+  width: 100%;
 `;
 
 export const NumberRowA = styled.div`
@@ -48,4 +49,24 @@ export const NumberRowC = styled.div`
   ${TextCommon};
   font-size: 20px;
   font-family: Courier New;
+`;
+
+export const TextRow = styled.div`
+  position: absolute;
+  ${TextCommon};
+  top: 1100px;
+  font-size: 20px;
+`;
+
+export const LiberalTextRow = styled.div`
+  position: absolute;
+  ${TextCommon};
+  top: 1150px;
+  height: 300px;
+  font-size: 17px;
+  display: flex;
+`;
+
+export const SingleText = styled.div`
+  ${({ height }) => `transform: translateY(${height}px);`}
 `;

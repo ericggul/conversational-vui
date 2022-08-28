@@ -5,6 +5,7 @@ import * as S from "./styles";
 import TextLevel from "./TextLevel";
 
 //fooundations
+import CamelAndBaby from "@F/AnEcho/CamelAndBaby";
 import Malkovich from "@F/AnEcho/Malkovich";
 import Cone from "@F/AnEcho/Cone";
 import Clock from "@F/AnEcho/Clock";
@@ -70,7 +71,7 @@ function AnEcho() {
 
       <S.ShapeLevel>
         {activateCone && <Cone />}
-
+        <CamelAndBaby />
         <Malkovich />
         <Sun />
       </S.ShapeLevel>

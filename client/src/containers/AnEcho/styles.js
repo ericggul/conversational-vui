@@ -9,7 +9,7 @@ export const StyledAnEcho = styled.div`
   color: white;
   width: 2000px;
   height: 1400px;
-  background: linear-gradient(90deg, #992c1a, #f14630);
+  background: linear-gradient(75deg, #992c1a, #f14630);
   font-family: Volkswagen;
   font-weight: bold;
   overflow: hidden;
