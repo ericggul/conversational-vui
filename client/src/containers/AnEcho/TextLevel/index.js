@@ -32,7 +32,11 @@ export default function TextLevel({ triggerAnimate, word }) {
         <S.NumberRowB>{randomZeroOnesB}</S.NumberRowB>
         <S.NumberRowC>{randomZeroOnesC}</S.NumberRowC>
         <S.NumberRowB>{randomZeroOnesB}</S.NumberRowB>
-        <S.NumberRowA>{randomZeroOnesA}</S.NumberRowA>
+        {new Array(10).fill(0).map((_, i) => (
+          <S.NumberRowA style={{ opacity: 0.1 * (10 - i) }} key={i}>
+            {randomZeroOnesA}
+          </S.NumberRowA>
+        ))}
       </S.NumberRows>
 
       <S.TextRow>{strangeTextA}</S.TextRow>

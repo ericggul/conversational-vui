@@ -5,6 +5,7 @@ import * as S from "./styles";
 import TextLevel from "./TextLevel";
 
 //fooundations
+import WhiteGrid from "@F/AnEcho/WhiteGrid";
 import CamelAndBaby from "@F/AnEcho/CamelAndBaby";
 import Taang from "@F/AnEcho/Taang";
 import InvisibleHand from "@F/AnEcho/InvisibleHand";
@@ -74,6 +75,7 @@ function AnEcho() {
       </S.WordLevel>
 
       <S.ShapeLevel>
+        <WhiteGrid />
         {activateCone && <Cone />}
         <Taang />
         <InvisibleHand />

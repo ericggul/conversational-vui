@@ -3,7 +3,7 @@ import { FlexCenterStyle } from "@S/responsive/display";
 
 export const CamelZone = styled.div`
   position: absolute;
-  top: 550px;
+  top: 520px;
   left: 470px;
   ${FlexCenterStyle};
 `;
@@ -21,7 +21,7 @@ export const Camel = styled.div`
 export const Baby = styled.div`
   ${FlexCenterStyle};
   position: absolute;
-  top: 500px;
+  top: 470px;
   left: 1500px;
   width: 130px;
   height: 130px;
