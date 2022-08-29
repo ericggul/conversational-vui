@@ -8,17 +8,21 @@ export const Container = styled.div`
   top: 300px;
 `;
 
-export const Letter = styled.div`
+export const Letter = styled.div.attrs((props) => ({
+  style: {
+    left: props.left + "px",
+    top: props.top + "px",
+    fontSize: props.size + "px",
+    transform: `rotate(${props.rotation}deg)`,
+  },
+}))`
   mix-blend-mode: hard-light;
   position: absolute;
   color: white;
-  left: ${({ left }) => left}px;
   font-weight: bold;
-  top: ${({ top }) => top}px;
-  font-size: ${({ size }) => size}px;
+
   width: 10vh;
   height: 10vh;
-  transform: rotate(${({ rotation }) => rotation}deg);
 
   font-family: Times New Roman;
 `;

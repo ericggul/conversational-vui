@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const StyledInvisibleHand = styled.div`
   position: absolute;
-  left: 980px;
+  left: 1080px;
   top: 150px;
   width: 300px;
   height: 300px;

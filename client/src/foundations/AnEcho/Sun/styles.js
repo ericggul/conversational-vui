@@ -37,8 +37,8 @@ export const Dot = styled.div`
 
 export const MiniSun = styled.div`
   position: absolute;
-  top: 180px;
-  left: 1730px;
+  top: 220px;
+  left: 1720px;
 
   background: white;
   border-radius: 50%;

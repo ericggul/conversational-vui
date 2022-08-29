@@ -5,6 +5,7 @@ function Webcam({ tossData }) {
   //prepare video
   const containerRef = useRef(null);
   const videoRef = useRef(null);
+
   const [videoReady, setVideoReady] = useState(false);
 
   useEffect(() => {
@@ -28,7 +29,6 @@ function Webcam({ tossData }) {
     };
 
     const stream = await navigator.mediaDevices.getUserMedia(videoConfig);
-
     video.srcObject = stream;
 
     await new Promise((resolve) => {
@@ -66,7 +66,11 @@ function Webcam({ tossData }) {
     const data = canvas.toDataURL("image/png");
     tossData(data);
 
-    // videoRef.current.remove();
+    let tracks = videoRef.current.srcObject.getTracks();
+    console.log(tracks);
+
+    tracks.forEach((track) => track.stop);
+    videoRef.current.remove();
   }
 
   return (

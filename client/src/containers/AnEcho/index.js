@@ -5,6 +5,7 @@ import * as S from "./styles";
 import TextLevel from "./TextLevel";
 
 //fooundations
+import Pointer from "@F/AnEcho/Pointer";
 import WhiteGrid from "@F/AnEcho/WhiteGrid";
 import AmazonSmile from "@F/AnEcho/AmazonSmile";
 import CamelAndBaby from "@F/AnEcho/CamelAndBaby";
@@ -82,14 +83,16 @@ function AnEcho() {
       </S.WordLevel>
 
       <S.ShapeLevel>
+        <Pointer />
         <WhiteGrid />
-        <AmazonSmile />
+
         {activateCone && <Cone />}
         <Taang />
         <InvisibleHand />
         <CamelAndBaby webcamImg={webcamImg} />
         <Malkovich />
         <Webcam tossData={handleWebcamImg} />
+        <AmazonSmile />
         <Sun />
       </S.ShapeLevel>
 
