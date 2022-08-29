@@ -1,11 +1,7 @@
-import React from 'react';
-import * as S from './styles';
+import React from "react";
+import * as S from "./styles";
 
 function Clock() {
-  return (
-    <S.StyledClock>
-      Clock
-    </S.StyledClock>
-  );
+  return <S.StyledClock>T</S.StyledClock>;
 }
 export default Clock;

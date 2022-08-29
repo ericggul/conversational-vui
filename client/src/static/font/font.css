@@ -96,3 +96,14 @@
   font-family: "Transport";
   src: url("./Transport-Medium.ttf") format("truetype");
 }
+
+@font-face {
+  font-family: "QwitcherGrypen";
+  src: url("./QwitcherGrypen-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "QwitcherGrypen";
+  src: url("./QwitcherGrypen-Bold.ttf") format("truetype");
+  font-weight: bold;
+}

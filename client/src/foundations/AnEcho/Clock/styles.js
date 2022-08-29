@@ -2,6 +2,12 @@ import styled from "styled-components";
 
 export const StyledClock = styled.div`
   position: absolute;
-  bottom: 110px;
-  right: 50px;
+  bottom: 60px;
+  right: 8px;
+
+  transform: translate(-50%, -50%);
+
+  font-family: QwitcherGrypen;
+  font-size: 5rem;
+  font-weight: bold;
 `;

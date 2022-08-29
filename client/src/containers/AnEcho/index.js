@@ -15,6 +15,7 @@ import Malkovich from "@F/AnEcho/Malkovich";
 import Cone from "@F/AnEcho/Cone";
 import Webcam from "@F/AnEcho/Webcam";
 import Sun from "@F/AnEcho/Sun";
+import Likes from "@F/AnEcho/Likes";
 
 import Clock from "@F/AnEcho/Clock";
 
@@ -85,7 +86,7 @@ function AnEcho() {
       <S.ShapeLevel>
         <Pointer />
         <WhiteGrid />
-
+        <Likes />
         {activateCone && <Cone />}
         <Taang />
         <InvisibleHand />

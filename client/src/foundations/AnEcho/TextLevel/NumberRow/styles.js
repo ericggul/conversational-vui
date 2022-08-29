@@ -1,25 +1,4 @@
 import styled, { css } from "styled-components";
-import { FlexCenterStyle } from "@S/responsive/display";
-
-//text level
-export const TextLevel = styled.div`
-  position: absolute;
-
-  left: 0;
-  width: 0;
-  height: 100%;
-  z-index: 0;
-
-  ${({ triggerAnimate }) => triggerAnimate && `animation: reveal 15s linear forwards;`}
-  @keyframes reveal {
-    0% {
-      width: 0%;
-    }
-    100% {
-      width: 100%;
-    }
-  }
-`;
 
 const TextCommon = css`
   width: 100%;
@@ -50,11 +29,3 @@ export const NumberRowC = styled.div`
   font-size: 20px;
   font-family: Courier New;
 `;
-
-export const TextRow = styled.div`
-  position: absolute;
-  display: flex;
-  ${TextCommon};
-`;
-
-export const SingleText = styled.div``;

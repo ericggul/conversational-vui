@@ -2,6 +2,7 @@ import * as S from "./styles";
 import { useMemo } from "react";
 
 //foundations
+import NumberRow from "@F/AnEcho/TextLevel/NumberRow";
 import ExceptSpouseAndChildren from "@F/AnEcho/TextLevel/ExceptSpouseAndChildren";
 
 import { switchWord, replaceCharacter, sillyReplace, sillyMoveCharCode, totallyRandom } from "./utils";
@@ -27,26 +28,20 @@ export default function TextLevel({ triggerAnimate, word }) {
 
   return (
     <S.TextLevel triggerAnimate={triggerAnimate}>
-      <S.NumberRows>
-        <S.NumberRowA>{randomZeroOnesA}</S.NumberRowA>
-        <S.NumberRowB>{randomZeroOnesB}</S.NumberRowB>
-        <S.NumberRowC>{randomZeroOnesC}</S.NumberRowC>
-        <S.NumberRowB>{randomZeroOnesB}</S.NumberRowB>
-        {new Array(10).fill(0).map((_, i) => (
-          <S.NumberRowA style={{ opacity: 0.1 * (10 - i) }} key={i}>
-            {randomZeroOnesA}
-          </S.NumberRowA>
-        ))}
-      </S.NumberRows>
-
-      <S.TextRow>{strangeTextA}</S.TextRow>
-      <S.LiberalTextRow>
+      <NumberRow />
+      <S.TextRow style={{ fontSize: "18px", top: "1000px" }}>
         {strangeTextA.split("").map((s, i) => (
-          <S.SingleText key={i} height={liberalHeightTranslation[i]}>
+          <S.SingleText key={i}>{s}</S.SingleText>
+        ))}
+      </S.TextRow>
+      <S.TextRow style={{ fontSize: "20px", top: "1100px" }}>{strangeTextA}</S.TextRow>
+      <S.TextRow style={{ fontStyle: "Times New Roman", fontSize: "17px", top: "1150px", height: "400px" }}>
+        {strangeTextA.split("").map((s, i) => (
+          <S.SingleText key={i} style={{ transform: `translateY(${liberalHeightTranslation[i]}px)` }}>
             {s}
           </S.SingleText>
         ))}
-      </S.LiberalTextRow>
+      </S.TextRow>
       <ExceptSpouseAndChildren />
     </S.TextLevel>
   );
