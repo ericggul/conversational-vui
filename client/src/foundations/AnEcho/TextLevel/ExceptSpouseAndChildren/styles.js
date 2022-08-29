@@ -3,8 +3,8 @@ import styled from "styled-components";
 export const StyledExceptSpouseAndChildren = styled.div`
   position: absolute;
   text-align: center;
-  top: 1000px;
-  left: 1650px;
+  top: 220px;
+  left: 1550px;
   width: 150px;
   height: 50px;
   padding: 15px;

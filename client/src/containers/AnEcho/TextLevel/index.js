@@ -17,31 +17,66 @@ export default function TextLevel({ triggerAnimate, word }) {
   const strangeTextA = useMemo(() => {
     let string = "";
     for (let i = 0; i < 20; i++) {
-      string += replaceCharacter(word, i * 2, 0.1 + i * 0.03) + " ";
+      string += replaceCharacter(word, i * 2, 0.1 + i * 0.03);
     }
     return string;
   }, []);
 
-  const strangeTextB = useMemo(() => {}, []);
+  const strangeTextB = useMemo(
+    () =>
+      strangeTextA
+        .split("")
+        .map((s, i) => {
+          if (i < 100) return s;
 
-  const liberalHeightTranslation = useMemo(() => strangeTextA.split("").map((_, i) => getRandom(0, (i * 0.04) ** 2.8 * 0.5)), [strangeTextA]);
+          let r = Math.random();
+          if (r < i * 0.001) {
+            return "!";
+          } else if (r < i * 0.002) {
+            return "@";
+          } else if (r < i * 0.003) {
+            return "#";
+          } else return s;
+        })
+        .join(""),
+    [strangeTextA]
+  );
 
+  const liberalHeightTranslationA = useMemo(() => strangeTextA.split("").map((_, i) => getRandom(0, (i * 0.04) ** 2.8 * 0.5)), [strangeTextA]);
+  const liberalHeightTranslationB = useMemo(() => strangeTextB.split("").map((_, i) => getRandom(0, (i * 0.04) ** 2.8)), [strangeTextA]);
   return (
     <S.TextLevel triggerAnimate={triggerAnimate}>
       <NumberRow />
-      <S.TextRow style={{ fontSize: "18px", top: "1000px" }}>
-        {strangeTextA.split("").map((s, i) => (
-          <S.SingleText key={i}>{s}</S.SingleText>
+      <S.TextRow style={{ fontStyle: "Times New Roman", fontSize: "17px", top: "286px", height: "800px" }}>
+        {strangeTextB.split("").map((s, i) => (
+          <S.SingleText key={i} style={{ transform: `translateY(${780 - liberalHeightTranslationB[i]}px)` }}>
+            {s === "!" ? <S.Square /> : s === "@" ? <S.Circle /> : s === "#" ? <S.Diamond /> : s}
+          </S.SingleText>
         ))}
       </S.TextRow>
-      <S.TextRow style={{ fontSize: "20px", top: "1100px" }}>{strangeTextA}</S.TextRow>
-      <S.TextRow style={{ fontStyle: "Times New Roman", fontSize: "17px", top: "1150px", height: "400px" }}>
+      <S.TextRow style={{ fontStyle: "Times New Roman", fontSize: "17px", top: "703px", height: "400px" }}>
         {strangeTextA.split("").map((s, i) => (
-          <S.SingleText key={i} style={{ transform: `translateY(${liberalHeightTranslation[i]}px)` }}>
+          <S.SingleText key={i} style={{ bottom: "0", transform: `translateY(${380 - liberalHeightTranslationA[i]}px)` }}>
             {s}
           </S.SingleText>
         ))}
       </S.TextRow>
+      <S.TextRow style={{ fontSize: "17px", top: "1100px" }}>{strangeTextA}</S.TextRow>
+      <S.TextRow style={{ fontStyle: "Times New Roman", fontSize: "17px", top: "1117px", height: "400px" }}>
+        {strangeTextA.split("").map((s, i) => (
+          <S.SingleText key={i} style={{ transform: `translateY(${liberalHeightTranslationA[i]}px)` }}>
+            {s}
+          </S.SingleText>
+        ))}
+      </S.TextRow>
+      <S.TextRow style={{ fontStyle: "Times New Roman", fontSize: "17px", top: "1134px", height: "800px" }}>
+        {strangeTextB.split("").map((s, i) => (
+          <S.SingleText key={i} style={{ transform: `translateY(${liberalHeightTranslationB[i]}px)` }}>
+            {s === "!" ? <S.Square /> : s === "@" ? <S.Circle /> : s === "#" ? <S.Diamond /> : s}
+          </S.SingleText>
+        ))}
+      </S.TextRow>
+
       <ExceptSpouseAndChildren />
     </S.TextLevel>
   );

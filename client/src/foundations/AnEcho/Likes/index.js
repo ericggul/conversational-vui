@@ -9,7 +9,7 @@ function Likes() {
     setDraw(new Canvas());
   }, []);
 
-  return <div id="likes-canvas" style={{ position: "absolute", top: "1000px", left: "280px", width: "500px", height: "400px" }} />;
+  return <div id="likes-canvas" style={{ position: "absolute", top: "900px", left: "0px", width: "700px", height: "500px" }} />;
 }
 
 class Canvas {

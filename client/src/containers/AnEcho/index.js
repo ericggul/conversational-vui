@@ -6,6 +6,8 @@ import TextLevel from "./TextLevel";
 
 //fooundations
 import Pointer from "@F/AnEcho/Pointer";
+import Time from "@F/AnEcho/Time";
+import Weather from "@F/AnEcho/Weather";
 import WhiteGrid from "@F/AnEcho/WhiteGrid";
 import AmazonSmile from "@F/AnEcho/AmazonSmile";
 import CamelAndBaby from "@F/AnEcho/CamelAndBaby";
@@ -76,18 +78,19 @@ function AnEcho() {
   return (
     <S.StyledAnEcho>
       <S.XAxis />
-      <S.YAxis />
 
       <TextLevel triggerAnimate={triggerAnimate} word={word} />
       <S.WordLevel>
         <S.Word style={{ transform: `translateY(${yPos - 75}px) scale(${scale})` }}>{word}</S.Word>
       </S.WordLevel>
 
-      <S.ShapeLevel>
+      <S.ShapeLevel triggerAnimate={triggerAnimate}>
         <Pointer />
+        <Time />
+        <Weather />
         <WhiteGrid />
         <Likes />
-        {activateCone && <Cone />}
+        <Cone />
         <Taang />
         <InvisibleHand />
         <CamelAndBaby webcamImg={webcamImg} />

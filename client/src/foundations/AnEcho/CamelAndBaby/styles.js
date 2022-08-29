@@ -4,7 +4,7 @@ import { FlexCenterStyle } from "@S/responsive/display";
 export const CamelZone = styled.div`
   position: absolute;
   top: 540px;
-  left: 490px;
+  left: 435px;
   ${FlexCenterStyle};
   flex-direction: column;
 

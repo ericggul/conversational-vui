@@ -84,10 +84,21 @@ export const Word = styled.div`
 //shape level
 
 export const ShapeLevel = styled.div`
-  ${FlexCenterStyle};
   position: absolute;
 
-  width: 100%;
+  left: 0;
+  width: 0%;
   height: 100%;
   z-index: 2;
+  overflow: hidden;
+
+  ${({ triggerAnimate }) => triggerAnimate && `animation: reveal 15s linear forwards;`}
+  @keyframes reveal {
+    0% {
+      width: 0%;
+    }
+    100% {
+      width: 100%;
+    }
+  }
 `;

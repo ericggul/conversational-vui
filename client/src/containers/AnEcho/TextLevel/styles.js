@@ -58,3 +58,31 @@ export const TextRow = styled.div`
 `;
 
 export const SingleText = styled.div``;
+
+export const Square = styled.div`
+  width: 12px;
+  height: 12px;
+  border: 3px solid white;
+`;
+
+export const Circle = styled.div`
+  width: 12px;
+  height: 12px;
+  border: 3px solid white;
+  border-radius: 50%;
+`;
+
+export const Diamond = styled.div`
+  width: 12px;
+  height: 12px;
+  border: 3px solid white;
+  transform: rotate(45deg);
+`;
+
+export const Headline = styled.div`
+  ${TextCommon};
+  position: absolute;
+  font-family: Times New Roman;
+  font-size: 25px;
+  color: white;
+`;

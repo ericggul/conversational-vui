@@ -11,12 +11,12 @@ function Hands(props) {
   const group = useRef();
   const { nodes, materials } = useGLTF("/assets/anEcho/hand.glb");
 
-  useFrame((state) => {
-    let t = state.clock.elapsedTime;
-    if (group.current) {
-      group.current.rotation.set(0, t / 5, -Math.sin(t) / 10 + Math.PI / 10);
-    }
-  });
+  // useFrame((state) => {
+  //   let t = state.clock.elapsedTime;
+  //   if (group.current) {
+  //     group.current.rotation.set(0, t / 5, -Math.sin(t) / 10 + Math.PI / 10);
+  //   }
+  // });
 
   return (
     <group ref={group} {...props} dispose={null}>

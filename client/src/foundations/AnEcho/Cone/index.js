@@ -7,14 +7,14 @@ import { OrbitControls } from "@react-three/drei";
 function SingleCone() {
   const meshRef = useRef();
 
-  useFrame(({ clock }) => {
-    let time = clock.getElapsedTime();
-    if (meshRef && meshRef.current) {
-      meshRef.current.scale.x = Math.exp(-Math.min(time, 15)) + 1;
-      meshRef.current.scale.y = Math.exp(-Math.min(time, 15)) + 1;
-      meshRef.current.scale.z = Math.exp(-Math.min(time, 15)) + 1;
-    }
-  });
+  // useFrame(({ clock }) => {
+  //   let time = clock.getElapsedTime();
+  //   if (meshRef && meshRef.current) {
+  //     meshRef.current.scale.x = Math.exp(-Math.min(time, 15)) + 1;
+  //     meshRef.current.scale.y = Math.exp(-Math.min(time, 15)) + 1;
+  //     meshRef.current.scale.z = Math.exp(-Math.min(time, 15)) + 1;
+  //   }
+  // });
   return (
     <mesh ref={meshRef}>
       <coneGeometry args={[5, 10, 32]} />
