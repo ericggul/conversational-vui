@@ -6,10 +6,14 @@ import TextLevel from "./TextLevel";
 
 //fooundations
 import CamelAndBaby from "@F/AnEcho/CamelAndBaby";
+import Taang from "@F/AnEcho/Taang";
+import InvisibleHand from "@F/AnEcho/InvisibleHand";
 import Malkovich from "@F/AnEcho/Malkovich";
 import Cone from "@F/AnEcho/Cone";
-import Clock from "@F/AnEcho/Clock";
+import Webcam from "@F/AnEcho/Webcam";
 import Sun from "@F/AnEcho/Sun";
+
+import Clock from "@F/AnEcho/Clock";
 
 function AnEcho() {
   const [word, setWord] = useState("schumpeterstrasse");
@@ -71,8 +75,11 @@ function AnEcho() {
 
       <S.ShapeLevel>
         {activateCone && <Cone />}
+        <Taang />
+        <InvisibleHand />
         <CamelAndBaby />
         <Malkovich />
+        <Webcam />
         <Sun />
       </S.ShapeLevel>
 

@@ -25,9 +25,6 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import "@ST/font/font.css";
 
 function App() {
-  useEffect(() => {
-    console.warn = console.error = () => {};
-  });
   const [windowWidth, windowHeight] = useResize();
   const themeWithWindowSize = useMemo(() => ({ ...theme, windowWidth, windowHeight }), [windowWidth, windowHeight]);
 

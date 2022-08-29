@@ -59,6 +59,7 @@ export const TextRow = styled.div`
 `;
 
 export const LiberalTextRow = styled.div`
+  font-family: Times New Roman;
   position: absolute;
   ${TextCommon};
   top: 1150px;

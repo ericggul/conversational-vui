@@ -43,6 +43,7 @@ export default function TextLevel({ triggerAnimate, word }) {
           </S.SingleText>
         ))}
       </S.LiberalTextRow>
+      <ExceptSpouseAndChildren />
     </S.TextLevel>
   );
 }
