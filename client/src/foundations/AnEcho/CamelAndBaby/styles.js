@@ -3,8 +3,15 @@ import { FlexCenterStyle } from "@S/responsive/display";
 
 export const CamelZone = styled.div`
   position: absolute;
-  top: 520px;
-  left: 470px;
+  top: 540px;
+  left: 490px;
+  ${FlexCenterStyle};
+  flex-direction: column;
+
+  transform: translate(-50%, -50%);
+`;
+
+export const CamelRow = styled.div`
   ${FlexCenterStyle};
 `;
 
@@ -18,11 +25,17 @@ export const Camel = styled.div`
   }
 `;
 
+export const BabyZone = styled.div`
+  position: absolute;
+  top: 540px;
+  left: 1565px;
+  ${FlexCenterStyle};
+
+  transform: translate(-50%, -50%);
+`;
+
 export const Baby = styled.div`
   ${FlexCenterStyle};
-  position: absolute;
-  top: 470px;
-  left: 1500px;
   width: 130px;
   height: 130px;
 
@@ -30,5 +43,16 @@ export const Baby = styled.div`
     width: 100%;
     height: 100%;
     object-fit: contain;
+  }
+`;
+
+export const SurroundingFace = styled.div`
+  position: absolute;
+
+  img {
+    width: 100px;
+    height: auto;
+    -webkit-filter: grayscale(100%) brightness(350%) blur(1px);
+    filter: grayscale(100%) brightness(350%) blur(1px);
   }
 `;

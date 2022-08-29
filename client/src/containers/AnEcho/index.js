@@ -6,6 +6,7 @@ import TextLevel from "./TextLevel";
 
 //fooundations
 import WhiteGrid from "@F/AnEcho/WhiteGrid";
+import AmazonSmile from "@F/AnEcho/AmazonSmile";
 import CamelAndBaby from "@F/AnEcho/CamelAndBaby";
 import Taang from "@F/AnEcho/Taang";
 import InvisibleHand from "@F/AnEcho/InvisibleHand";
@@ -58,10 +59,16 @@ function AnEcho() {
     }
   }
 
-  const SECONDS = 12;
+  const SECONDS = 15;
   function animateWord(t) {
     setYPos(t * (2 / SECONDS));
     setScale(Math.exp(-t * 0.0002) * (0.85 + Math.cos((t * Math.PI) / 1000) * 0.15));
+  }
+
+  //webcam img send to camel and baby
+  const [webcamImg, setWebcamImg] = useState(null);
+  function handleWebcamImg(data) {
+    setWebcamImg(data);
   }
 
   return (
@@ -76,12 +83,13 @@ function AnEcho() {
 
       <S.ShapeLevel>
         <WhiteGrid />
+        <AmazonSmile />
         {activateCone && <Cone />}
         <Taang />
         <InvisibleHand />
-        <CamelAndBaby />
+        <CamelAndBaby webcamImg={webcamImg} />
         <Malkovich />
-        <Webcam />
+        <Webcam tossData={handleWebcamImg} />
         <Sun />
       </S.ShapeLevel>
 

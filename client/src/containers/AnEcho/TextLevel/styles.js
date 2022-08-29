@@ -10,7 +10,7 @@ export const TextLevel = styled.div`
   height: 100%;
   z-index: 0;
 
-  ${({ triggerAnimate }) => triggerAnimate && `animation: reveal 12s linear forwards;`}
+  ${({ triggerAnimate }) => triggerAnimate && `animation: reveal 15s linear forwards;`}
   @keyframes reveal {
     0% {
       width: 0%;
@@ -68,6 +68,8 @@ export const LiberalTextRow = styled.div`
   display: flex;
 `;
 
-export const SingleText = styled.div`
-  ${({ height }) => `transform: translateY(${height}px);`}
-`;
+export const SingleText = styled.div.attrs((props) => ({
+  style: {
+    transform: `translateY(${props.height}px)`,
+  },
+}))``;

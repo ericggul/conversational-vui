@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const StyledExceptSpouseAndChildren = styled.div`
   position: absolute;
   text-align: center;
-  top: 900px;
+  top: 1000px;
   left: 1650px;
   width: 150px;
   height: 50px;
@@ -13,5 +13,5 @@ export const StyledExceptSpouseAndChildren = styled.div`
   border: 5px solid white;
   border-radius: 15px;
 
-  transform: rotate(-10deg);
+  transform: translate(-50%, -50%) rotate(-10deg);
 `;

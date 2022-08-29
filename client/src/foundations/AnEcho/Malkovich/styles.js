@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const StyledMalkovich = styled.div`
   position: absolute;
   left: 650px;
-  top: 350px;
+  top: 300px;
   font-family: Neonderthaw;
   font-size: 65px;
   transform: translate(-50%, -50%) rotate(-27deg);
