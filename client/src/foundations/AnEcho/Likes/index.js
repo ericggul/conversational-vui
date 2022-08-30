@@ -47,7 +47,6 @@ class Canvas {
             x: getRandom(50, this.stageWidth - 50),
             y: getRandom(50, this.stageHeight - 50),
           },
-          Math.floor(i / 200) * 4000 + getRandom(0, getRandom(0, 200)),
           {
             x: (((i % 14) + 0.5) / 14) * this.stageWidth,
             y: (((i % 5) + 0.5) / 5) * this.stageHeight,
@@ -79,7 +78,7 @@ class Canvas {
 }
 
 class Icon {
-  constructor(pos, timeStart, initialPos) {
+  constructor(pos, initialPos) {
     this.pos = initialPos;
     this.posSpeed = getRandom(0.05, 0.1);
     this.angle = 0;
@@ -94,11 +93,11 @@ class Icon {
       a: 0.03,
     };
 
-    this.timeStart = timeStart;
+    this.timeStart = 3000;
   }
 
   draw(ctx, elapsedTime) {
-    if (elapsedTime > this.timeStart) {
+    if (elapsedTime > this.timeStart && elapsedTime < 8000) {
       this.pos.x += (this.targetPos.x - this.pos.x) * this.posSpeed;
       this.pos.y += (this.targetPos.y - this.pos.y) * this.posSpeed;
       this.angle += (this.targetAngle - this.angle) * 0.05;

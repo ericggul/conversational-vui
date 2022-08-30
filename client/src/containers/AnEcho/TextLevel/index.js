@@ -3,7 +3,6 @@ import { useMemo } from "react";
 
 //foundations
 import NumberRow from "@F/AnEcho/TextLevel/NumberRow";
-import ExceptSpouseAndChildren from "@F/AnEcho/TextLevel/ExceptSpouseAndChildren";
 
 import { switchWord, replaceCharacter, sillyReplace, sillyMoveCharCode, totallyRandom } from "./utils";
 
@@ -46,8 +45,8 @@ export default function TextLevel({ triggerAnimate, word }) {
   const liberalHeightTranslationB = useMemo(
     () =>
       strangeTextB.split("").map((_, i) => ({
-        pos: getRandom((i * 0.04) ** 2.8 * 0.5, (i * 0.04) ** 2.8) * 1.2,
-        scale: getRandom(1, getRandom(1, 4)),
+        pos: getRandom((i * 0.04) ** 2.8 * 0.2, (i * 0.04) ** 2.8),
+        scale: getRandom(1, getRandom(1, 10)),
       })),
     [strangeTextA]
   );
@@ -83,8 +82,13 @@ export default function TextLevel({ triggerAnimate, word }) {
           </S.SingleText>
         ))}
       </S.TextRow>
-
-      <ExceptSpouseAndChildren />
+      {/* <S.TextRow style={{ fontStyle: "Times New Roman", fontSize: "17px", top: "1151px", height: "800px" }}>
+        {strangeTextB.split("").map((s, i) => (
+          <S.SingleText key={i} style={{ transform: `translateY(${liberalHeightTranslationB[i].pos}px)` }}>
+            {s === "!" ? <S.Square /> : s === "@" ? <S.Circle /> : s === "#" ? <S.Diamond /> : s}
+          </S.SingleText>
+        ))}
+      </S.TextRow> */}
     </S.TextLevel>
   );
 }

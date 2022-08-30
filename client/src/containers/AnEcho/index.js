@@ -5,6 +5,8 @@ import * as S from "./styles";
 import TextLevel from "./TextLevel";
 
 //fooundations
+import ExceptSpouseAndChildren from "@F/AnEcho/TextLevel/ExceptSpouseAndChildren";
+import BreakingNews from "@F/AnEcho/BreakingNews";
 import Pointer from "@F/AnEcho/Pointer";
 import Time from "@F/AnEcho/Time";
 import Weather from "@F/AnEcho/Weather";
@@ -57,7 +59,7 @@ function AnEcho() {
       if (time > 6000) {
         setActivateCone(true);
       }
-      if (time > 12000) {
+      if (time > 16000) {
         cancelAnimationFrame(animationRef.current);
       }
       animateWord(time);
@@ -67,7 +69,7 @@ function AnEcho() {
   const SECONDS = 15;
   function animateWord(t) {
     setYPos(t * (2 / SECONDS));
-    setScale(Math.exp(-t * 0.0002) * (0.85 + Math.cos((t * Math.PI) / 1000) * 0.15));
+    setScale(Math.exp(-t * 0.0001) * (0.85 + Math.cos((t * Math.PI) / 1000) * 0.15));
   }
 
   //webcam img send to camel and baby
@@ -90,8 +92,9 @@ function AnEcho() {
         <Time />
         <Weather />
         <CopyCat />
+        <ExceptSpouseAndChildren />
         <WhiteGrid />
-
+        <BreakingNews />
         <Likes />
         <Cone />
         <Taang />

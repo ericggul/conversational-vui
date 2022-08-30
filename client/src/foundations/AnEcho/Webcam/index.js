@@ -69,7 +69,7 @@ function Webcam({ tossData }) {
     let tracks = videoRef.current.srcObject.getTracks();
     console.log(tracks);
 
-    tracks.forEach((track) => track.stop);
+    tracks.forEach((track) => track.stop());
     videoRef.current.remove();
   }
 
