@@ -10,7 +10,7 @@ export const TextLevel = styled.div`
   height: 100%;
   z-index: 0;
 
-  ${({ triggerAnimate }) => triggerAnimate && `animation: reveal 15s linear forwards;`}
+  ${({ triggerAnimate }) => triggerAnimate && `animation: reveal 30s linear forwards;`}
   @keyframes reveal {
     0% {
       width: 0%;
@@ -76,6 +76,26 @@ export const Diamond = styled.div`
   width: 12px;
   height: 12px;
   border: 3px solid white;
+  transform: rotate(45deg);
+`;
+
+export const SquareFilled = styled.div`
+  width: 9px;
+  height: 9px;
+  background: white;
+`;
+
+export const CircleFilled = styled.div`
+  width: 9px;
+  height: 9px;
+  background: white;
+  border-radius: 50%;
+`;
+
+export const DiamondFilled = styled.div`
+  width: 9px;
+  height: 9px;
+  background: white;
   transform: rotate(45deg);
 `;
 

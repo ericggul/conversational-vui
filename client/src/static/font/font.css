@@ -125,3 +125,20 @@
   src: url("./Cinzel-SemiBold.ttf") format("truetype");
   font-weight: 600;
 }
+
+@font-face {
+  font-family: "Neutraface";
+  src: url("./Neutraface Text Book.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Neutraface";
+  src: url("./Neutraface Text Demi.otf") format("opentype");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Neutraface";
+  src: url("./Neutraface Text Bold.otf") format("opentype");
+  font-weight: bold;
+}

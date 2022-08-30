@@ -9,6 +9,7 @@ import ExceptSpouseAndChildren from "@F/AnEcho/TextLevel/ExceptSpouseAndChildren
 import BreakingNews from "@F/AnEcho/BreakingNews";
 import Pointer from "@F/AnEcho/Pointer";
 import Time from "@F/AnEcho/Time";
+import Tesla from "@F/AnEcho/Tesla";
 import Weather from "@F/AnEcho/Weather";
 import WhiteGrid from "@F/AnEcho/WhiteGrid";
 import AmazonSmile from "@F/AnEcho/AmazonSmile";
@@ -59,14 +60,14 @@ function AnEcho() {
       if (time > 6000) {
         setActivateCone(true);
       }
-      if (time > 16000) {
+      if (time > 31000) {
         cancelAnimationFrame(animationRef.current);
       }
       animateWord(time);
     }
   }
 
-  const SECONDS = 15;
+  const SECONDS = 30;
   function animateWord(t) {
     setYPos(t * (2 / SECONDS));
     setScale(Math.exp(-t * 0.0001) * (0.85 + Math.cos((t * Math.PI) / 1000) * 0.15));
@@ -90,6 +91,7 @@ function AnEcho() {
       <S.ShapeLevel triggerAnimate={triggerAnimate}>
         <Pointer />
         <Time />
+        <Tesla />
         <Weather />
         <CopyCat />
         <ExceptSpouseAndChildren />

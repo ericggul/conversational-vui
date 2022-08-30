@@ -19,6 +19,7 @@ import SuspenseLoading from "@F/chronology/Suspense";
 import poeticRoutes from "@/pages/newsAndMedia/Router";
 
 import AnEchoPage from "@P/AnEcho";
+import AnEchoIntro from "@C/AnEcho/Intro";
 
 import { Helmet, HelmetProvider } from "react-helmet-async";
 
@@ -44,6 +45,7 @@ function App() {
               <Route exact path="/calendar" component={CalendarPage} />
 
               <Route exact path="/an-echo" component={AnEchoPage} />
+              <Route exact path="/an-echo/intro" component={AnEchoIntro} />
 
               {poeticRoutes.map((route, i) => (
                 <Route exact key={i} path={route.path} component={route.component} />

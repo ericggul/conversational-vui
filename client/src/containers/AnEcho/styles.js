@@ -46,15 +46,6 @@ const TextCommon = css`
   width: 0;
   overflow: hidden;
   white-space: nowrap;
-  ${({ triggerAnimate }) => triggerAnimate && `animation: reveal 12s linear forwards;`}
-  @keyframes reveal {
-    0% {
-      width: 0%;
-    }
-    100% {
-      width: 100%;
-    }
-  }
 `;
 
 export const NumberRow = styled.div`
@@ -70,7 +61,7 @@ export const WordLevel = styled.div`
   transform: rotate(-90deg);
   width: ${({ theme }) => theme.windowHeight}px;
   height: ${({ theme }) => theme.windowWidth}px;
-  z-index: 1;
+  z-index: 5;
 `;
 
 export const Word = styled.div`
@@ -92,7 +83,7 @@ export const ShapeLevel = styled.div`
   z-index: 2;
   overflow: hidden;
 
-  ${({ triggerAnimate }) => triggerAnimate && `animation: reveal 15s linear forwards;`}
+  ${({ triggerAnimate }) => triggerAnimate && `animation: reveal 30s linear forwards;`}
   @keyframes reveal {
     0% {
       width: 0%;

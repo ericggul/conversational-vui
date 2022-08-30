@@ -11,7 +11,7 @@ const TEXTS = ["Breaking News", "Stay Tuned", `Don't Miss`];
 function BreakingNews() {
   const letterData = useMemo(() => {
     const data = [];
-    for (let i = 0; i < 600; i++) {
+    for (let i = 0; i < 700; i++) {
       data.push({
         left: getRandomInt(0, getRandom(10, 30)) * 50,
         top: getRandomInt(0, 40) * 25 + 15,
