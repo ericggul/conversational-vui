@@ -5,7 +5,7 @@ export const Container = styled.div`
   width: 1000px;
   height: 700px;
   left: 1200px;
-  top: 300px;
+  top: 200px;
 `;
 
 export const Letter = styled.div.attrs((props) => ({

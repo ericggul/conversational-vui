@@ -107,3 +107,21 @@
   src: url("./QwitcherGrypen-Bold.ttf") format("truetype");
   font-weight: bold;
 }
+
+@font-face {
+  font-family: "Cinzel";
+  src: url("./Cinzel-Regular.ttf") format("truetype");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Cinzel";
+  src: url("./Cinzel-Medium.ttf") format("truetype");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Cinzel";
+  src: url("./Cinzel-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+}

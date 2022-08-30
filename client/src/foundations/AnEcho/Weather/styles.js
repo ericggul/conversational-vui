@@ -8,6 +8,16 @@ export const StyledWeather = styled.div`
   flex-direction: column;
 `;
 
+export const SingleWeather = styled.div`
+  ${FlexCenterStyle};
+  flex-direction: column;
+  margin: 10px 0;
+`;
+
+export const Header = styled.div`
+  font-size: 20px;
+`;
+
 export const IconSection = styled.div`
   ${FlexCenterStyle};
   height: 124px;

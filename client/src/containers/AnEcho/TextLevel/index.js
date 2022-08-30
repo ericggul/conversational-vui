@@ -43,13 +43,20 @@ export default function TextLevel({ triggerAnimate, word }) {
   );
 
   const liberalHeightTranslationA = useMemo(() => strangeTextA.split("").map((_, i) => getRandom(0, (i * 0.04) ** 2.8 * 0.5)), [strangeTextA]);
-  const liberalHeightTranslationB = useMemo(() => strangeTextB.split("").map((_, i) => getRandom(0, (i * 0.04) ** 2.8)), [strangeTextA]);
+  const liberalHeightTranslationB = useMemo(
+    () =>
+      strangeTextB.split("").map((_, i) => ({
+        pos: getRandom((i * 0.04) ** 2.8 * 0.5, (i * 0.04) ** 2.8) * 1.2,
+        scale: getRandom(1, getRandom(1, 4)),
+      })),
+    [strangeTextA]
+  );
   return (
     <S.TextLevel triggerAnimate={triggerAnimate}>
       <NumberRow />
       <S.TextRow style={{ fontStyle: "Times New Roman", fontSize: "17px", top: "286px", height: "800px" }}>
         {strangeTextB.split("").map((s, i) => (
-          <S.SingleText key={i} style={{ transform: `translateY(${780 - liberalHeightTranslationB[i]}px)` }}>
+          <S.SingleText key={i} style={{ transform: `translateY(${780 - liberalHeightTranslationB[i].pos}px)` }}>
             {s === "!" ? <S.Square /> : s === "@" ? <S.Circle /> : s === "#" ? <S.Diamond /> : s}
           </S.SingleText>
         ))}
@@ -71,7 +78,7 @@ export default function TextLevel({ triggerAnimate, word }) {
       </S.TextRow>
       <S.TextRow style={{ fontStyle: "Times New Roman", fontSize: "17px", top: "1134px", height: "800px" }}>
         {strangeTextB.split("").map((s, i) => (
-          <S.SingleText key={i} style={{ transform: `translateY(${liberalHeightTranslationB[i]}px)` }}>
+          <S.SingleText key={i} style={{ transform: `translateY(${liberalHeightTranslationB[i].pos}px)` }}>
             {s === "!" ? <S.Square /> : s === "@" ? <S.Circle /> : s === "#" ? <S.Diamond /> : s}
           </S.SingleText>
         ))}

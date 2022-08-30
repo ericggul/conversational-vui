@@ -5,10 +5,10 @@ const getRandom = (a, b) => Math.random() * (b - a) + a;
 export default function Taang() {
   const letterData = useMemo(() => {
     const data = [];
-    for (let i = 0; i < 200; i++) {
+    for (let i = 0; i < 400; i++) {
       data.push({
-        left: getRandom(getRandom(0, 300), 1000),
-        top: getRandom(0, 700),
+        left: getRandom(getRandom(0, 150), 1000),
+        top: getRandom(0, 900),
         size: getRandom(10, 50),
         rotation: getRandom(0, 360),
       });

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const StyledMalkovich = styled.div`
   position: absolute;
-  left: 650px;
+  left: 750px;
   top: 300px;
   font-family: Neonderthaw;
   font-size: 65px;
@@ -11,6 +11,8 @@ export const StyledMalkovich = styled.div`
 
 export const Text = styled.div`
   margin: -2rem 0;
+
+  text-align: center;
 
   @keyframes blink {
     0% {
@@ -21,9 +23,6 @@ export const Text = styled.div`
     }
     33% {
       text-shadow: 0 0 0.5rem white, 0 0 1rem white, 0 0 1.5rem white;
-    }
-    34% {
-      text-shadow: ;
     }
   }
 

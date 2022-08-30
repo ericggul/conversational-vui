@@ -49,8 +49,8 @@ class Canvas {
           },
           Math.floor(i / 200) * 4000 + getRandom(0, getRandom(0, 200)),
           {
-            x: this.stageWidth * 0.5,
-            y: this.stageHeight * 0.5,
+            x: (((i % 14) + 0.5) / 14) * this.stageWidth,
+            y: (((i % 5) + 0.5) / 5) * this.stageHeight,
           }
         )
       );
@@ -67,7 +67,7 @@ class Canvas {
     this.now = Date.now();
     this.elapsedTime = this.now - this.initial;
     const delta = this.now - this.then;
-    if (delta > 3) {
+    if (delta > 10) {
       this.draw();
     }
     this.then = this.now;

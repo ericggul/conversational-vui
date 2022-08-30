@@ -17,9 +17,8 @@ import Malkovich from "@F/AnEcho/Malkovich";
 import Cone from "@F/AnEcho/Cone";
 import Webcam from "@F/AnEcho/Webcam";
 import Sun from "@F/AnEcho/Sun";
-import DollarSign from "@F/AnEcho/DollarSign";
-import Sns from "@F/AnEcho/Sns";
 import Likes from "@F/AnEcho/Likes";
+import CopyCat from "@F/AnEcho/CopyCat";
 
 import Clock from "@F/AnEcho/Clock";
 
@@ -90,9 +89,10 @@ function AnEcho() {
         <Pointer />
         <Time />
         <Weather />
-        <Sns />
+        <CopyCat />
         <WhiteGrid />
-        {/* <Likes /> */}
+
+        <Likes />
         <Cone />
         <Taang />
         <InvisibleHand />
@@ -100,7 +100,7 @@ function AnEcho() {
         <Malkovich />
         <Webcam tossData={handleWebcamImg} />
         <AmazonSmile />
-        <DollarSign />
+
         <Sun />
       </S.ShapeLevel>
 

@@ -2,10 +2,14 @@ import styled from "styled-components";
 import { FlexCenterStyle } from "@S/responsive/display";
 export const StyledSns = styled.div`
   ${FlexCenterStyle};
-  flex-direction: column;
   position: absolute;
-  left: 50px;
-  top: 500px;
+  left: 0px;
+  top: 895px;
+`;
+
+export const SingleSns = styled.div`
+  ${FlexCenterStyle};
+  flex-direction: column;
 `;
 
 export const Text = styled.div`
