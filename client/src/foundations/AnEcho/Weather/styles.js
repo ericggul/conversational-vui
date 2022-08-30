@@ -10,7 +10,7 @@ export const StyledWeather = styled.div`
 
 export const IconSection = styled.div`
   ${FlexCenterStyle};
-  height: 104px;
+  height: 124px;
   font-size: 120px;
   svg {
     filter: drop-shadow(0.35rem 1rem 0.35rem rgba(255, 255, 255, 0.8));
