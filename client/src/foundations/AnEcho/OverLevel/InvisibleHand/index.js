@@ -25,9 +25,9 @@ function Hands(props) {
   );
 }
 
-function InvisibleHand() {
+function InvisibleHand({ triggerAnimate }) {
   return (
-    <S.StyledInvisibleHand>
+    <S.StyledInvisibleHand triggerAnimate={triggerAnimate}>
       <Canvas shadows dpr={[1, 2]} camera={{ far: 110, fov: 40, position: [0, 0, 20] }}>
         <ambientLight intensity={0.2} />
         <spotLight position={[10, 10, 10]} intensity={1.3} color="#fff" />

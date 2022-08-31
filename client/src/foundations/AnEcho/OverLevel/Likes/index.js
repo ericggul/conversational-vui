@@ -3,11 +3,13 @@ import React, { useState, useEffect } from "react";
 const PATH = "M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3";
 const getRandom = (a, b) => Math.random() * (b - a) + a;
 
-function Likes() {
+function Likes({ triggerAnimate }) {
   const [draw, setDraw] = useState(null);
   useEffect(() => {
-    setDraw(new Canvas());
-  }, []);
+    if (triggerAnimate) {
+      setDraw(new Canvas());
+    }
+  }, [triggerAnimate]);
 
   return <div id="likes-canvas" style={{ position: "absolute", top: "900px", left: "0px", width: "700px", height: "500px" }} />;
 }
@@ -33,7 +35,7 @@ class Canvas {
 
     this.ctx.scale(this.scale, this.scale);
 
-    this.iconNumber = 70;
+    this.iconNumber = 30;
     this.iconSets = [];
 
     this.init();
@@ -84,16 +86,13 @@ class Icon {
     this.angle = 0;
     this.targetPos = pos;
     this.targetAngle = Math.PI * getRandom(5, getRandom(10, 20));
-    this.scale = getRandom(1, 5) * 0.3;
-    this.targetScale = getRandom(1, getRandom(1, getRandom(5, 10))) * 0.3;
+    this.scale = getRandom(2, 5) * 0.4;
+    this.targetScale = getRandom(2, getRandom(2, getRandom(6, 12))) * 0.4;
     this.targetColor = {
       a: getRandom(0.05, 0.1),
     };
-    this.color = {
-      a: 0.03,
-    };
 
-    this.timeStart = 14000;
+    this.timeStart = 1000;
   }
 
   draw(ctx, elapsedTime) {
@@ -103,14 +102,12 @@ class Icon {
       this.angle += (this.targetAngle - this.angle) * 0.05;
       this.scale += (this.targetScale - this.scale) * 0.1;
 
-      this.color.a += (this.targetColor.a - this.color.a) * 0.07;
-
       ctx.save();
       ctx.translate(this.pos.x, this.pos.y);
       ctx.rotate(this.angle);
       ctx.scale(this.scale, this.scale);
 
-      ctx.fillStyle = ctx.strokeStyle = `rgba(255, 255, 255, ${this.color.a})`;
+      ctx.fillStyle = ctx.strokeStyle = `rgba(255, 255, 255, ${this.targetColor.a})`;
 
       let p = new Path2D(PATH);
 

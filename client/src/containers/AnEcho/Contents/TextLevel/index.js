@@ -8,7 +8,7 @@ import { switchWord, replaceCharacter, sillyReplace, sillyMoveCharCode, totallyR
 
 const getRandom = (a, b) => Math.random() * (b - a) + a;
 
-export default function TextLevel({ triggerAnimate, word }) {
+export default function TextLevel({ word }) {
   const randomZeroOnesA = useMemo(() => Array.from({ length: 1000 }, () => (Math.random() < 0.5 ? 0 : 1)), []);
   const randomZeroOnesB = useMemo(() => Array.from({ length: 1000 }, () => (Math.random() < 0.5 ? 0 : 1)), []);
   const randomZeroOnesC = useMemo(() => Array.from({ length: 1000 }, () => (Math.random() < 0.5 ? 0 : 1)), []);
@@ -84,7 +84,7 @@ export default function TextLevel({ triggerAnimate, word }) {
   );
 
   return (
-    <S.TextLevel triggerAnimate={triggerAnimate}>
+    <S.TextLevel>
       <NumberRow />
       {/* <S.TextRow style={{ fontStyle: "Times New Roman", fontSize: "17px", top: "-131px", height: "1200px" }}>
         {strangeTextC.split("").map((s, i) => (
@@ -108,7 +108,11 @@ export default function TextLevel({ triggerAnimate, word }) {
           </S.SingleText>
         ))}
       </S.TextRow>
-      <S.TextRow style={{ fontSize: "17px", top: "1100px" }}>{strangeTextA}</S.TextRow>
+      <S.TextRow style={{ fontSize: "17px", top: "1100px" }}>
+        {strangeTextA.split("").map((s, i) => (
+          <S.SingleText key={i}>{s}</S.SingleText>
+        ))}
+      </S.TextRow>
       <S.TextRow style={{ fontStyle: "Times New Roman", fontSize: "17px", top: "1117px", height: "400px" }}>
         {strangeTextA.split("").map((s, i) => (
           <S.SingleText key={i} style={{ transform: `translateY(${liberalHeightTranslationA[i]}px)` }}>

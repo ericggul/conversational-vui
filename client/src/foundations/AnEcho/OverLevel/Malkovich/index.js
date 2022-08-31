@@ -38,9 +38,9 @@ function SingleWord({ original, delay }) {
   // }
   return <S.Text delay={delay}>{"Malkovich"}</S.Text>;
 }
-function Malkovich() {
+function Malkovich({ triggerAnimate }) {
   return (
-    <S.StyledMalkovich>
+    <S.StyledMalkovich triggerAnimate={triggerAnimate}>
       <SingleWord original="Like" delay={0} />
       <SingleWord original="Comment" delay={1} />
       <SingleWord original="Subscribe" delay={2} />

@@ -6,7 +6,21 @@ export const StyledMalkovich = styled.div`
   top: 300px;
   font-family: Neonderthaw;
   font-size: 65px;
+
+  opacity: 0;
+
   transform: translate(-50%, -50%) rotate(-27deg);
+  ${({ triggerAnimate }) => triggerAnimate && `animation: malkovich-appear 1s linear both;`}
+
+  @keyframes malkovich-appear {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
 `;
 
 export const Text = styled.div`

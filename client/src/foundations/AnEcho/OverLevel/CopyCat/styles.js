@@ -17,7 +17,7 @@ export const StyledCopyCat = styled.div`
   @keyframes cat-appear {
     0% {
       opacity: 0;
-      transform: scale(0) translate(-50%, -50%);
+      transform: scale(0);
     }
     50% {
       transform: scale(1) translate(-50%, -50%);
@@ -27,7 +27,6 @@ export const StyledCopyCat = styled.div`
       transform: scale(1) translate(-50%, -50%);
     }
   }
-  animation-delay: 10s;
 `;
 
 export const CatImage = styled.div`

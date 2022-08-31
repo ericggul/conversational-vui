@@ -4,7 +4,7 @@ import * as S from "./styles";
 import TSLA from "@ST/data/TSLA.csv";
 import Papa from "papaparse";
 
-function Tesla({ triggerAnimate }) {
+function Tesla() {
   useEffect(() => {
     parser();
   }, []);
@@ -24,9 +24,9 @@ function Tesla({ triggerAnimate }) {
   };
 
   return (
-    <S.StyledTesla triggerAnimate={triggerAnimate}>
+    <S.StyledTesla>
       {data &&
-        data.map((datum, i) => (
+        data.slice(0, 1278).map((datum, i) => (
           <S.Column
             key={i}
             style={{

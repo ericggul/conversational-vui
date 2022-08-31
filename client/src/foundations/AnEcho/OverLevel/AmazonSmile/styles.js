@@ -25,5 +25,4 @@ export const Smile = styled.div`
     }
   }
   ${({ triggerAnimate }) => triggerAnimate && `animation: amazon-flies 1.5s ease-in-out both;`}
-  animation-delay: 20s;
 `;

@@ -6,19 +6,9 @@ export const TextLevel = styled.div`
   position: absolute;
 
   left: 0;
-  width: 0;
+  width: 100%;
   height: 100%;
-  z-index: 0;
-
-  ${({ triggerAnimate }) => triggerAnimate && `animation: reveal 30s linear forwards;`}
-  @keyframes reveal {
-    0% {
-      width: 0%;
-    }
-    100% {
-      width: 100%;
-    }
-  }
+  z-index: 1;
 `;
 
 const TextCommon = css`

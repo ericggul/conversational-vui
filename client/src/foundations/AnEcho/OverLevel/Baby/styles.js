@@ -23,14 +23,12 @@ export const Baby = styled.div`
 
   opacity: 0;
   ${({ triggerAnimate }) => triggerAnimate && `animation: baby-appear 5s both;`}
-  animation-delay: 22.5s;
+  animation-delay: 1s;
   @keyframes baby-appear {
     from {
-      filter: blur(10px);
       opacity: 0;
     }
     to {
-      filter: blur(0);
       opacity: 1;
     }
   }

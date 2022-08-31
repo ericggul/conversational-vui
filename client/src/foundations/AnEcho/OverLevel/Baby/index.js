@@ -13,7 +13,7 @@ function Baby({ webcamImg, triggerAnimate }) {
         new Array(12).fill(0).map((_, i) => (
           <S.SurroundingFace
             key={i}
-            style={{ transform: `translate(${160 * Math.cos((Math.PI * i) / 6)}px, ${160 * Math.sin((Math.PI * i) / 6)}px) rotate(${i * 30}deg)`, animationDelay: `${20 + i * 0.1}s` }}
+            style={{ transform: `translate(${160 * Math.cos((Math.PI * i) / 6)}px, ${160 * Math.sin((Math.PI * i) / 6)}px) rotate(${i * 30}deg)`, animationDelay: `${1 + i * 0.1}s` }}
             triggerAnimate={triggerAnimate}
           >
             <img src={webcamImg} />

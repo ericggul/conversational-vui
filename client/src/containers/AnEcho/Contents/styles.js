@@ -13,6 +13,7 @@ export const StyledAnEcho = styled.div`
   font-family: Volkswagen;
   font-weight: bold;
   overflow: hidden;
+  cursor: pointer;
 `;
 
 //axises
@@ -55,41 +56,19 @@ export const NumberRow = styled.div`
   font-family: Courier New;
 `;
 
-//word level
-export const WordLevel = styled.div`
-  position: absolute;
-  transform: rotate(-90deg);
-  width: ${({ theme }) => theme.windowHeight}px;
-  height: ${({ theme }) => theme.windowWidth}px;
-  z-index: 5;
-`;
-
-export const Word = styled.div`
-  ${FlexCenterStyle};
-  position: absolute;
-  width: 100%;
-
-  font-size: 100px;
-`;
-
 //shape level
 
 export const ShapeLevel = styled.div`
   position: absolute;
-
+  top: 0;
   left: 0;
-  width: 0%;
+  width: ${({ clicked }) => clicked * (100 / 60)}%;
   height: 100%;
-  z-index: 2;
+  z-index: 1;
   overflow: hidden;
+  transition: all 0.3s ease-in-out;
+`;
 
-  ${({ triggerAnimate }) => triggerAnimate && `animation: reveal 30s linear forwards;`}
-  @keyframes reveal {
-    0% {
-      width: 0%;
-    }
-    100% {
-      width: 100%;
-    }
-  }
+export const OverLevel = styled.div`
+  z-index: 5;
 `;

@@ -5,7 +5,7 @@ import { useState } from "react";
 import * as S from "./styles";
 
 export default function AnEcho() {
-  const [current, setCurrent] = useState("instructions");
+  const [current, setCurrent] = useState("contents");
 
   return (
     <S.Whole current={current}>

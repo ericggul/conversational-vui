@@ -1,6 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import * as S from "./styles";
-import axios from "axios";
+
+//confetti
+import ReactCanvasConfetti from "react-canvas-confetti";
 
 //containers
 import TextLevel from "./TextLevel";
@@ -10,69 +12,26 @@ import ExceptSpouseAndChildren from "@F/AnEcho/TextLevel/ExceptSpouseAndChildren
 import BreakingNews from "@F/AnEcho/BreakingNews";
 import Pointer from "@F/AnEcho/Pointer";
 import Time from "@F/AnEcho/Time";
-import Tesla from "@F/AnEcho/Tesla";
+import TeslaLeft from "@F/AnEcho/TeslaLeft";
+import TeslaRight from "@F/AnEcho/OverLevel/TeslaRight";
 import Weather from "@F/AnEcho/Weather";
 import WhiteGrid from "@F/AnEcho/WhiteGrid";
-import AmazonSmile from "@F/AnEcho/AmazonSmile";
+import AmazonSmile from "@/foundations/AnEcho/OverLevel/AmazonSmile";
 import Camel from "@F/AnEcho/Camel";
-import Baby from "@F/AnEcho/Baby";
+import Baby from "@/foundations/AnEcho/OverLevel/Baby";
 import Taang from "@F/AnEcho/Taang";
-import InvisibleHand from "@F/AnEcho/InvisibleHand";
-import Malkovich from "@F/AnEcho/Malkovich";
+import InvisibleHand from "@/foundations/AnEcho/OverLevel/InvisibleHand";
+import Malkovich from "@/foundations/AnEcho/OverLevel/Malkovich";
 import Cone from "@F/AnEcho/Cone";
 import Webcam from "@F/AnEcho/Webcam";
 import Sun from "@F/AnEcho/Sun";
-import Likes from "@F/AnEcho/Likes";
-import CopyCat from "@F/AnEcho/CopyCat";
+import Likes from "@/foundations/AnEcho/OverLevel/Likes";
+import CopyCat from "@/foundations/AnEcho/OverLevel/CopyCat";
 
 import Clock from "@F/AnEcho/Clock";
 
 function AnEcho({ current }) {
   const [word, setWord] = useState("metaverse AI blockchain");
-
-  const [yPos, setYPos] = useState(0);
-  const [scale, setScale] = useState(1);
-
-  const startRef = useRef(Date.now());
-  const nowRef = useRef(Date.now());
-  const thenRef = useRef(Date.now());
-  const animationRef = useRef(null);
-
-  const [triggerAnimate, setTriggerAnimate] = useState(false);
-  useEffect(() => {
-    if (current === "contents") {
-      const testingTimeout = setTimeout(() => {
-        startRef.current = Date.now();
-        setTriggerAnimate(true);
-        animate();
-      }, 2000);
-      return () => clearTimeout(testingTimeout);
-    }
-  }, [current]);
-
-  function animate() {
-    animationRef.current = requestAnimationFrame(animate);
-    nowRef.current = Date.now();
-
-    if (nowRef.current - thenRef.current > 6) {
-      let time = nowRef.current - startRef.current;
-      thenRef.current = Date.now();
-
-      //do with time
-      if (time > 31000) {
-        cancelAnimationFrame(animationRef.current);
-      }
-      if (time < 16000) {
-        animateWord(time);
-      }
-    }
-  }
-
-  const SECONDS = 30;
-  function animateWord(t) {
-    setYPos(t * (2 / SECONDS));
-    setScale(Math.max(1 - t / (SECONDS * 500), 0) * (0.85 + Math.cos((t * Math.PI) / 1000) * 0.15));
-  }
 
   //webcam img send to camel and baby
   const [webcamImg, setWebcamImg] = useState(null);
@@ -80,39 +39,106 @@ function AnEcho({ current }) {
     setWebcamImg(data);
   }
 
+  const [clicked, setClicked] = useState(0);
+
+  const throttle = (func) => {
+    let inThrottle;
+    return (...args) => {
+      if (!inThrottle) {
+        func(...args);
+        inThrottle = setTimeout(() => (inThrottle = false), 700);
+      }
+    };
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", throttle(handleClick));
+    return () => document.removeEventListener("click", throttle(handleClick));
+  }, []);
+
+  function handleClick() {
+    setClicked((cl) => cl + 1);
+  }
+
+  //conffetti
+  const canvasStyles = {
+    width: "100%",
+    height: "100%",
+    left: 0,
+    top: 0,
+  };
+
+  const getAnimationSettings = () => {
+    return {
+      startVelocity: 30,
+      spread: 360,
+      ticks: 60,
+      zIndex: 10,
+      particleCount: 150,
+      colors: ["#ffffff"],
+      origin: {
+        x: 0.5,
+        y: 0.5,
+      },
+    };
+  };
+  const refAnimationInstance = useRef(null);
+  const [intervalId, setIntervalId] = useState(null);
+  const getInstance = (instance) => (refAnimationInstance.current = instance);
+  const nextTickAnimation = () => {
+    if (refAnimationInstance.current) {
+      refAnimationInstance.current(getAnimationSettings());
+    }
+  };
+
+  const startAnimation = useCallback(() => {
+    if (!intervalId) {
+      setIntervalId(setInterval(nextTickAnimation, 400));
+    }
+  }, [intervalId, nextTickAnimation]);
+
+  useEffect(() => {
+    if (clicked > 60) {
+      startAnimation();
+
+      return () => {
+        clearInterval(intervalId);
+      };
+    }
+  }, [clicked, intervalId]);
+
   return (
-    <S.StyledAnEcho
-    // style={{ transform: `translate(${windowWidth / 2 - 2000 * containerScale}px, 0) scale(${containerScale})` }}
-    >
+    <S.StyledAnEcho>
       <S.XAxis />
 
-      <TextLevel triggerAnimate={triggerAnimate} word={word} />
-      <S.WordLevel>
-        <S.Word style={{ transform: `translateY(${yPos - 75}px) scale(${scale})` }}>{word}</S.Word>
-      </S.WordLevel>
-
-      <S.ShapeLevel triggerAnimate={triggerAnimate}>
+      <S.ShapeLevel clicked={clicked}>
+        <TextLevel word={word} />
         <Pointer />
         <Time />
         <Weather />
         <ExceptSpouseAndChildren />
         <WhiteGrid />
         <BreakingNews />
-        {triggerAnimate && <Likes />}
         <Cone />
         <Taang />
-        <InvisibleHand />
         <Camel />
-        <Malkovich />
         <Sun />
+        <TeslaLeft />
       </S.ShapeLevel>
+      <S.OverLevel>
+        <CopyCat triggerAnimate={clicked > 8} />
+        <Malkovich triggerAnimate={clicked > 17} />
+        <TeslaRight triggerAnimate={clicked > 29} />
+        <InvisibleHand triggerAnimate={clicked > 33} />
+        <Baby webcamImg={webcamImg} triggerAnimate={clicked > 45} />
+        <AmazonSmile triggerAnimate={clicked > 43} />
+        <Likes triggerAnimate={clicked > 21} />
+      </S.OverLevel>
 
-      <CopyCat triggerAnimate={triggerAnimate} />
-      <Baby webcamImg={webcamImg} triggerAnimate={triggerAnimate} />
-      <Tesla triggerAnimate={triggerAnimate} />
-      <AmazonSmile triggerAnimate={triggerAnimate} />
       <Webcam tossData={handleWebcamImg} />
+
       <Clock />
+      <ReactCanvasConfetti refConfetti={getInstance} style={canvasStyles} />
     </S.StyledAnEcho>
   );
 }

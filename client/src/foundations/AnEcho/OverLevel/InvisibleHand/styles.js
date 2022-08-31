@@ -17,4 +17,7 @@ export const StyledInvisibleHand = styled.div`
   }
 
   animation: hand-rotate 30s infinite linear;
+
+  ${({ triggerAnimate }) => (triggerAnimate ? `opacity: 1` : `opacity: 0`)};
+  transition: opacity 0.5s ease-in-out;
 `;
