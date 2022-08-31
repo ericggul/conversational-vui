@@ -1,5 +1,5 @@
 import React from "react";
-import AnEchoContainer from "@C/AnEcho/Contents";
+import AnEchoContainer from "@C/AnEcho";
 
 function AnEchoPage() {
   return <AnEchoContainer />;

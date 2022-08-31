@@ -22,13 +22,15 @@ export const Baby = styled.div`
   }
 
   opacity: 0;
-  ${({ triggerAnimate }) => triggerAnimate && `animation: appear 3s both;`}
-  animation-delay: 24.5s;
-  @keyframes appear {
+  ${({ triggerAnimate }) => triggerAnimate && `animation: baby-appear 5s both;`}
+  animation-delay: 22.5s;
+  @keyframes baby-appear {
     from {
+      filter: blur(10px);
       opacity: 0;
     }
     to {
+      filter: blur(0);
       opacity: 1;
     }
   }
@@ -43,6 +45,8 @@ export const SurroundingFace = styled.div`
     -webkit-filter: grayscale(100%) brightness(350%) blur(1px);
     filter: grayscale(100%) brightness(350%) blur(1px);
   }
+
+  opacity: 0;
 
   ${({ triggerAnimate }) => triggerAnimate && `animation: appear 1s both;`}
   @keyframes appear {

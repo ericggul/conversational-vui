@@ -4,12 +4,16 @@ import { FlexCenterStyle } from "@S/responsive/display";
 export const StyledInstructions = styled.div`
   ${FlexCenterStyle};
   flex-direction: column;
+  position: absolute;
+  top: 0;
+
   width: ${({ theme }) => theme.windowWidth}px;
   height: ${({ theme }) => theme.windowHeight}px;
   background: rgb(10, 2, 2);
   color: white;
   font-family: Courier New;
   font-weight: bold;
+  z-index: 100;
 `;
 
 export const Instructions = styled.div`

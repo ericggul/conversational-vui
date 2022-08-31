@@ -15,6 +15,7 @@ export const StyledIntro = styled.div`
   overflow: hidden;
   width: ${({ theme }) => theme.windowWidth}px;
   height: ${({ theme }) => theme.windowHeight}px;
+  z-index: 10;
 `;
 
 export const TextSection = styled.div`

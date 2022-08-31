@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import * as S from "./styles";
+import axios from "axios";
 
 //containers
 import TextLevel from "./TextLevel";
@@ -26,8 +27,8 @@ import CopyCat from "@F/AnEcho/CopyCat";
 
 import Clock from "@F/AnEcho/Clock";
 
-function AnEcho() {
-  const [word, setWord] = useState("schumpeterstrasse");
+function AnEcho({ current }) {
+  const [word, setWord] = useState("metaverse AI blockchain");
 
   const [yPos, setYPos] = useState(0);
   const [scale, setScale] = useState(1);
@@ -39,15 +40,15 @@ function AnEcho() {
 
   const [triggerAnimate, setTriggerAnimate] = useState(false);
   useEffect(() => {
-    const testingTimeout = setTimeout(() => {
-      startRef.current = Date.now();
-      setTriggerAnimate(true);
-      animate();
-    }, 2000);
-    return () => clearTimeout(testingTimeout);
-  }, []);
-
-  const [activateCone, setActivateCone] = useState(false);
+    if (current === "contents") {
+      const testingTimeout = setTimeout(() => {
+        startRef.current = Date.now();
+        setTriggerAnimate(true);
+        animate();
+      }, 2000);
+      return () => clearTimeout(testingTimeout);
+    }
+  }, [current]);
 
   function animate() {
     animationRef.current = requestAnimationFrame(animate);
@@ -58,21 +59,19 @@ function AnEcho() {
       thenRef.current = Date.now();
 
       //do with time
-      if (time > 6000) {
-        setActivateCone(true);
-      }
       if (time > 31000) {
         cancelAnimationFrame(animationRef.current);
       }
-      animateWord(time);
+      if (time < 16000) {
+        animateWord(time);
+      }
     }
   }
 
   const SECONDS = 30;
   function animateWord(t) {
     setYPos(t * (2 / SECONDS));
-    //Math.exp(-t * 0.0001) *
-    setScale((1 - t / (SECONDS * 1000)) * (0.85 + Math.cos((t * Math.PI) / 1000) * 0.15));
+    setScale(Math.max(1 - t / (SECONDS * 500), 0) * (0.85 + Math.cos((t * Math.PI) / 1000) * 0.15));
   }
 
   //webcam img send to camel and baby
@@ -99,7 +98,7 @@ function AnEcho() {
         <ExceptSpouseAndChildren />
         <WhiteGrid />
         <BreakingNews />
-        <Likes />
+        {triggerAnimate && <Likes />}
         <Cone />
         <Taang />
         <InvisibleHand />

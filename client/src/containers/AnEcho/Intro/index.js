@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect } from "react";
 import * as S from "./styles";
 import useResize from "@U/hooks/useResize";
 
@@ -8,7 +8,7 @@ import { CircularProgress } from "@mui/material";
 
 const getRandom = (a, b) => Math.random() * (b - a) + a;
 
-function Intro() {
+function Intro({ handleToContents }) {
   const TEXT_ARRAY = [
     "The World is Changing Fast.",
     "And Technology is Disrupting The Market More than Ever.",
@@ -56,6 +56,12 @@ function Intro() {
     return locations;
   }, []);
 
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      handleToContents();
+    }, 12000);
+    return () => clearTimeout(timeout);
+  }, []);
   return (
     <S.StyledIntro>
       {TEXT_ARRAY.map((text, j) => (
