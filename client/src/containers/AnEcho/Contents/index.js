@@ -13,7 +13,8 @@ import Tesla from "@F/AnEcho/Tesla";
 import Weather from "@F/AnEcho/Weather";
 import WhiteGrid from "@F/AnEcho/WhiteGrid";
 import AmazonSmile from "@F/AnEcho/AmazonSmile";
-import CamelAndBaby from "@F/AnEcho/CamelAndBaby";
+import Camel from "@F/AnEcho/Camel";
+import Baby from "@F/AnEcho/Baby";
 import Taang from "@F/AnEcho/Taang";
 import InvisibleHand from "@F/AnEcho/InvisibleHand";
 import Malkovich from "@F/AnEcho/Malkovich";
@@ -52,7 +53,7 @@ function AnEcho() {
     animationRef.current = requestAnimationFrame(animate);
     nowRef.current = Date.now();
 
-    if (nowRef.current - thenRef.current > 3) {
+    if (nowRef.current - thenRef.current > 6) {
       let time = nowRef.current - startRef.current;
       thenRef.current = Date.now();
 
@@ -70,7 +71,8 @@ function AnEcho() {
   const SECONDS = 30;
   function animateWord(t) {
     setYPos(t * (2 / SECONDS));
-    setScale(Math.exp(-t * 0.0001) * (0.85 + Math.cos((t * Math.PI) / 1000) * 0.15));
+    //Math.exp(-t * 0.0001) *
+    setScale((1 - t / (SECONDS * 1000)) * (0.85 + Math.cos((t * Math.PI) / 1000) * 0.15));
   }
 
   //webcam img send to camel and baby
@@ -80,7 +82,9 @@ function AnEcho() {
   }
 
   return (
-    <S.StyledAnEcho>
+    <S.StyledAnEcho
+    // style={{ transform: `translate(${windowWidth / 2 - 2000 * containerScale}px, 0) scale(${containerScale})` }}
+    >
       <S.XAxis />
 
       <TextLevel triggerAnimate={triggerAnimate} word={word} />
@@ -91,9 +95,7 @@ function AnEcho() {
       <S.ShapeLevel triggerAnimate={triggerAnimate}>
         <Pointer />
         <Time />
-        <Tesla />
         <Weather />
-        <CopyCat />
         <ExceptSpouseAndChildren />
         <WhiteGrid />
         <BreakingNews />
@@ -101,14 +103,16 @@ function AnEcho() {
         <Cone />
         <Taang />
         <InvisibleHand />
-        <CamelAndBaby webcamImg={webcamImg} />
+        <Camel />
         <Malkovich />
-        <Webcam tossData={handleWebcamImg} />
-        <AmazonSmile />
-
         <Sun />
       </S.ShapeLevel>
 
+      <CopyCat triggerAnimate={triggerAnimate} />
+      <Baby webcamImg={webcamImg} triggerAnimate={triggerAnimate} />
+      <Tesla triggerAnimate={triggerAnimate} />
+      <AmazonSmile triggerAnimate={triggerAnimate} />
+      <Webcam tossData={handleWebcamImg} />
       <Clock />
     </S.StyledAnEcho>
   );

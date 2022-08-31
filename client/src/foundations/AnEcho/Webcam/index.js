@@ -50,7 +50,10 @@ function Webcam({ tossData }) {
 
   useEffect(() => {
     if (videoReady) {
-      takePicture();
+      let timeout = setTimeout(() => {
+        takePicture();
+      }, 400);
+      return () => clearTimeout(timeout);
     }
   }, [videoReady]);
 

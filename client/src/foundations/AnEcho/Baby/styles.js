@@ -1,40 +1,6 @@
 import styled from "styled-components";
 import { FlexCenterStyle } from "@S/responsive/display";
 
-export const CamelZone = styled.div`
-  position: absolute;
-  top: 540px;
-  left: 435px;
-  ${FlexCenterStyle};
-  flex-direction: column;
-
-  transform: translate(-50%, -50%);
-`;
-
-export const CamelRow = styled.div`
-  ${FlexCenterStyle};
-`;
-
-export const CamelZoneB = styled.div`
-  position: absolute;
-  top: 540px;
-  left: 1000px;
-  ${FlexCenterStyle};
-  flex-direction: column;
-
-  transform: translate(-50%, -50%);
-`;
-
-export const Camel = styled.div`
-  width: 40px;
-  ${FlexCenterStyle};
-
-  img {
-    width: 100%;
-    object-fit: contain;
-  }
-`;
-
 export const BabyZone = styled.div`
   position: absolute;
   top: 540px;
@@ -54,6 +20,18 @@ export const Baby = styled.div`
     height: 100%;
     object-fit: contain;
   }
+
+  opacity: 0;
+  ${({ triggerAnimate }) => triggerAnimate && `animation: appear 3s both;`}
+  animation-delay: 24.5s;
+  @keyframes appear {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 `;
 
 export const SurroundingFace = styled.div`
@@ -64,5 +42,15 @@ export const SurroundingFace = styled.div`
     height: auto;
     -webkit-filter: grayscale(100%) brightness(350%) blur(1px);
     filter: grayscale(100%) brightness(350%) blur(1px);
+  }
+
+  ${({ triggerAnimate }) => triggerAnimate && `animation: appear 1s both;`}
+  @keyframes appear {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 `;

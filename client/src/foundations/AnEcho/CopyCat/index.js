@@ -3,9 +3,9 @@ import * as S from "./styles";
 
 import Cat from "@ST/image/cat.svg";
 
-function CopyCat() {
+function CopyCat({ triggerAnimate }) {
   return (
-    <S.StyledCopyCat>
+    <S.StyledCopyCat triggerAnimate={triggerAnimate}>
       <S.CatImage>
         <img src={Cat} />
       </S.CatImage>

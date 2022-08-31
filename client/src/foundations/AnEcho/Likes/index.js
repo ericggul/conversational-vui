@@ -93,11 +93,11 @@ class Icon {
       a: 0.03,
     };
 
-    this.timeStart = 3000;
+    this.timeStart = 14000;
   }
 
   draw(ctx, elapsedTime) {
-    if (elapsedTime > this.timeStart && elapsedTime < 8000) {
+    if (elapsedTime > this.timeStart && elapsedTime < 30000) {
       this.pos.x += (this.targetPos.x - this.pos.x) * this.posSpeed;
       this.pos.y += (this.targetPos.y - this.pos.y) * this.posSpeed;
       this.angle += (this.targetAngle - this.angle) * 0.05;

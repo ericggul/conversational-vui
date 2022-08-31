@@ -7,26 +7,23 @@ export const Smile = styled.div`
   left: 350px;
   top: 1000px;
 
-  //   height: 100px;
-  //   left: 1660px;
-  //   top: 490px;
-
-  //   transform: rotate(-90deg);
-
   img {
     width: auto;
     height: 100%;
   }
 
+  opacity: 0;
   @keyframes amazon-flies {
-    from {
+    0% {
+      opacity: 0;
       transform: translate(0, 0) rotate(0deg);
     }
 
-    to {
+    100% {
+      opacity: 1;
       transform: translate(1450px, -480px) rotate(1350deg) scale(4);
     }
   }
-
-  animation: amazon-flies 1.5s ease-in-out forwards;
+  ${({ triggerAnimate }) => triggerAnimate && `animation: amazon-flies 1.5s ease-in-out both;`}
+  animation-delay: 20s;
 `;
